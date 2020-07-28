@@ -17,19 +17,12 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: #selector(handlePlus)),
-            UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(handleSelect))
-        ]
+        
     }
     
     func addFuction() {
         
     }
-
-//    @objc func handlePlus() {
-//
-//    }
     
     @objc func handleSelect() {
         
