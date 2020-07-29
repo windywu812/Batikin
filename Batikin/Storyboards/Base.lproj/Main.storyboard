@@ -3,11 +3,12 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Gallery View Controller-->
+        <!--My Batiks-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="GalleryViewController" customModule="Batikin" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,7 +18,17 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="LXb-kx-dJY"/>
+                    <navigationItem key="navigationItem" title="My Batiks" largeTitleDisplayMode="always" id="LXb-kx-dJY">
+                        <barButtonItem key="backBarButtonItem" title=" " id="sFu-Ni-5R6"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="plus" catalog="system" id="SfU-Lm-v6L">
+                                <connections>
+                                    <segue destination="cQy-b8-x9V" kind="show" id="wce-ge-n7f"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Select" id="xVY-yd-Fwd"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -30,21 +41,54 @@
                     <view key="view" contentMode="scaleToFill" id="i3A-uj-6CA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXw-pZ-X4T">
+                                <rect key="frame" x="0.0" y="719" width="414" height="177"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="frI-oQ-Re2">
+                                        <rect key="frame" x="16" y="8" width="382" height="32"/>
+                                        <segments>
+                                            <segment title="Main"/>
+                                            <segment title="Filler"/>
+                                            <segment title="Isen"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="frI-oQ-Re2" secondAttribute="trailing" constant="16" id="QmJ-4p-CUT"/>
+                                    <constraint firstAttribute="height" constant="177" id="gV6-gQ-JSM"/>
+                                    <constraint firstItem="frI-oQ-Re2" firstAttribute="leading" secondItem="zXw-pZ-X4T" secondAttribute="leading" constant="16" id="pW0-yT-7L6"/>
+                                    <constraint firstItem="frI-oQ-Re2" firstAttribute="top" secondItem="zXw-pZ-X4T" secondAttribute="top" constant="8" id="zfa-Vo-v95"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" name="backgroundGray"/>
+                        <constraints>
+                            <constraint firstItem="zXw-pZ-X4T" firstAttribute="trailing" secondItem="vRe-Hu-78o" secondAttribute="trailing" id="BOZ-QE-VIT"/>
+                            <constraint firstAttribute="bottom" secondItem="zXw-pZ-X4T" secondAttribute="bottom" id="p7Q-kB-xIU"/>
+                            <constraint firstItem="zXw-pZ-X4T" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="vrm-YN-1mQ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vRe-Hu-78o"/>
                     </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Tkb-t5-YZk">
+                        <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="Pht-Jq-9pS"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="shapeSegmentedControl" destination="frI-oQ-Re2" id="zI3-KW-j3E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fac-UB-aaZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1880" y="138"/>
+            <point key="canvasLocation" x="1879.7101449275365" y="137.94642857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aN8-H2-JPE">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Llp-zF-1K0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hwB-xK-XXr">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="hwB-xK-XXr">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -57,4 +101,11 @@
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <namedColor name="backgroundGray">
+            <color red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
