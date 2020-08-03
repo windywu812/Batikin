@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239496F724D1151F00F7151C /* DrawingViewController.swift */; };
+		23E09FF624D7DF8800F30FF5 /* Macaw in Frameworks */ = {isa = PBXBuildFile; productRef = 23E09FF524D7DF8800F30FF5 /* Macaw */; };
 		23F88E8124CFD85D00ACE986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F88E8024CFD85D00ACE986 /* AppDelegate.swift */; };
 		23F88E8324CFD85D00ACE986 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F88E8224CFD85D00ACE986 /* SceneDelegate.swift */; };
 		23F88E8524CFD85D00ACE986 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F88E8424CFD85D00ACE986 /* GalleryViewController.swift */; };
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23E09FF624D7DF8800F30FF5 /* Macaw in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +115,9 @@
 			dependencies = (
 			);
 			name = Batikin;
+			packageProductDependencies = (
+				23E09FF524D7DF8800F30FF5 /* Macaw */,
+			);
 			productName = Batikin;
 			productReference = 23F88E7D24CFD85D00ACE986 /* Batikin.app */;
 			productType = "com.apple.product-type.application";
@@ -141,6 +146,9 @@
 				Base,
 			);
 			mainGroup = 23F88E7424CFD85D00ACE986;
+			packageReferences = (
+				23E09FF424D7DF8800F30FF5 /* XCRemoteSwiftPackageReference "Macaw" */,
+			);
 			productRefGroup = 23F88E7E24CFD85D00ACE986 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -370,6 +378,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		23E09FF424D7DF8800F30FF5 /* XCRemoteSwiftPackageReference "Macaw" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/Macaw";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23E09FF524D7DF8800F30FF5 /* Macaw */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23E09FF424D7DF8800F30FF5 /* XCRemoteSwiftPackageReference "Macaw" */;
+			productName = Macaw;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		23F88E8924CFD85D00ACE986 /* Batikin.xcdatamodeld */ = {

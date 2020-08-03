@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Macaw
 
 class DrawingViewController: UIViewController, UIScrollViewDelegate {
 
