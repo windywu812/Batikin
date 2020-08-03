@@ -42,27 +42,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EF2-45-XbA">
-                                <rect key="frame" x="0.0" y="88" width="414" height="631"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="76c-pY-m6U">
-                                        <rect key="frame" x="0.0" y="0.0" width="1600" height="2300"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="2300" id="JLH-YS-cWJ"/>
-                                            <constraint firstAttribute="width" constant="1600" id="aCa-ss-ABm"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="76c-pY-m6U" secondAttribute="bottom" id="SX2-zT-aga"/>
-                                    <constraint firstAttribute="trailing" secondItem="76c-pY-m6U" secondAttribute="trailing" id="XpA-ZK-RIE"/>
-                                    <constraint firstItem="76c-pY-m6U" firstAttribute="top" secondItem="OnC-Pf-Hyx" secondAttribute="top" id="cUj-bH-FFv"/>
-                                    <constraint firstItem="76c-pY-m6U" firstAttribute="leading" secondItem="OnC-Pf-Hyx" secondAttribute="leading" id="rfm-ln-Tv4"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="F6S-0h-B4b"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="OnC-Pf-Hyx"/>
-                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXw-pZ-X4T">
                                 <rect key="frame" x="0.0" y="719" width="414" height="177"/>
                                 <subviews>
@@ -127,13 +106,9 @@
                         </subviews>
                         <color key="backgroundColor" name="backgroundGray"/>
                         <constraints>
-                            <constraint firstItem="EF2-45-XbA" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="6m4-hC-yvj"/>
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="trailing" secondItem="vRe-Hu-78o" secondAttribute="trailing" id="BOZ-QE-VIT"/>
-                            <constraint firstItem="EF2-45-XbA" firstAttribute="trailing" secondItem="vRe-Hu-78o" secondAttribute="trailing" id="jcW-XI-21b"/>
                             <constraint firstAttribute="bottom" secondItem="zXw-pZ-X4T" secondAttribute="bottom" id="p7Q-kB-xIU"/>
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="vrm-YN-1mQ"/>
-                            <constraint firstItem="zXw-pZ-X4T" firstAttribute="top" secondItem="EF2-45-XbA" secondAttribute="bottom" id="wea-RI-uar"/>
-                            <constraint firstItem="EF2-45-XbA" firstAttribute="top" secondItem="vRe-Hu-78o" secondAttribute="top" id="woO-pn-O9F"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vRe-Hu-78o"/>
                     </view>
@@ -141,8 +116,6 @@
                         <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="Pht-Jq-9pS"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="artBoard" destination="76c-pY-m6U" id="gIt-wM-eGh"/>
-                        <outlet property="scrollView" destination="EF2-45-XbA" id="92f-2I-Fjy"/>
                         <outlet property="shapeSegmentedControl" destination="frI-oQ-Re2" id="zI3-KW-j3E"/>
                     </connections>
                 </viewController>
