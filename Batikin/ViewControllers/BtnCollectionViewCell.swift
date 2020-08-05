@@ -11,4 +11,5 @@ import UIKit
 class BtnCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var btnImg: UIButton!
+    
 }
