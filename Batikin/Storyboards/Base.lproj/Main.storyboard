@@ -63,8 +63,10 @@
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="F6S-0h-B4b"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="OnC-Pf-Hyx"/>
+                                <connections>
+                                    <outlet property="delegate" destination="cQy-b8-x9V" id="oa6-hY-ebA"/>
+                                </connections>
                             </scrollView>
-
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXw-pZ-X4T">
                                 <rect key="frame" x="0.0" y="719" width="414" height="177"/>
                                 <subviews>
@@ -134,8 +136,12 @@
                         </subviews>
                         <color key="backgroundColor" name="backgroundGray"/>
                         <constraints>
+                            <constraint firstItem="zXw-pZ-X4T" firstAttribute="top" secondItem="EF2-45-XbA" secondAttribute="bottom" id="0km-te-gi9"/>
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="trailing" secondItem="vRe-Hu-78o" secondAttribute="trailing" id="BOZ-QE-VIT"/>
+                            <constraint firstItem="EF2-45-XbA" firstAttribute="trailing" secondItem="zXw-pZ-X4T" secondAttribute="trailing" id="cqx-2a-Ssk"/>
                             <constraint firstAttribute="bottom" secondItem="zXw-pZ-X4T" secondAttribute="bottom" id="p7Q-kB-xIU"/>
+                            <constraint firstItem="EF2-45-XbA" firstAttribute="top" secondItem="vRe-Hu-78o" secondAttribute="top" id="sjK-c2-GoR"/>
+                            <constraint firstItem="EF2-45-XbA" firstAttribute="leading" secondItem="zXw-pZ-X4T" secondAttribute="leading" id="uH1-am-Ele"/>
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="vrm-YN-1mQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vRe-Hu-78o"/>
@@ -144,6 +150,7 @@
                         <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="Pht-Jq-9pS"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="scrollView" destination="EF2-45-XbA" id="HCW-CD-fhH"/>
                         <outlet property="shapeSegmentedControl" destination="frI-oQ-Re2" id="zI3-KW-j3E"/>
                     </connections>
                 </viewController>

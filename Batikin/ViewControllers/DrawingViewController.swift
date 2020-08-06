@@ -13,6 +13,7 @@ class DrawingViewController: UIViewController, UIScrollViewDelegate{
     
     @IBOutlet weak var shapeSegmentedControl: UISegmentedControl!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     let canvasView : UIView = UIView(frame:CGRect.zero)
     
     override func viewDidLoad() {
