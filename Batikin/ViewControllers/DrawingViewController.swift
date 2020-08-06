@@ -7,23 +7,25 @@
 //
 
 import UIKit
+import Macaw
 
 class DrawingViewController: UIViewController, UIScrollViewDelegate{
     
     @IBOutlet weak var shapeSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var artBoard: UIView!
     
     let canvasView : UIView = UIView(frame:CGRect.zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupNewView()
         setupScrollView()
+
         setupNavigationBar()
         setupSegmentedControl()
     }
     
+
     // MARK: ---- Artboard --------
     private func setupScrollView() {
         scrollView.backgroundColor = UIColor.white
@@ -57,12 +59,13 @@ class DrawingViewController: UIViewController, UIScrollViewDelegate{
     }
     
     // MARK: ----- Segmented & Navbar ------
+
     private func setupNavigationBar() {
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
     }
-    
+
     private func setupSegmentedControl() {
         shapeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         shapeSegmentedControl.backgroundColor = #colorLiteral(red: 0.8946712613, green: 0.6200030446, blue: 0.617100358, alpha: 1)
