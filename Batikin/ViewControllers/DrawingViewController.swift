@@ -14,13 +14,19 @@ class DrawingViewController: UIViewController, UIScrollViewDelegate{
     @IBOutlet weak var shapeSegmentedControl: UISegmentedControl!
     
     @IBOutlet weak var scrollView: UIScrollView!
+    
+      @IBOutlet weak var drawingView: UIView!
+      @IBOutlet weak var drawingViewBottomConstraint: NSLayoutConstraint!
+      @IBOutlet weak var drawingViewLeadingConstraint: NSLayoutConstraint!
+      @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
+      @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
+    
     let canvasView : UIView = UIView(frame:CGRect.zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupNewView()
-        setupScrollView()
+
 
         setupNavigationBar()
         setupSegmentedControl()
@@ -28,35 +34,38 @@ class DrawingViewController: UIViewController, UIScrollViewDelegate{
     
 
     // MARK: ---- Artboard --------
-    private func setupScrollView() {
-        scrollView.backgroundColor = UIColor.white
-        scrollView.delegate = self
-        scrollView.delegate = self
-        scrollView.contentOffset = CGPoint(x: 500, y: 200)
-        scrollView.minimumZoomScale = 1.1
-        scrollView.maximumZoomScale = 4.0
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.zoomScale = 1
+
+    func updateMinZoomScaleForSize(_ size:CGSize){
+        let widthScale = size.width / drawingView.bounds.width
+        let heightScale = size.height / drawingView.bounds.height
+        let minScale = min(widthScale, heightScale)
+        
+        scrollView.minimumZoomScale = minScale
+        scrollView.zoomScale = minScale
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateMinZoomScaleForSize(view.bounds.size)
     }
     
-    private func setupNewView() {
-        scrollView.addSubview(canvasView)
-        canvasView.translatesAutoresizingMaskIntoConstraints = false
-        canvasView.backgroundColor = .yellow
-        
-        canvasView.widthAnchor.constraint(equalToConstant: scrollView.bounds.width).isActive = true
-        canvasView.heightAnchor.constraint(equalToConstant:scrollView.bounds.height).isActive = true
-
-        scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo:scrollView.frameLayoutGuide.widthAnchor).isActive = true
-        scrollView.contentLayoutGuide.heightAnchor.constraint(equalTo:scrollView.frameLayoutGuide.heightAnchor).isActive = true
-        
-        canvasView.centerXAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerXAnchor).isActive = true
-        canvasView.centerYAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerYAnchor).isActive = true
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        updateConstraintsForSize(view.bounds.size)
     }
+    func updateConstraintsForSize(_ size:CGSize){
+        let yOffset = max(0, (size.height - drawingView.frame.height)/4.5)
+        drawingViewTopConstraint.constant = yOffset
+        drawingViewBottomConstraint.constant = yOffset
+
+        let xOffset = max(0, (size.width - drawingView.frame.width)/4.5)
+        drawingViewLeadingConstraint.constant = xOffset
+        drawingViewTrailingConstraint.constant = xOffset
+        view.layoutIfNeeded()
+    }
+    
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return canvasView
+        return drawingView
     }
     
     // MARK: ----- Segmented & Navbar ------
