@@ -20,19 +20,18 @@ class DrawingViewController: UIViewController, UIScrollViewDelegate{
       @IBOutlet weak var drawingViewLeadingConstraint: NSLayoutConstraint!
       @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
       @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
-    
-    let canvasView : UIView = UIView(frame:CGRect.zero)
+        
+    var selectedView: UIView?
+    var isDragging: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-
         setupNavigationBar()
         setupSegmentedControl()
+    
     }
     
-
     // MARK: ---- Artboard --------
 
     func updateMinZoomScaleForSize(_ size:CGSize){
