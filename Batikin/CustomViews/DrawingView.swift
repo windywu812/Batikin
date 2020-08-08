@@ -9,7 +9,7 @@
 import UIKit
 import Macaw
 
-class CanvasView: UIView {
+class DrawingView: UIView {
     
     var selectedView: UIView?
     var isDragging: Bool = false
