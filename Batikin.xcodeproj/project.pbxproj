@@ -56,7 +56,6 @@
 			children = (
 				23F88E8424CFD85D00ACE986 /* GalleryViewController.swift */,
 				239496F724D1151F00F7151C /* DrawingViewController.swift */,
-				A2482DBD24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -78,6 +77,23 @@
 				230A7A7B24D7EA2C009EF061 /* Constant.swift */,
 			);
 			path = Supports;
+			sourceTree = "<group>";
+		};
+		23F0A6C024DE7E4D0021B5AF /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				A2482DBD24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift */,
+				23A8EF1F24D8238B00671C4B /* HeaderCell.swift */,
+			);
+			path = ViewCells;
+			sourceTree = "<group>";
+		};
+		23F0A6C124DE7E610021B5AF /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				23B45DD124DD1CBF00BD074B /* CanvasView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		23F88E7424CFD85D00ACE986 = {
@@ -102,9 +118,9 @@
 				239496FB24D1153400F7151C /* Supports */,
 				239496F924D1152400F7151C /* ViewControllers */,
 				239496FA24D1152D00F7151C /* Storyboards */,
+				23F0A6C024DE7E4D0021B5AF /* ViewCells */,
 				23F88E8C24CFD85E00ACE986 /* Assets.xcassets */,
-				23A8EF1F24D8238B00671C4B /* HeaderCell.swift */,
-				23B45DD124DD1CBF00BD074B /* CanvasView.swift */,
+				23F0A6C124DE7E610021B5AF /* CustomViews */,
 				23F88E9124CFD85E00ACE986 /* Info.plist */,
 				23F88E8924CFD85D00ACE986 /* Batikin.xcdatamodeld */,
 			);
