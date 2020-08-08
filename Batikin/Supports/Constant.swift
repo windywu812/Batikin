@@ -12,3 +12,5 @@ struct Constant {
     static let collectionCell = "collectionCell"
     static let headerCell = "headerCell"
 }
+
+var imageArray = ["motif_flower_a","motif_flower_b","motif_leaf_a","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b"]

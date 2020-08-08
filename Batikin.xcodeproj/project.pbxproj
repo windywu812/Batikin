@@ -10,6 +10,7 @@
 		230A7A7C24D7EA2C009EF061 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230A7A7B24D7EA2C009EF061 /* Constant.swift */; };
 		239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239496F724D1151F00F7151C /* DrawingViewController.swift */; };
 		23A8EF2024D8238B00671C4B /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8EF1F24D8238B00671C4B /* HeaderCell.swift */; };
+		23B45DD224DD1CBF00BD074B /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B45DD124DD1CBF00BD074B /* DrawingView.swift */; };
 		23E09FF624D7DF8800F30FF5 /* Macaw in Frameworks */ = {isa = PBXBuildFile; productRef = 23E09FF524D7DF8800F30FF5 /* Macaw */; };
 		23F88E8124CFD85D00ACE986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F88E8024CFD85D00ACE986 /* AppDelegate.swift */; };
 		23F88E8324CFD85D00ACE986 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F88E8224CFD85D00ACE986 /* SceneDelegate.swift */; };
@@ -25,6 +26,7 @@
 		230A7A7B24D7EA2C009EF061 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		239496F724D1151F00F7151C /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		23A8EF1F24D8238B00671C4B /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
+		23B45DD124DD1CBF00BD074B /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 		23F88E7D24CFD85D00ACE986 /* Batikin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Batikin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F88E8024CFD85D00ACE986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F88E8224CFD85D00ACE986 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,7 +56,6 @@
 			children = (
 				23F88E8424CFD85D00ACE986 /* GalleryViewController.swift */,
 				239496F724D1151F00F7151C /* DrawingViewController.swift */,
-				A2482DBD24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -76,6 +77,23 @@
 				230A7A7B24D7EA2C009EF061 /* Constant.swift */,
 			);
 			path = Supports;
+			sourceTree = "<group>";
+		};
+		23F0A6C024DE7E4D0021B5AF /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				A2482DBD24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift */,
+				23A8EF1F24D8238B00671C4B /* HeaderCell.swift */,
+			);
+			path = ViewCells;
+			sourceTree = "<group>";
+		};
+		23F0A6C124DE7E610021B5AF /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				23B45DD124DD1CBF00BD074B /* DrawingView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		23F88E7424CFD85D00ACE986 = {
@@ -100,8 +118,9 @@
 				239496FB24D1153400F7151C /* Supports */,
 				239496F924D1152400F7151C /* ViewControllers */,
 				239496FA24D1152D00F7151C /* Storyboards */,
+				23F0A6C024DE7E4D0021B5AF /* ViewCells */,
 				23F88E8C24CFD85E00ACE986 /* Assets.xcassets */,
-				23A8EF1F24D8238B00671C4B /* HeaderCell.swift */,
+				23F0A6C124DE7E610021B5AF /* CustomViews */,
 				23F88E9124CFD85E00ACE986 /* Info.plist */,
 				23F88E8924CFD85D00ACE986 /* Batikin.xcdatamodeld */,
 			);
@@ -193,6 +212,7 @@
 				239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */,
 				230A7A7C24D7EA2C009EF061 /* Constant.swift in Sources */,
 				23A8EF2024D8238B00671C4B /* HeaderCell.swift in Sources */,
+				23B45DD224DD1CBF00BD074B /* DrawingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

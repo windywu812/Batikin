@@ -9,64 +9,48 @@
 import UIKit
 import Macaw
 
-class DrawingViewController: UIViewController, UIScrollViewDelegate{
+class DrawingViewController: UIViewController {
     
     @IBOutlet weak var shapeSegmentedControl: UISegmentedControl!
-    
     @IBOutlet weak var scrollView: UIScrollView!
-    let canvasView : UIView = UIView(frame:CGRect.zero)
+    
+    @IBOutlet weak var drawingView: UIView!
+    @IBOutlet weak var drawingViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var drawingViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
+    
+    var selectedView: UIView?
+    var isDragging: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupNewView()
-        setupScrollView()
-
+        
         setupNavigationBar()
         setupSegmentedControl()
     }
     
-
-    // MARK: ---- Artboard --------
-    private func setupScrollView() {
-        scrollView.backgroundColor = UIColor.white
-        scrollView.delegate = self
-        scrollView.delegate = self
-        scrollView.contentOffset = CGPoint(x: 500, y: 200)
-        scrollView.minimumZoomScale = 1.1
-        scrollView.maximumZoomScale = 4.0
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.zoomScale = 1
-    }
-    
-    private func setupNewView() {
-        scrollView.addSubview(canvasView)
-        canvasView.translatesAutoresizingMaskIntoConstraints = false
-        canvasView.backgroundColor = .yellow
-        
-        canvasView.widthAnchor.constraint(equalToConstant: scrollView.bounds.width).isActive = true
-        canvasView.heightAnchor.constraint(equalToConstant:scrollView.bounds.height).isActive = true
-
-        scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo:scrollView.frameLayoutGuide.widthAnchor).isActive = true
-        scrollView.contentLayoutGuide.heightAnchor.constraint(equalTo:scrollView.frameLayoutGuide.heightAnchor).isActive = true
-        
-        canvasView.centerXAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerXAnchor).isActive = true
-        canvasView.centerYAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerYAnchor).isActive = true
-    }
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return canvasView
-    }
-    
-    // MARK: ----- Segmented & Navbar ------
-
+    // MARK: Navbar
     private func setupNavigationBar() {
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.right.circle"), style: .plain, target: self, action: #selector(handleRedo)),
+            UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.left.circle"), style: .plain, target: self, action: #selector(handleUndo))
+        ]
     }
-
+    
+    @objc private func handleRedo() {
+        
+    }
+    
+    @objc private func handleUndo() {
+        
+    }
+    
+    // MARK: Segmented Control
     private func setupSegmentedControl() {
         shapeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         shapeSegmentedControl.backgroundColor = #colorLiteral(red: 0.8946712613, green: 0.6200030446, blue: 0.617100358, alpha: 1)
@@ -75,11 +59,8 @@ class DrawingViewController: UIViewController, UIScrollViewDelegate{
     
 }
 
-// MARK: ------ Collection View -----------
-
-var imageArray = ["motif_flower_a","motif_flower_b","motif_leaf_a","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b"]
-
-extension DrawingViewController:UICollectionViewDelegate,UICollectionViewDataSource {
+// MARK: Collection View
+extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageArray.count
@@ -89,6 +70,52 @@ extension DrawingViewController:UICollectionViewDelegate,UICollectionViewDataSou
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BtnCollectionViewCell", for: indexPath) as? BtnCollectionViewCell else { return UICollectionViewCell() }
         cell.btnImg.setBackgroundImage(UIImage(named: imageArray[indexPath.row]), for: .normal)
         return cell
+    }
+    
+}
+
+// MARK: DrawingScreen Logic
+extension DrawingViewController: UIScrollViewDelegate {
+    
+    func updateMinZoomScaleForSize(_ size:CGSize) {
+        let widthScale = size.width / drawingView.bounds.width
+        let heightScale = size.height / drawingView.bounds.height
+        let minScale = min(widthScale, heightScale)
+        
+        scrollView.minimumZoomScale = minScale
+        scrollView.zoomScale = minScale
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateMinZoomScaleForSize(view.bounds.size)
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        updateConstraintsForSize(view.bounds.size)
+    }
+    
+    func updateConstraintsForSize(_ size:CGSize){
+        
+        var yOffset: CGFloat = 0
+        
+        if size.height >= 896 {
+            yOffset = max(0, (size.height - drawingView.frame.height) / 4.5)
+        } else {
+            yOffset = max(0, (size.height - drawingView.frame.height) / 10)
+        }
+        
+        drawingViewTopConstraint.constant = yOffset
+        drawingViewBottomConstraint.constant = yOffset
+        
+        let xOffset = max(0, (size.width - drawingView.frame.width)/4.5)
+        drawingViewLeadingConstraint.constant = xOffset
+        drawingViewTrailingConstraint.constant = xOffset
+        view.layoutIfNeeded()
+    }
+    
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return drawingView
     }
     
 }
