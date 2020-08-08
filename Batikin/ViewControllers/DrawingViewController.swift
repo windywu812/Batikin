@@ -13,6 +13,7 @@ class DrawingViewController: UIViewController {
     
     @IBOutlet weak var shapeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var bottomContainer: UIView!
     
     @IBOutlet weak var drawingView: UIView!
     @IBOutlet weak var drawingViewBottomConstraint: NSLayoutConstraint!
@@ -53,8 +54,10 @@ class DrawingViewController: UIViewController {
     // MARK: Segmented Control
     private func setupSegmentedControl() {
         shapeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        shapeSegmentedControl.backgroundColor = #colorLiteral(red: 0.8946712613, green: 0.6200030446, blue: 0.617100358, alpha: 1)
-        shapeSegmentedControl.selectedSegmentTintColor = #colorLiteral(red: 0.7618311048, green: 0.1676428616, blue: 0.2137463689, alpha: 1)
+        shapeSegmentedControl.backgroundColor = UIColor(named: "segmentBackground")
+        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: "tintColor")
+        
+        bottomContainer.backgroundColor = UIColor.systemBackground
     }
     
 }
@@ -67,7 +70,7 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BtnCollectionViewCell", for: indexPath) as? BtnCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constant.shapeCollectionViewCell, for: indexPath) as? BtnCollectionViewCell else { return UICollectionViewCell() }
         cell.btnImg.setBackgroundImage(UIImage(named: imageArray[indexPath.row]), for: .normal)
         return cell
     }
@@ -84,6 +87,9 @@ extension DrawingViewController: UIScrollViewDelegate {
         
         scrollView.minimumZoomScale = minScale
         scrollView.zoomScale = minScale
+        scrollView.backgroundColor = UIColor(named: "canvasBackground")
+        view.backgroundColor = UIColor(named: "canvasBackground")
+        
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()

@@ -119,8 +119,8 @@
 				239496F924D1152400F7151C /* ViewControllers */,
 				239496FA24D1152D00F7151C /* Storyboards */,
 				23F0A6C024DE7E4D0021B5AF /* ViewCells */,
-				23F88E8C24CFD85E00ACE986 /* Assets.xcassets */,
 				23F0A6C124DE7E610021B5AF /* CustomViews */,
+				23F88E8C24CFD85E00ACE986 /* Assets.xcassets */,
 				23F88E9124CFD85E00ACE986 /* Info.plist */,
 				23F88E8924CFD85D00ACE986 /* Batikin.xcdatamodeld */,
 			);
@@ -359,6 +359,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KVK7XD8255;
 				INFOPLIST_FILE = Batikin/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,7 +367,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.batikaja.Batikin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -377,6 +378,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KVK7XD8255;
 				INFOPLIST_FILE = Batikin/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -384,7 +386,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.batikaja.Batikin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         /// Override tint color
-        UIView.appearance().tintColor = UIColor(red: 0.757, green: 0.302, blue: 0.29, alpha: 1)
+        UIView.appearance().tintColor = UIColor(named: "tintColor")
         
         return true
     }
