@@ -71,8 +71,12 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constant.shapeCollectionViewCell, for: indexPath) as? BtnCollectionViewCell else { return UICollectionViewCell() }
-        cell.btnImg.setBackgroundImage(UIImage(named: imageArray[indexPath.row]), for: .normal)
+        cell.btnImg.image = UIImage(named: imageArray[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Do something if selected
     }
     
 }

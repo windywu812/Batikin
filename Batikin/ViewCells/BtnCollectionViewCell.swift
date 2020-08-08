@@ -10,6 +10,6 @@ import UIKit
 
 class BtnCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var btnImg: UIButton!
+    @IBOutlet weak var btnImg: UIImageView!
     
 }

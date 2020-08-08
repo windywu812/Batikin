@@ -99,21 +99,20 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W37-of-mB7">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H1r-Cd-ScS">
                                                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
-                                                        </button>
+                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="W37-of-mB7" secondAttribute="trailing" id="gIs-QJ-ARE"/>
-                                                        <constraint firstAttribute="bottom" secondItem="W37-of-mB7" secondAttribute="bottom" id="huE-7c-XDt"/>
-                                                        <constraint firstItem="W37-of-mB7" firstAttribute="leading" secondItem="lqv-d1-ObP" secondAttribute="leading" id="rQ4-zX-PAK"/>
-                                                        <constraint firstItem="W37-of-mB7" firstAttribute="top" secondItem="lqv-d1-ObP" secondAttribute="top" id="ri8-Eu-Oyp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="H1r-Cd-ScS" secondAttribute="bottom" id="C62-Qy-0Wr"/>
+                                                        <constraint firstItem="H1r-Cd-ScS" firstAttribute="leading" secondItem="lqv-d1-ObP" secondAttribute="leading" id="Sd0-Nn-sP6"/>
+                                                        <constraint firstAttribute="trailing" secondItem="H1r-Cd-ScS" secondAttribute="trailing" id="gvb-e5-7W8"/>
+                                                        <constraint firstItem="H1r-Cd-ScS" firstAttribute="top" secondItem="lqv-d1-ObP" secondAttribute="top" id="jiB-fR-69y"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="64" height="64"/>
                                                 <connections>
-                                                    <outlet property="btnImg" destination="W37-of-mB7" id="Wdi-2P-1Re"/>
+                                                    <outlet property="btnImg" destination="H1r-Cd-ScS" id="d9k-iO-AEu"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
