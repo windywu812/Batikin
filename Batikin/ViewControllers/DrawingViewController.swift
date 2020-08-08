@@ -52,7 +52,15 @@ class DrawingViewController: UIViewController, UIScrollViewDelegate{
         updateConstraintsForSize(view.bounds.size)
     }
     func updateConstraintsForSize(_ size:CGSize){
-        let yOffset = max(0, (size.height - drawingView.frame.height)/4.5)
+        
+        var yOffset: CGFloat = 0
+        
+        if size.height >= 896 {
+            yOffset = max(0, (size.height - drawingView.frame.height) / 4.5)
+        } else {
+            yOffset = max(0, (size.height - drawingView.frame.height) / 10)
+        }
+        
         drawingViewTopConstraint.constant = yOffset
         drawingViewBottomConstraint.constant = yOffset
 
@@ -73,6 +81,19 @@ class DrawingViewController: UIViewController, UIScrollViewDelegate{
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.right.circle"), style: .plain, target: self, action: #selector(handleRedo)),
+            UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.left.circle"), style: .plain, target: self, action: #selector(handleUndo))
+        ]
+    }
+    
+    @objc private func handleRedo() {
+        
+    }
+    
+    @objc private func handleUndo() {
+        
     }
 
     private func setupSegmentedControl() {
