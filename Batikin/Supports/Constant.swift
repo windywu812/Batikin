@@ -6,7 +6,7 @@
 //  Copyright © 2020 BatikAja. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constant {
     static let collectionCell = "collectionCell"

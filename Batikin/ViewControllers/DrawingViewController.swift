@@ -14,6 +14,7 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var shapeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var bottomContainer: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var drawingView: UIView!
     @IBOutlet weak var drawingViewBottomConstraint: NSLayoutConstraint!
@@ -23,6 +24,8 @@ class DrawingViewController: UIViewController {
     
     var selectedView: UIView?
     var isDragging: Bool = false
+    
+    var shapeModel = ShapeModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,23 +63,47 @@ class DrawingViewController: UIViewController {
         bottomContainer.backgroundColor = UIColor.systemBackground
     }
     
+    @IBAction func handleSegmentedControl(_ sender: UISegmentedControl) {
+        collectionView.reloadData()
+    }
 }
 
 // MARK: Collection View
 extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageArray.count
+        switch shapeSegmentedControl.selectedSegmentIndex {
+        case 0:
+            return shapeModel.mainShape.count
+        case 1:
+            return shapeModel.fillerShape.count
+        case 2:
+            return shapeModel.isenShape.count
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constant.shapeCollectionViewCell, for: indexPath) as? BtnCollectionViewCell else { return UICollectionViewCell() }
-        cell.btnImg.image = UIImage(named: imageArray[indexPath.row])
+        
+        switch shapeSegmentedControl.selectedSegmentIndex {
+        case 0:
+            cell.btnImg.fileName = shapeModel.mainShape[indexPath.row]
+        case 1:
+            cell.btnImg.fileName = shapeModel.fillerShape[indexPath.row]
+        case 2:
+            cell.btnImg.fileName = shapeModel.isenShape[indexPath.row]
+        default:
+            break
+        }
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Do something if selected
+        print("tap")
     }
     
 }
