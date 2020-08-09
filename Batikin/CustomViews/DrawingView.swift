@@ -13,6 +13,7 @@ class DrawingView: UIView {
     
     var selectedView: UIView?
     var isDragging: Bool = false
+    let drawingVC = DrawingViewController()
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -37,11 +38,13 @@ class DrawingView: UIView {
         
         if isDragging {
             if !self.bounds.contains(position) {
+                drawingVC.scrollView.isUserInteractionEnabled = false
                 return
             } else {
-            selectedView.transform = .init(translationX: position.x - selectedView.bounds.width / 2, y: position.y - selectedView.bounds.height / 2)
+                selectedView.transform = .init(translationX: position.x - selectedView.bounds.width / 2, y: position.y - selectedView.bounds.height / 2)
             }
         } else {
+            drawingVC.scrollView.isUserInteractionEnabled = true
             isDragging = false
         }
     }

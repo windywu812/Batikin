@@ -16,14 +16,14 @@ class GalleryViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupCollectionView()
-        view.backgroundColor = UIColor(named: "galleryBackground")
+        view.backgroundColor = UIColor(named: Color.galleryBackground.rawValue)
     }
     
     private func setupCollectionView() {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.createLayout())
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = UIColor(named: "galleryBackground")
+        collectionView.backgroundColor = UIColor(named: Color.galleryBackground.rawValue)
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constant.collectionCell)
         collectionView.register(MyHeaderCell.self, forSupplementaryViewOfKind: Constant.headerCell, withReuseIdentifier: Constant.headerCell)

@@ -6,7 +6,7 @@
 //  Copyright © 2020 BatikAja. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constant {
     static let collectionCell = "collectionCell"
@@ -14,4 +14,9 @@ struct Constant {
     static let shapeCollectionViewCell = "ShapeCollectionViewCell"
 }
 
-var imageArray = ["motif_flower_a","motif_flower_b","motif_leaf_a","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b","motif_leaf_b"]
+enum Color: String {
+    case galleryBackground = "galleryBackground"
+    case segmentBackground = "segmentBackground"
+    case canvasBackground = "canvasBackground"
+    case tintColor = "tintColor"
+}

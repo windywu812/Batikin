@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Macaw
 
 class BtnCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var btnImg: UIImageView!
+    @IBOutlet weak var btnImg: SVGView!
     
 }
