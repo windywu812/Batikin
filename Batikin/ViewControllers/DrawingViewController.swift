@@ -57,8 +57,8 @@ class DrawingViewController: UIViewController {
     // MARK: Segmented Control
     private func setupSegmentedControl() {
         shapeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        shapeSegmentedControl.backgroundColor = UIColor(named: "segmentBackground")
-        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: "tintColor")
+        shapeSegmentedControl.backgroundColor = UIColor(named: Color.segmentBackground.rawValue)
+        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: Color.tintColor.rawValue)
         
         bottomContainer.backgroundColor = UIColor.systemBackground
     }
@@ -118,8 +118,8 @@ extension DrawingViewController: UIScrollViewDelegate {
         
         scrollView.minimumZoomScale = minScale
         scrollView.zoomScale = minScale
-        scrollView.backgroundColor = UIColor(named: "canvasBackground")
-        view.backgroundColor = UIColor(named: "canvasBackground")
+        scrollView.backgroundColor = UIColor(named: Color.canvasBackground.rawValue)
+        view.backgroundColor = UIColor(named: Color.canvasBackground.rawValue)
         
     }
     override func viewWillLayoutSubviews() {
