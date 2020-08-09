@@ -21,17 +21,25 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
+        
+    let shapeModel = ShapeModel()
     
     var selectedView: UIView?
-    var isDragging: Bool = false
-    
-    var shapeModel = ShapeModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigationBar()
         setupSegmentedControl()
+        setupScrollView()
+                
+    }
+    
+    private func setupScrollView() {
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.backgroundColor = UIColor(named: CustomColor.canvasBackground.rawValue)
+        view.backgroundColor = UIColor(named: CustomColor.canvasBackground.rawValue)
     }
     
     // MARK: Navbar
@@ -57,8 +65,8 @@ class DrawingViewController: UIViewController {
     // MARK: Segmented Control
     private func setupSegmentedControl() {
         shapeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        shapeSegmentedControl.backgroundColor = UIColor(named: Color.segmentBackground.rawValue)
-        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: Color.tintColor.rawValue)
+        shapeSegmentedControl.backgroundColor = UIColor(named: CustomColor.segmentBackground.rawValue)
+        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: CustomColor.tintColor.rawValue)
         
         bottomContainer.backgroundColor = UIColor.systemBackground
     }
@@ -97,13 +105,48 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         default:
             break
         }
-        
+        cell.btnImg.contentMode = .scaleAspectFit
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Do something if selected
-        print("tap")
+        
+        switch shapeSegmentedControl.selectedSegmentIndex {
+        case 0:
+            handleAddShape(shape: shapeModel.mainShape[indexPath.row])
+        case 1:
+            handleAddShape(shape: shapeModel.fillerShape[indexPath.row])
+        case 2:
+            handleAddShape(shape: shapeModel.isenShape[indexPath.row])
+        default:
+            break
+        }
+    }
+    
+    func handleAddShape(shape: String) {
+        guard let node = try? SVGParser.parse(resource: shape) else { return }
+        guard let bounds = node.bounds else { return }
+        let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
+        view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(bounds.w)/2  , y: drawingView.bounds.midY - CGFloat(bounds.h)/2)
+        view.backgroundColor = .clear
+        drawingView.addSubview(view)
+        updateStroke(node: node)
+    }
+    
+    func updateStroke(node: Node) {
+        if let shape = node as? Shape {
+            var r = [Int]()
+            var g = [Int]()
+            var b = [Int]()
+            for i in 0...255 {
+                r.append(i)
+                g.append(i)
+                b.append(i)
+            }
+            shape.fill = Color.rgb(r: r.randomElement()!, g: g.randomElement()!, b: b.randomElement()!)
+        } else if let group = node as? Group {
+            group.contents.forEach(updateStroke(node:))
+        }
     }
     
 }
@@ -118,10 +161,8 @@ extension DrawingViewController: UIScrollViewDelegate {
         
         scrollView.minimumZoomScale = minScale
         scrollView.zoomScale = minScale
-        scrollView.backgroundColor = UIColor(named: Color.canvasBackground.rawValue)
-        view.backgroundColor = UIColor(named: Color.canvasBackground.rawValue)
-        
     }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         updateMinZoomScaleForSize(view.bounds.size)
@@ -150,9 +191,17 @@ extension DrawingViewController: UIScrollViewDelegate {
         view.layoutIfNeeded()
     }
     
-    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return drawingView
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if selectedView == drawingView {
+            scrollView.isScrollEnabled = true
+        } else if selectedView != nil && selectedView != drawingView {
+            scrollView.isScrollEnabled = false
+            scrollView.isScrollEnabled = true
+        }
+    }
+        
 }
