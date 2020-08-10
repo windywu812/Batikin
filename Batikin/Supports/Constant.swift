@@ -14,9 +14,12 @@ struct Constant {
     static let shapeCollectionViewCell = "ShapeCollectionViewCell"
 }
 
-enum Color: String {
+enum CustomColor: String {
     case galleryBackground = "galleryBackground"
     case segmentBackground = "segmentBackground"
     case canvasBackground = "canvasBackground"
     case tintColor = "tintColor"
 }
+
+var selectedView: UIView?
+
