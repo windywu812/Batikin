@@ -12,20 +12,13 @@ import Macaw
 class DrawingView: UIView {
     
     var isDragging: Bool = false
-    var selectedView: UIView?
-    
-    private let notificationCenter = NotificationCenter.default
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let position = touches.first?.location(in: self) else { return }
 
         selectedView = self.hitTest(position, with: nil)
-                
+        
         if selectedView != nil && selectedView != self {
             isDragging = true
         }

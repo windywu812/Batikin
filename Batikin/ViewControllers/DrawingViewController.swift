@@ -23,9 +23,7 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
         
     let shapeModel = ShapeModel()
-    
-    var selectedView: UIView?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +31,8 @@ class DrawingViewController: UIViewController {
         setupSegmentedControl()
         setupScrollView()
                 
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     private func setupScrollView() {
@@ -129,7 +129,8 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
         view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(bounds.w)/2  , y: drawingView.bounds.midY - CGFloat(bounds.h)/2)
         view.backgroundColor = .clear
-        drawingView.addSubview(view)
+        
+        self.drawingView.addSubview(view)
         updateStroke(node: node)
     }
     
@@ -194,14 +195,12 @@ extension DrawingViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return drawingView
     }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if selectedView == drawingView {
-            scrollView.isScrollEnabled = true
-        } else if selectedView != nil && selectedView != drawingView {
-            scrollView.isScrollEnabled = false
-            scrollView.isScrollEnabled = true
-        }
-    }
         
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if selectedView != drawingView && selectedView != nil {
+            self.scrollView.isScrollEnabled = false
+        }
+        self.scrollView.isScrollEnabled = true
+    }
+
 }
