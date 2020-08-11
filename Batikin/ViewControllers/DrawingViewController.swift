@@ -38,7 +38,7 @@ class DrawingViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        // Default Values
+        // Default Slider Values
         saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     }
@@ -85,11 +85,12 @@ class DrawingViewController: UIViewController {
     
     
     @IBAction func colorSlider(_ sender: GradientSlider) {
+        // Update color slider saturation and brightness to match current hue
         saturationSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         
+        // Update selected motif element color
         guard let selectedView = selectedView as? MacawView else { return }
-        
         updateStroke(node: selectedView.node)
     }
 }
