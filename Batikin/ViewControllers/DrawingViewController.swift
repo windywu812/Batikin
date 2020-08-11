@@ -135,6 +135,7 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func updateStroke(node: Node) {
+        print(node)
         if let shape = node as? Shape {
             var r = [Int]()
             var g = [Int]()

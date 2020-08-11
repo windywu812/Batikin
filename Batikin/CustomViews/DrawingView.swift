@@ -29,6 +29,7 @@ class DrawingView: UIView {
         guard let position = touches.first?.location(in: self) else { return }
         
         guard let selectedView = selectedView as? MacawView else { return }
+//        print(selectedView.node)
         
         if isDragging {
             if !self.bounds.contains(position) {
