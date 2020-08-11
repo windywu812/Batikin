@@ -87,6 +87,10 @@ class DrawingViewController: UIViewController {
     @IBAction func colorSlider(_ sender: GradientSlider) {
         saturationSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        
+        guard let selectedView = selectedView as? MacawView else { return }
+        
+        updateStroke(node: selectedView.node)
     }
 }
 
@@ -149,21 +153,12 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func updateStroke(node: Node) {
-        print(node)
+        
         if let shape = node as? Shape {
-            var r = [Int]()
-            var g = [Int]()
-            var b = [Int]()
-            for i in 0...255 {
-                r.append(i)
-                g.append(i)
-                b.append(i)
-            }
-            
             let colorConvertor = ColorConvertor()
+            
             let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
             
-//            shape.fill = Color.rgb(r: r.randomElement()!, g: g.randomElement()!, b: b.randomElement()!)
             shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
         } else if let group = node as? Group {
             group.contents.forEach(updateStroke(node:))

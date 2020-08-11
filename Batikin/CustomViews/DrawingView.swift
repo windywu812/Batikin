@@ -12,7 +12,7 @@ import Macaw
 class DrawingView: UIView {
     
     var isDragging: Bool = false
-    
+        
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let position = touches.first?.location(in: self) else { return }
