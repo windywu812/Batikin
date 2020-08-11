@@ -159,7 +159,12 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
                 g.append(i)
                 b.append(i)
             }
-            shape.fill = Color.rgb(r: r.randomElement()!, g: g.randomElement()!, b: b.randomElement()!)
+            
+            let colorConvertor = ColorConvertor()
+            let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
+            
+//            shape.fill = Color.rgb(r: r.randomElement()!, g: g.randomElement()!, b: b.randomElement()!)
+            shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
         } else if let group = node as? Group {
             group.contents.forEach(updateStroke(node:))
         }
