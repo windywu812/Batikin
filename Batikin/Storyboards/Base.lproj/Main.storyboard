@@ -88,6 +88,9 @@
                                                         <integer key="value" value="8"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorSlider:" destination="cQy-b8-x9V" eventType="valueChanged" id="2Qo-i8-k1i"/>
+                                                </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YhT-66-rix" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
                                                 <rect key="frame" x="-2" y="46.5" width="398" height="57"/>
@@ -104,6 +107,9 @@
                                                         <integer key="value" value="8"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorSlider:" destination="cQy-b8-x9V" eventType="valueChanged" id="wgm-Ne-Ga7"/>
+                                                </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o42-0B-IV8" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
                                                 <rect key="frame" x="-2" y="97.5" width="398" height="56.5"/>
@@ -120,6 +126,9 @@
                                                         <integer key="value" value="8"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorSlider:" destination="cQy-b8-x9V" eventType="valueChanged" id="fog-Kr-6GB"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                         <constraints>
@@ -234,12 +243,15 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Tkb-t5-YZk"/>
                     <connections>
                         <outlet property="bottomContainer" destination="zXw-pZ-X4T" id="EI0-Id-EUx"/>
+                        <outlet property="brightnessSlider" destination="o42-0B-IV8" id="G16-Vo-fHT"/>
                         <outlet property="collectionView" destination="Mb4-z6-yJY" id="cSk-1C-b6M"/>
                         <outlet property="drawingView" destination="157-U8-33m" id="z3j-vl-0JN"/>
                         <outlet property="drawingViewBottomConstraint" destination="ghS-9U-gF7" id="Mlf-eP-gwq"/>
                         <outlet property="drawingViewLeadingConstraint" destination="uB8-MP-caN" id="aoV-KE-W2c"/>
                         <outlet property="drawingViewTopConstraint" destination="t5u-NF-q6u" id="rjJ-Kn-GXA"/>
                         <outlet property="drawingViewTrailingConstraint" destination="Dof-ah-D9b" id="6dE-Hq-Wfl"/>
+                        <outlet property="hueSlider" destination="5gA-ta-PLR" id="JR3-JW-GH2"/>
+                        <outlet property="saturationSlider" destination="YhT-66-rix" id="Cyi-H6-g7e"/>
                         <outlet property="scrollView" destination="EF2-45-XbA" id="HCW-CD-fhH"/>
                         <outlet property="shapeSegmentedControl" destination="frI-oQ-Re2" id="zI3-KW-j3E"/>
                     </connections>

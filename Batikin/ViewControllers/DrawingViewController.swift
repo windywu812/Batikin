@@ -22,6 +22,10 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
         
+    @IBOutlet weak var hueSlider: GradientSlider!
+    @IBOutlet weak var saturationSlider: GradientSlider!
+    @IBOutlet weak var brightnessSlider: GradientSlider!
+    
     let shapeModel = ShapeModel()
         
     override func viewDidLoad() {
@@ -33,6 +37,10 @@ class DrawingViewController: UIViewController {
                 
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        // Default Values
+        saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     }
     
     private func setupScrollView() {
@@ -73,6 +81,12 @@ class DrawingViewController: UIViewController {
     
     @IBAction func handleSegmentedControl(_ sender: UISegmentedControl) {
         collectionView.reloadData()
+    }
+    
+    
+    @IBAction func colorSlider(_ sender: GradientSlider) {
+        saturationSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        brightnessSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     }
 }
 
