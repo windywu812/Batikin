@@ -36,8 +36,11 @@ class DrawingView: UIView {
             let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleShape(_:)))
             selectedView?.addGestureRecognizer(pinchGesture)
             
-            let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateShape(_:)))
+            let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotatePiece(_:)))
             selectedView?.addGestureRecognizer(rotateGesture)
+            
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panPiece(_:)))
+            selectedView?.addGestureRecognizer(panGesture)
         }
         
         previousView = selectedView
@@ -50,29 +53,6 @@ class DrawingView: UIView {
         
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        guard let position = touches.first?.location(in: self) else { return }
-        
-        guard let selectedView = selectedView as? MacawView else { return }
-        
-        if isDragging {
-            if !self.bounds.contains(position) {
-                return
-            } else {
-                let x = position.x - selectedView.bounds.width / 2
-                let y = position.y - selectedView.bounds.height / 2
-                
-                selectedView.transform = .init(translationX: x, y: y)
-//                selectedView.transform = selectedView.transform.translatedBy(x: x, y: y)
-                
-
-            }
-        } else {
-            isDragging = false
-        }
-    }
-    
     @objc private func scaleShape(_ sender: UIPinchGestureRecognizer) {
         if sender.state == .began || sender.state == .changed {
             guard let newBounds = selectedView?.bounds.applying(.init(scaleX: sender.scale, y: sender.scale)) else { return }
@@ -80,34 +60,25 @@ class DrawingView: UIView {
             sender.scale = 1.0
         }
     }
-
-    @objc private func rotateShape(_ sender: UIRotationGestureRecognizer) {
+    
+    @objc func panPiece(_ gestureRecognizer: UIPanGestureRecognizer) {
+        let piece = gestureRecognizer.view
         
-       var originalRotation = CGFloat()
-        if sender.state == .began || sender.state == .changed {
-            print("sender.rotation: \(sender.rotation)")
-            // sender.rotation renews everytime the rotation starts
-            // delta value but not absolute value
-            sender.rotation = lastRotation
-            
-            // the last rotation is the relative rotation value when rotation stopped last time,
-            // which indicates the current rotation
-            originalRotation = sender.rotation
-                        
-            let newRotation = sender.rotation + originalRotation
-            print(newRotation)
-            print(sender.rotation, "123")
-            
-            selectedView?.transform = selectedView!.transform.rotated(by: sender.rotation)
-//            selectedView?.transform = .init(rotationAngle: sender.rotation)
-            
-            lastRotation = sender.rotation
-            sender.rotation = 0
-            
-            
-        } else if sender.state == .ended {
-            // Save the last rotation
-            lastRotation = sender.rotation
+        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+            let translation = gestureRecognizer.translation(in: piece?.superview)
+    
+            piece?.center = CGPoint(x: (piece?.center.x ?? 0.0) + (translation.x ), y: (piece?.center.y ?? 0.0) + (translation.y ))
+            gestureRecognizer.setTranslation(CGPoint.zero, in: piece?.superview)
+        }
+    }
+    
+    @objc func rotatePiece(_ gestureRecognizer: UIRotationGestureRecognizer) {
+    
+        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+            if let transform = gestureRecognizer.view?.transform.rotated(by: gestureRecognizer.rotation ) {
+                gestureRecognizer.view?.transform = transform
+            }
+            gestureRecognizer.rotation = 0
         }
     }
     
