@@ -12,12 +12,18 @@ import Macaw
 class DrawingView: UIView {
     
     var isDragging: Bool = false
+
+
+
+    var rotateGesture = UIRotationGestureRecognizer()
+
     
     var previousView: UIView?
     var selectedView: UIView?
     
     var lastRotation: CGFloat = 0
     
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let position = touches.first?.location(in: self) else { return }
@@ -47,6 +53,7 @@ class DrawingView: UIView {
         
         let myObjects = ["drawingView": self, "selectedView": selectedView]
         
+
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: Notification.Name.sendViews , object: myObjects)
         }
@@ -63,6 +70,11 @@ class DrawingView: UIView {
     
     @objc func panPiece(_ gestureRecognizer: UIPanGestureRecognizer) {
         let piece = gestureRecognizer.view
+
+        // in previous version
+        // guard let selectedView = selectedView as? MacawView else { return }
+//        print(selectedView.node)
+
         
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             let translation = gestureRecognizer.translation(in: piece?.superview)
