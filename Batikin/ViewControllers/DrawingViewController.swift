@@ -21,26 +21,54 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
+
         
     @IBOutlet weak var hueSlider: GradientSlider!
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
+
     
     let shapeModel = ShapeModel()
-        
+    let toolView = UIView()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSelected(notification:)), name: Notification.Name.init("tes"), object: nil)
+        
         
         setupNavigationBar()
         setupSegmentedControl()
         setupScrollView()
-                
+        hidingContent()
         collectionView.delegate = self
         collectionView.dataSource = self
         
         // Default Slider Values
         saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+
+    }
+    func move(view: UIView){
+        view.center.y -= 300
+    }
+    func moveBack(view: UIView){
+        view.center.y += 300
+    }
+    @objc func handleSelected(notification:Notification){
+        
+        guard let selectedView = notification.object as? MacawView else { return }
+        
+        if selectedView != drawingView {
+            moveBack(view:toolView)
+            toolView.isHidden = false
+            let duration: Double = 1
+            UIView.animate(withDuration: duration){
+                self.move(view: self.toolView)
+            }
+            
+        }
+        
+        drawingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapDrawingView(_:))))
     }
     
     private func setupScrollView() {
@@ -149,6 +177,8 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(bounds.w)/2  , y: drawingView.bounds.midY - CGFloat(bounds.h)/2)
         view.backgroundColor = .clear
         
+        
+        
         self.drawingView.addSubview(view)
         updateStroke(node: node)
     }
@@ -166,10 +196,128 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
+    // MARK: Content Hiding
+    private func hidingContent(){
+        
+        //        let stackLabel = UIStackView()
+        toolView.backgroundColor = .white
+        bottomContainer.addSubview(toolView)
+        toolView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolView.topAnchor.constraint(equalTo: bottomContainer.topAnchor),
+            toolView.centerXAnchor.constraint(equalTo: bottomContainer.centerXAnchor),
+            toolView.widthAnchor.constraint(equalTo: bottomContainer.widthAnchor),
+            toolView.heightAnchor.constraint(equalTo: bottomContainer.heightAnchor)
+        ])
+        toolView.isHidden = true
+        let btnTool1 = UIButton()
+        let buttonStackView = UIStackView()
+        btnTool1.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
+        btnTool1.translatesAutoresizingMaskIntoConstraints = false
+        
+        let btnTool2 = UIButton()
+        btnTool2.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
+        btnTool2.translatesAutoresizingMaskIntoConstraints = false
+        
+        let btnTool3 = UIButton()
+        btnTool3.setBackgroundImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
+        btnTool3.translatesAutoresizingMaskIntoConstraints = false
+        
+        let btnTool4 = UIButton()
+        btnTool4.setBackgroundImage(UIImage(systemName: "trash"), for: .normal)
+        btnTool4.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        
+        buttonStackView.alignment = .fill
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 64.0
+        
+        buttonStackView.addArrangedSubview(btnTool1)
+        buttonStackView.addArrangedSubview(btnTool2)
+        buttonStackView.addArrangedSubview(btnTool3)
+        buttonStackView.addArrangedSubview(btnTool4)
+        
+        toolView.addSubview(buttonStackView)
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            buttonStackView.topAnchor.constraint(equalTo: bottomContainer.topAnchor , constant: 50),
+            buttonStackView.rightAnchor.constraint(equalTo: bottomContainer.rightAnchor , constant: -20),
+            buttonStackView.leftAnchor.constraint(equalTo: bottomContainer.leftAnchor, constant: 20),
+            buttonStackView.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor,constant: -80),
+            
+        ])
+        //
+        //        let label1 = UILabel()
+        //        label1.text = "Color"
+        //        label1.textColor = UIColor.black
+        //        label1.font = UIFont(name: "Helvetica-Regular", size: 30.0)
+        //        label1.translatesAutoresizingMaskIntoConstraints = false
+        //
+        //        let label2 = UILabel()
+        //        label2.text = "Mirror"
+        //        label2.textColor = UIColor.black
+        //        label2.font = UIFont(name: "Helvetica-Regular", size: 30.0)
+        //        label2.translatesAutoresizingMaskIntoConstraints = false
+        //
+        //        let label3 = UILabel()
+        //        label3.text = "Copy"
+        //        label3.textColor = UIColor.black
+        //        label3.font = UIFont(name: "Helvetica-Regular", size: 30.0)
+        //        label3.translatesAutoresizingMaskIntoConstraints = false
+        //
+        //        let label4 = UILabel()
+        //        label4.text = "Delate"
+        //        label4.textColor = UIColor.black
+        //        label4.font = UIFont(name: "Helvetica-Regular", size: 30.0)
+        //        label4.translatesAutoresizingMaskIntoConstraints = false
+        //
+        //
+        //        stackLabel.alignment = .fill
+        //        stackLabel.distribution = .fillEqually
+        //        stackLabel.spacing = 0
+        //        stackLabel.addArrangedSubview(label1)
+        //        stackLabel.addArrangedSubview(label2)
+        //        stackLabel.addArrangedSubview(label3)
+        //        stackLabel.addArrangedSubview(label4)
+        //        bottomContainer.addSubview(stackLabel)
+        //        stackLabel.translatesAutoresizingMaskIntoConstraints = false
+        //        NSLayoutConstraint.activate([
+        //        stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor , constant: 60),
+        //        stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 45),
+        //        stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor),
+        //        stackLabel.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor,constant: -30),
+        //
+        //        ])
+        
+        
+    }
+    
+    @objc func tapDrawingView(_ gestureRecognizer:UITapGestureRecognizer){
+        let duration: Double = 1
+        
+        moveBack(view: toolView)
+        UIView.animate(withDuration: duration){
+            self.move(view: self.toolView)
+            self.toolView.isHidden = true
+        }
+        
+        
+        
+        
+        moveBack(view: bottomContainer)
+        UIView.animate(withDuration: duration){
+            self.move(view: self.bottomContainer)
+        }
+    }
+    
 }
+
 
 // MARK: DrawingScreen Logic
 extension DrawingViewController: UIScrollViewDelegate {
+    
     
     func updateMinZoomScaleForSize(_ size:CGSize) {
         let widthScale = size.width / drawingView.bounds.width
@@ -201,8 +349,7 @@ extension DrawingViewController: UIScrollViewDelegate {
         
         drawingViewTopConstraint.constant = yOffset
         drawingViewBottomConstraint.constant = yOffset
-        
-        let xOffset = max(0, (size.width - drawingView.frame.width)/4.5)
+                let xOffset = max(0, (size.width - drawingView.frame.width)/4.5)
         drawingViewLeadingConstraint.constant = xOffset
         drawingViewTrailingConstraint.constant = xOffset
         view.layoutIfNeeded()
@@ -211,12 +358,15 @@ extension DrawingViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return drawingView
     }
-        
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
         if selectedView != drawingView && selectedView != nil {
             self.scrollView.isScrollEnabled = false
         }
         self.scrollView.isScrollEnabled = true
     }
-
+    
+    
 }
+
