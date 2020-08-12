@@ -9,21 +9,31 @@
 import UIKit
 import Macaw
 
+
+
+
 class DrawingView: UIView {
     
     var isDragging: Bool = false
+
+    var rotateGesture = UIRotationGestureRecognizer()
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let position = touches.first?.location(in: self) else { return }
-
+        
+        
         selectedView = self.hitTest(position, with: nil)
+        
+        NotificationCenter.default.post(name: Notification.Name.init("tes") , object: selectedView)
+        
         
         if selectedView != nil && selectedView != self {
             isDragging = true
         }
     }
-    
+  
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let position = touches.first?.location(in: self) else { return }
