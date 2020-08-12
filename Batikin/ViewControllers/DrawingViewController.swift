@@ -22,21 +22,15 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
 
-
-        
-    @IBOutlet weak var sliderView: UIView!
-
     @IBOutlet weak var hueSlider: GradientSlider!
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
-
 
     let shapeModel = ShapeModel()
     let toolView = UIView()
     
     var selectedView: MacawView?
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,12 +44,9 @@ class DrawingViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-
-        sliderView.isHidden = true
         // Default Slider Values
         saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-
     }
     
     @objc func handleSelected(notification: Notification) {
@@ -78,9 +69,6 @@ class DrawingViewController: UIViewController {
             }
         }
         
-      // previous version
-      // drawingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapDrawingView(_:))))
-
     }
     
     private func setupScrollView() {
@@ -118,10 +106,6 @@ class DrawingViewController: UIViewController {
         
         // Update selected motif element color
         guard let selectedView = selectedView else { return }
-      
-        // previous version
-        // guard let selectedView = selectedView as? MacawView else { return }
-      
         updateStroke(node: selectedView.node)
     }
 }
@@ -201,6 +185,7 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     // MARK: Content Hiding
     private func setupToolBox() {
         
+        let stackLabel = UIStackView()
         toolView.backgroundColor = UIColor.systemBackground
         bottomContainer.addSubview(toolView)
         toolView.translatesAutoresizingMaskIntoConstraints = false
@@ -213,9 +198,9 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         ])
         
         let btnTool1 = UIButton()
+        let buttonStackView = UIStackView()
         btnTool1.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
         btnTool1.translatesAutoresizingMaskIntoConstraints = false
-        btnTool1.addTarget(self, action: #selector(colorButton), for: .touchUpInside)
         
         let btnTool2 = UIButton()
         btnTool2.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
@@ -229,10 +214,6 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         btnTool4.setBackgroundImage(UIImage(systemName: "trash"), for: .normal)
         btnTool4.translatesAutoresizingMaskIntoConstraints = false
         
-
-        
-        let buttonStackView = UIStackView()
-
         buttonStackView.alignment = .fill
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 64.0
@@ -294,36 +275,6 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         ])
     }
 
-    @objc func colorButton() {
-        sliderView.isHidden = false
-    }
-    
-    
-    @objc func tapDrawingView(_ gestureRecognizer:UITapGestureRecognizer){
-        // Forces return to Tool View after Slider View
-        if self.sliderView.isHidden == false {
-            self.sliderView.isHidden = true
-        } else {
-            self.toolView.isHidden = true
-        }
-        
-        let duration: Double = 0.7
-        
-        moveBack(view: toolView)
-        UIView.animate(withDuration: duration){
-            self.move(view: self.toolView)
-//            self.toolView.isHidden = true
-        }
-        
-        
-        
-        
-        moveBack(view: bottomContainer)
-        UIView.animate(withDuration: duration){
-            self.move(view: self.bottomContainer)
-        }
-    }
-    
 }
 
 
@@ -365,7 +316,6 @@ extension DrawingViewController: UIScrollViewDelegate {
         drawingViewTrailingConstraint.constant = xOffset
         view.layoutIfNeeded()
     }
-    
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return drawingView
