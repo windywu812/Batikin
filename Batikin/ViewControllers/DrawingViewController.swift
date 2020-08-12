@@ -237,31 +237,31 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         let label1 = UILabel()
         label1.text = "Color"
         label1.textColor = UIColor.label
-        label1.font = UIFont.systemFont(ofSize:17.0)
+        label1.font = UIFont.systemFont(ofSize:14.0)
         label1.translatesAutoresizingMaskIntoConstraints = false
         
         let label2 = UILabel()
         label2.text = "Mirror"
         label2.textColor = UIColor.label
-        label2.font = UIFont.systemFont(ofSize:17.0)
+        label2.font = UIFont.systemFont(ofSize:14.0)
         label2.translatesAutoresizingMaskIntoConstraints = false
         
         let label3 = UILabel()
         label3.text = "Copy"
         label3.textColor = UIColor.label
-        label3.font = UIFont.systemFont(ofSize:17.0)
+        label3.font = UIFont.systemFont(ofSize:14.0)
         label3.translatesAutoresizingMaskIntoConstraints = false
         
         let label4 = UILabel()
         label4.text = "Delete"
         label4.textColor = UIColor.label
-        label4.font = UIFont.systemFont(ofSize:17.0)
+        label4.font = UIFont.systemFont(ofSize:14.0)
         label4.translatesAutoresizingMaskIntoConstraints = false
         
         
         stackLabel.alignment = .fill
         stackLabel.distribution = .fillEqually
-        //                stackLabel.spacing = 55.0
+        stackLabel.spacing = 63.0
         stackLabel.addArrangedSubview(label1)
         stackLabel.addArrangedSubview(label2)
         stackLabel.addArrangedSubview(label3)
@@ -270,8 +270,8 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         stackLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
-            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 68),
-            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor),
+            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 4),
+            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor,constant: 5),
             stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
         ])
         
