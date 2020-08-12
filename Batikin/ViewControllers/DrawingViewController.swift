@@ -21,6 +21,12 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
+
+        
+    @IBOutlet weak var hueSlider: GradientSlider!
+    @IBOutlet weak var saturationSlider: GradientSlider!
+    @IBOutlet weak var brightnessSlider: GradientSlider!
+
     
     let shapeModel = ShapeModel()
     let toolView = UIView()
@@ -37,6 +43,10 @@ class DrawingViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        // Default Slider Values
+        saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+
     }
     func move(view: UIView){
         view.center.y -= 300
@@ -59,9 +69,6 @@ class DrawingViewController: UIViewController {
         }
         
         drawingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapDrawingView(_:))))
-        
-        
-        
     }
     
     private func setupScrollView() {
@@ -102,6 +109,17 @@ class DrawingViewController: UIViewController {
     
     @IBAction func handleSegmentedControl(_ sender: UISegmentedControl) {
         collectionView.reloadData()
+    }
+    
+    
+    @IBAction func colorSlider(_ sender: GradientSlider) {
+        // Update color slider saturation and brightness to match current hue
+        saturationSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        brightnessSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        
+        // Update selected motif element color
+        guard let selectedView = selectedView as? MacawView else { return }
+        updateStroke(node: selectedView.node)
     }
 }
 
@@ -166,16 +184,13 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func updateStroke(node: Node) {
+        
         if let shape = node as? Shape {
-            var r = [Int]()
-            var g = [Int]()
-            var b = [Int]()
-            for i in 0...255 {
-                r.append(i)
-                g.append(i)
-                b.append(i)
-            }
-            shape.fill = Color.rgb(r: r.randomElement()!, g: g.randomElement()!, b: b.randomElement()!)
+            let colorConvertor = ColorConvertor()
+            
+            let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
+            
+            shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
         } else if let group = node as? Group {
             group.contents.forEach(updateStroke(node:))
         }

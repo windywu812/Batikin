@@ -67,6 +67,89 @@
                                     <outlet property="delegate" destination="cQy-b8-x9V" id="oa6-hY-ebA"/>
                                 </connections>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3S-lO-XCV">
+                                <rect key="frame" x="0.0" y="88" width="414" height="150"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="gPk-81-Lh0">
+                                        <rect key="frame" x="10" y="0.0" width="394" height="150"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gA-ta-PLR" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
+                                                <rect key="frame" x="-2" y="-4" width="398" height="56.5"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="minColor">
+                                                        <color key="value" red="0.15294117647058825" green="0.90980392156862744" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="thickness">
+                                                        <integer key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorSlider:" destination="cQy-b8-x9V" eventType="valueChanged" id="2Qo-i8-k1i"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YhT-66-rix" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
+                                                <rect key="frame" x="-2" y="46.5" width="398" height="57"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="minColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="thickness">
+                                                        <integer key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorSlider:" destination="cQy-b8-x9V" eventType="valueChanged" id="wgm-Ne-Ga7"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o42-0B-IV8" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
+                                                <rect key="frame" x="-2" y="97.5" width="398" height="56.5"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="minColor">
+                                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="thickness">
+                                                        <integer key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="colorSlider:" destination="cQy-b8-x9V" eventType="valueChanged" id="fog-Kr-6GB"/>
+                                                </connections>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="YhT-66-rix" firstAttribute="leading" secondItem="gPk-81-Lh0" secondAttribute="leading" id="5zh-Lt-61O"/>
+                                            <constraint firstAttribute="trailing" secondItem="YhT-66-rix" secondAttribute="trailing" id="Wq3-aQ-Xb6"/>
+                                            <constraint firstAttribute="trailing" secondItem="o42-0B-IV8" secondAttribute="trailing" id="dvo-Tp-Y3H"/>
+                                            <constraint firstAttribute="trailing" secondItem="5gA-ta-PLR" secondAttribute="trailing" id="iyw-Wi-emP"/>
+                                            <constraint firstItem="5gA-ta-PLR" firstAttribute="leading" secondItem="gPk-81-Lh0" secondAttribute="leading" id="rmV-dq-WBJ"/>
+                                            <constraint firstItem="o42-0B-IV8" firstAttribute="leading" secondItem="gPk-81-Lh0" secondAttribute="leading" id="zRP-oZ-sQS"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="gPk-81-Lh0" secondAttribute="bottom" id="12b-ZA-jUR"/>
+                                    <constraint firstItem="gPk-81-Lh0" firstAttribute="leading" secondItem="L3S-lO-XCV" secondAttribute="leading" constant="10" id="AwU-xi-fOC"/>
+                                    <constraint firstItem="gPk-81-Lh0" firstAttribute="top" secondItem="L3S-lO-XCV" secondAttribute="top" id="NDK-SL-dWq"/>
+                                    <constraint firstAttribute="height" constant="150" id="TgM-qm-dKg"/>
+                                    <constraint firstAttribute="trailing" secondItem="gPk-81-Lh0" secondAttribute="trailing" constant="10" id="kZZ-Xi-w9X"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXw-pZ-X4T">
                                 <rect key="frame" x="0.0" y="723" width="414" height="173"/>
                                 <subviews>
@@ -144,11 +227,14 @@
                         </subviews>
                         <color key="backgroundColor" name="backgroundGray"/>
                         <constraints>
+                            <constraint firstItem="L3S-lO-XCV" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="1pu-va-JuN"/>
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="trailing" secondItem="vRe-Hu-78o" secondAttribute="trailing" id="BOZ-QE-VIT"/>
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="top" secondItem="EF2-45-XbA" secondAttribute="bottom" id="D59-vZ-4Xf"/>
                             <constraint firstItem="EF2-45-XbA" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="XnU-ZH-nff"/>
                             <constraint firstItem="EF2-45-XbA" firstAttribute="top" secondItem="vRe-Hu-78o" secondAttribute="top" id="Z3f-pa-pPe"/>
+                            <constraint firstItem="vRe-Hu-78o" firstAttribute="trailing" secondItem="L3S-lO-XCV" secondAttribute="trailing" id="eGB-H9-BON"/>
                             <constraint firstItem="EF2-45-XbA" firstAttribute="trailing" secondItem="vRe-Hu-78o" secondAttribute="trailing" id="h9J-aZ-cPu"/>
+                            <constraint firstItem="L3S-lO-XCV" firstAttribute="top" secondItem="vRe-Hu-78o" secondAttribute="top" id="m2l-9v-d0e"/>
                             <constraint firstAttribute="bottom" secondItem="zXw-pZ-X4T" secondAttribute="bottom" id="p7Q-kB-xIU"/>
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="vrm-YN-1mQ"/>
                         </constraints>
@@ -157,12 +243,15 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Tkb-t5-YZk"/>
                     <connections>
                         <outlet property="bottomContainer" destination="zXw-pZ-X4T" id="EI0-Id-EUx"/>
+                        <outlet property="brightnessSlider" destination="o42-0B-IV8" id="G16-Vo-fHT"/>
                         <outlet property="collectionView" destination="Mb4-z6-yJY" id="cSk-1C-b6M"/>
                         <outlet property="drawingView" destination="157-U8-33m" id="z3j-vl-0JN"/>
                         <outlet property="drawingViewBottomConstraint" destination="ghS-9U-gF7" id="Mlf-eP-gwq"/>
                         <outlet property="drawingViewLeadingConstraint" destination="uB8-MP-caN" id="aoV-KE-W2c"/>
                         <outlet property="drawingViewTopConstraint" destination="t5u-NF-q6u" id="rjJ-Kn-GXA"/>
                         <outlet property="drawingViewTrailingConstraint" destination="Dof-ah-D9b" id="6dE-Hq-Wfl"/>
+                        <outlet property="hueSlider" destination="5gA-ta-PLR" id="JR3-JW-GH2"/>
+                        <outlet property="saturationSlider" destination="YhT-66-rix" id="Cyi-H6-g7e"/>
                         <outlet property="scrollView" destination="EF2-45-XbA" id="HCW-CD-fhH"/>
                         <outlet property="shapeSegmentedControl" destination="frI-oQ-Re2" id="zI3-KW-j3E"/>
                     </connections>

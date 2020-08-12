@@ -16,9 +16,11 @@ class DrawingView: UIView {
     
     var isDragging: Bool = false
 
+
     var rotateGesture = UIRotationGestureRecognizer()
     
     
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let position = touches.first?.location(in: self) else { return }
@@ -39,6 +41,7 @@ class DrawingView: UIView {
         guard let position = touches.first?.location(in: self) else { return }
         
         guard let selectedView = selectedView as? MacawView else { return }
+//        print(selectedView.node)
         
         if isDragging {
             if !self.bounds.contains(position) {
