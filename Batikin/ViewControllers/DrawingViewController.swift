@@ -202,7 +202,6 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     // MARK: Content Hiding
     private func hidingContent(){
         
-        let stackLabel = UIStackView()
         toolView.backgroundColor = UIColor.systemBackground
         bottomContainer.addSubview(toolView)
         toolView.translatesAutoresizingMaskIntoConstraints = false
@@ -278,7 +277,8 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
 //        label4.font = UIFont.systemFont(ofSize:17.0)
 //        label4.translatesAutoresizingMaskIntoConstraints = false
 //
-//
+//        
+//        let stackLabel = UIStackView()
 //        stackLabel.alignment = .fill
 //        stackLabel.distribution = .fillEqually
 //        //                stackLabel.spacing = 55.0
@@ -297,34 +297,26 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
 //
         
     }
-    /**
-     * TODO:
-     * [✅] UIButton; btnTool1 link to IBAction
-     * [✅] hide color view by default
-     * [✅] show color view upon button click
-     * [✅] hide color view when click other area
-     * [] return to toolbar after click other area
-     */
 
     @objc func colorButton() {
-        print("button pressed")
         sliderView.isHidden = false
     }
     
     
     @objc func tapDrawingView(_ gestureRecognizer:UITapGestureRecognizer){
-//        self.sliderView.isHidden = true
-//        if self.sliderView.isHidden == true && self.toolView.isHidden == false {
-//            self.toolView.isHidden = true
-//        }
+        // Forces return to Tool View after Slider View
+        if self.sliderView.isHidden == false {
+            self.sliderView.isHidden = true
+        } else {
+            self.toolView.isHidden = true
+        }
         
         let duration: Double = 0.7
         
         moveBack(view: toolView)
         UIView.animate(withDuration: duration){
             self.move(view: self.toolView)
-            self.toolView.isHidden = true
-            self.sliderView.isHidden = true
+//            self.toolView.isHidden = true
         }
         
         
