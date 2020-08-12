@@ -317,6 +317,7 @@ extension DrawingViewController: UIScrollViewDelegate {
         view.layoutIfNeeded()
     }
     
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return drawingView
     }
