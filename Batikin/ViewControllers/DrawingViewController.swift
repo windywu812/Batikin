@@ -51,7 +51,7 @@ class DrawingViewController: UIViewController {
         if selectedView != drawingView {
             moveBack(view:toolView)
             toolView.isHidden = false
-            let duration: Double = 1
+            let duration: Double = 0.7
             UIView.animate(withDuration: duration){
                 self.move(view: self.toolView)
             }
@@ -184,8 +184,8 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     // MARK: Content Hiding
     private func hidingContent(){
         
-        //        let stackLabel = UIStackView()
-        toolView.backgroundColor = .white
+        let stackLabel = UIStackView()
+        toolView.backgroundColor = UIColor.systemBackground
         bottomContainer.addSubview(toolView)
         toolView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -233,54 +233,53 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
             buttonStackView.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor,constant: -80),
             
         ])
-        //
-        //        let label1 = UILabel()
-        //        label1.text = "Color"
-        //        label1.textColor = UIColor.black
-        //        label1.font = UIFont(name: "Helvetica-Regular", size: 30.0)
-        //        label1.translatesAutoresizingMaskIntoConstraints = false
-        //
-        //        let label2 = UILabel()
-        //        label2.text = "Mirror"
-        //        label2.textColor = UIColor.black
-        //        label2.font = UIFont(name: "Helvetica-Regular", size: 30.0)
-        //        label2.translatesAutoresizingMaskIntoConstraints = false
-        //
-        //        let label3 = UILabel()
-        //        label3.text = "Copy"
-        //        label3.textColor = UIColor.black
-        //        label3.font = UIFont(name: "Helvetica-Regular", size: 30.0)
-        //        label3.translatesAutoresizingMaskIntoConstraints = false
-        //
-        //        let label4 = UILabel()
-        //        label4.text = "Delate"
-        //        label4.textColor = UIColor.black
-        //        label4.font = UIFont(name: "Helvetica-Regular", size: 30.0)
-        //        label4.translatesAutoresizingMaskIntoConstraints = false
-        //
-        //
-        //        stackLabel.alignment = .fill
-        //        stackLabel.distribution = .fillEqually
-        //        stackLabel.spacing = 0
-        //        stackLabel.addArrangedSubview(label1)
-        //        stackLabel.addArrangedSubview(label2)
-        //        stackLabel.addArrangedSubview(label3)
-        //        stackLabel.addArrangedSubview(label4)
-        //        bottomContainer.addSubview(stackLabel)
-        //        stackLabel.translatesAutoresizingMaskIntoConstraints = false
-        //        NSLayoutConstraint.activate([
-        //        stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor , constant: 60),
-        //        stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 45),
-        //        stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor),
-        //        stackLabel.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor,constant: -30),
-        //
-        //        ])
+        
+        let label1 = UILabel()
+        label1.text = "Color"
+        label1.textColor = UIColor.label
+        label1.font = UIFont.systemFont(ofSize:17.0)
+        label1.translatesAutoresizingMaskIntoConstraints = false
+        
+        let label2 = UILabel()
+        label2.text = "Mirror"
+        label2.textColor = UIColor.label
+        label2.font = UIFont.systemFont(ofSize:17.0)
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        
+        let label3 = UILabel()
+        label3.text = "Copy"
+        label3.textColor = UIColor.label
+        label3.font = UIFont.systemFont(ofSize:17.0)
+        label3.translatesAutoresizingMaskIntoConstraints = false
+        
+        let label4 = UILabel()
+        label4.text = "Delete"
+        label4.textColor = UIColor.label
+        label4.font = UIFont.systemFont(ofSize:17.0)
+        label4.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        stackLabel.alignment = .fill
+        stackLabel.distribution = .fillEqually
+        //                stackLabel.spacing = 55.0
+        stackLabel.addArrangedSubview(label1)
+        stackLabel.addArrangedSubview(label2)
+        stackLabel.addArrangedSubview(label3)
+        stackLabel.addArrangedSubview(label4)
+        buttonStackView.addSubview(stackLabel)
+        stackLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
+            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 68),
+            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor),
+            stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
+        ])
         
         
     }
     
     @objc func tapDrawingView(_ gestureRecognizer:UITapGestureRecognizer){
-        let duration: Double = 1
+        let duration: Double = 0.7
         
         moveBack(view: toolView)
         UIView.animate(withDuration: duration){
@@ -334,7 +333,7 @@ extension DrawingViewController: UIScrollViewDelegate {
         
         drawingViewTopConstraint.constant = yOffset
         drawingViewBottomConstraint.constant = yOffset
-                let xOffset = max(0, (size.width - drawingView.frame.width)/4.5)
+        let xOffset = max(0, (size.width - drawingView.frame.width)/4.5)
         drawingViewLeadingConstraint.constant = xOffset
         drawingViewTrailingConstraint.constant = xOffset
         view.layoutIfNeeded()
