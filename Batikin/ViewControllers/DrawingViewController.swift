@@ -23,6 +23,7 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
 
         
+    @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var hueSlider: GradientSlider!
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
@@ -30,6 +31,7 @@ class DrawingViewController: UIViewController {
     
     let shapeModel = ShapeModel()
     let toolView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +45,7 @@ class DrawingViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        sliderView.isHidden = true
         // Default Slider Values
         saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
@@ -211,9 +214,9 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         ])
         toolView.isHidden = true
         let btnTool1 = UIButton()
-        let buttonStackView = UIStackView()
         btnTool1.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
         btnTool1.translatesAutoresizingMaskIntoConstraints = false
+        btnTool1.addTarget(self, action: #selector(colorButton), for: .touchUpInside)
         
         let btnTool2 = UIButton()
         btnTool2.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
@@ -228,7 +231,7 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         btnTool4.translatesAutoresizingMaskIntoConstraints = false
         
         
-        
+        let buttonStackView = UIStackView()
         buttonStackView.alignment = .fill
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 64.0
@@ -249,57 +252,79 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         ])
         
-        let label1 = UILabel()
-        label1.text = "Color"
-        label1.textColor = UIColor.label
-        label1.font = UIFont.systemFont(ofSize:17.0)
-        label1.translatesAutoresizingMaskIntoConstraints = false
+//FIXME: Uncomment the label below and line 227 stop working
         
-        let label2 = UILabel()
-        label2.text = "Mirror"
-        label2.textColor = UIColor.label
-        label2.font = UIFont.systemFont(ofSize:17.0)
-        label2.translatesAutoresizingMaskIntoConstraints = false
-        
-        let label3 = UILabel()
-        label3.text = "Copy"
-        label3.textColor = UIColor.label
-        label3.font = UIFont.systemFont(ofSize:17.0)
-        label3.translatesAutoresizingMaskIntoConstraints = false
-        
-        let label4 = UILabel()
-        label4.text = "Delete"
-        label4.textColor = UIColor.label
-        label4.font = UIFont.systemFont(ofSize:17.0)
-        label4.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        stackLabel.alignment = .fill
-        stackLabel.distribution = .fillEqually
-        //                stackLabel.spacing = 55.0
-        stackLabel.addArrangedSubview(label1)
-        stackLabel.addArrangedSubview(label2)
-        stackLabel.addArrangedSubview(label3)
-        stackLabel.addArrangedSubview(label4)
-        buttonStackView.addSubview(stackLabel)
-        stackLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
-            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 68),
-            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor),
-            stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
-        ])
-        
+//        let label1 = UILabel()
+//        label1.text = "Color"
+//        label1.textColor = UIColor.label
+//        label1.font = UIFont.systemFont(ofSize:17.0)
+//        label1.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let label2 = UILabel()
+//        label2.text = "Mirror"
+//        label2.textColor = UIColor.label
+//        label2.font = UIFont.systemFont(ofSize:17.0)
+//        label2.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let label3 = UILabel()
+//        label3.text = "Copy"
+//        label3.textColor = UIColor.label
+//        label3.font = UIFont.systemFont(ofSize:17.0)
+//        label3.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let label4 = UILabel()
+//        label4.text = "Delete"
+//        label4.textColor = UIColor.label
+//        label4.font = UIFont.systemFont(ofSize:17.0)
+//        label4.translatesAutoresizingMaskIntoConstraints = false
+//
+//
+//        stackLabel.alignment = .fill
+//        stackLabel.distribution = .fillEqually
+//        //                stackLabel.spacing = 55.0
+//        stackLabel.addArrangedSubview(label1)
+//        stackLabel.addArrangedSubview(label2)
+//        stackLabel.addArrangedSubview(label3)
+//        stackLabel.addArrangedSubview(label4)
+//        buttonStackView.addSubview(stackLabel)
+//        stackLabel.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
+//            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 68),
+//            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor),
+//            stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
+//        ])
+//
         
     }
+    /**
+     * TODO:
+     * [✅] UIButton; btnTool1 link to IBAction
+     * [✅] hide color view by default
+     * [✅] show color view upon button click
+     * [✅] hide color view when click other area
+     * [] return to toolbar after click other area
+     */
+
+    @objc func colorButton() {
+        print("button pressed")
+        sliderView.isHidden = false
+    }
+    
     
     @objc func tapDrawingView(_ gestureRecognizer:UITapGestureRecognizer){
+//        self.sliderView.isHidden = true
+//        if self.sliderView.isHidden == true && self.toolView.isHidden == false {
+//            self.toolView.isHidden = true
+//        }
+        
         let duration: Double = 0.7
         
         moveBack(view: toolView)
         UIView.animate(withDuration: duration){
             self.move(view: self.toolView)
             self.toolView.isHidden = true
+            self.sliderView.isHidden = true
         }
         
         
