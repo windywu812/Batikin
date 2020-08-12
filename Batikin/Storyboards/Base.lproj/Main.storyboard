@@ -44,7 +44,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EF2-45-XbA">
-                                <rect key="frame" x="0.0" y="88" width="414" height="635"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="615"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="157-U8-33m" customClass="DrawingView" customModule="Batikin" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -317,7 +317,7 @@
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="top" secondItem="EF2-45-XbA" secondAttribute="bottom" id="D59-vZ-4Xf"/>
                             <constraint firstItem="vRe-Hu-78o" firstAttribute="bottom" secondItem="L3S-lO-XCV" secondAttribute="bottom" id="JIy-TV-Lvy"/>
                             <constraint firstItem="EF2-45-XbA" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="XnU-ZH-nff"/>
-                            <constraint firstItem="EF2-45-XbA" firstAttribute="top" secondItem="vRe-Hu-78o" secondAttribute="top" id="Z3f-pa-pPe"/>
+                            <constraint firstItem="EF2-45-XbA" firstAttribute="top" secondItem="vRe-Hu-78o" secondAttribute="top" constant="20" id="Z3f-pa-pPe"/>
                             <constraint firstItem="vRe-Hu-78o" firstAttribute="trailing" secondItem="L3S-lO-XCV" secondAttribute="trailing" id="eGB-H9-BON"/>
                             <constraint firstItem="EF2-45-XbA" firstAttribute="trailing" secondItem="vRe-Hu-78o" secondAttribute="trailing" id="h9J-aZ-cPu"/>
                             <constraint firstItem="L3S-lO-XCV" firstAttribute="top" secondItem="vRe-Hu-78o" secondAttribute="top" id="m2l-9v-d0e"/>
