@@ -15,7 +15,7 @@ import Macaw
 class DrawingView: UIView {
     
     var isDragging: Bool = false
-
+    var previousView:UIView?
     var rotateGesture = UIRotationGestureRecognizer()
     
     
@@ -23,7 +23,7 @@ class DrawingView: UIView {
         
         guard let position = touches.first?.location(in: self) else { return }
         
-        
+        previousView?.layer.borderColor = UIColor.clear.cgColor
         selectedView = self.hitTest(position, with: nil)
         
         NotificationCenter.default.post(name: Notification.Name.init("tes") , object: selectedView)
@@ -32,6 +32,11 @@ class DrawingView: UIView {
         if selectedView != nil && selectedView != self {
             isDragging = true
         }
+        if selectedView != self {
+            selectedView?.layer.borderColor = UIColor(named: CustomColor.tintColor.rawValue)?.cgColor
+            selectedView?.layer.borderWidth = 3
+        }
+        previousView = selectedView
     }
   
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

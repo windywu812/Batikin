@@ -91,9 +91,9 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constant.headerCell, for: indexPath) as? MyHeaderCell else { return UICollectionReusableView() }
         if indexPath.section == 0 {
-            header.title.text = "Favorite"
+            header.title.text = NSLocalizedString("Recently",comment: "")
         } else {
-            header.title.text = "Recently"
+            header.title.text = NSLocalizedString("Favorite",comment: "")
         }
         return header
     }
