@@ -38,7 +38,7 @@
         <!--Drawing View Controller-->
         <scene sceneID="WaX-UD-a4D">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="cQy-b8-x9V" customClass="DrawingViewController" customModule="Batikin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DrawingViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cQy-b8-x9V" customClass="DrawingViewController" customModule="Batikin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i3A-uj-6CA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,7 +67,7 @@
                                     <outlet property="delegate" destination="cQy-b8-x9V" id="oa6-hY-ebA"/>
                                 </connections>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3S-lO-XCV">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3S-lO-XCV">
                                 <rect key="frame" x="0.0" y="88" width="414" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="gPk-81-Lh0">

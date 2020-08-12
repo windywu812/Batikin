@@ -21,6 +21,6 @@ enum CustomColor: String {
     case tintColor = "tintColor"
 }
 
-var selectedView: UIView?
+//var selectedView: UIView?
 
 

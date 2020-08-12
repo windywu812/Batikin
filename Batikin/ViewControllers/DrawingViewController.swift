@@ -22,53 +22,53 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
 
-        
     @IBOutlet weak var hueSlider: GradientSlider!
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
 
-    
     let shapeModel = ShapeModel()
     let toolView = UIView()
+    
+    var selectedView: MacawView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleSelected(notification:)), name: Notification.Name.init("tes"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSelected(notification:)), name: Notification.Name.sendViews, object: nil)
         
         setupNavigationBar()
         setupSegmentedControl()
         setupScrollView()
-        hidingContent()
+        setupToolBox()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
         // Default Slider Values
         saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-
     }
-    func move(view: UIView){
-        view.center.y -= 300
-    }
-    func moveBack(view: UIView){
-        view.center.y += 300
-    }
-    @objc func handleSelected(notification:Notification){
+    
+    @objc func handleSelected(notification: Notification) {
         
-        guard let selectedView = notification.object as? MacawView else { return }
-        
-        if selectedView != drawingView {
-            moveBack(view:toolView)
-            toolView.isHidden = false
-            let duration: Double = 0.7
-            UIView.animate(withDuration: duration){
-                self.move(view: self.toolView)
-            }
-            
+        guard let selectedViews = notification.object as? [String: UIView] else { return }
+                
+        if let selectedView = selectedViews["selectedView"] as? MacawView {
+            self.selectedView = selectedView
         }
         
-        drawingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapDrawingView(_:))))
+        if selectedViews["selectedView"] != drawingView {
+            UIView.animate(withDuration: 0.5) {
+                self.toolView.center.y = 85
+                self.toolView.alpha = 1
+            }
+        } else if selectedViews["drawingView"] == drawingView {
+            UIView.animate(withDuration: 0.5) {
+                self.toolView.alpha = 0
+                self.toolView.center.y = 300
+            }
+        }
+        
     }
     
     private func setupScrollView() {
@@ -83,19 +83,6 @@ class DrawingViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.right.circle"), style: .plain, target: self, action: #selector(handleRedo)),
-            UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.left.circle"), style: .plain, target: self, action: #selector(handleUndo))
-        ]
-    }
-    
-    @objc private func handleRedo() {
-        
-    }
-    
-    @objc private func handleUndo() {
-        
     }
     
     // MARK: Segmented Control
@@ -118,7 +105,7 @@ class DrawingViewController: UIViewController {
         brightnessSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         
         // Update selected motif element color
-        guard let selectedView = selectedView as? MacawView else { return }
+        guard let selectedView = selectedView else { return }
         updateStroke(node: selectedView.node)
     }
 }
@@ -172,12 +159,11 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func handleAddShape(shape: String) {
         guard let node = try? SVGParser.parse(resource: shape) else { return }
-        guard let bounds = node.bounds else { return }
-        let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
-        view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(bounds.w)/2  , y: drawingView.bounds.midY - CGFloat(bounds.h)/2)
+        
+        let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(150), y: drawingView.bounds.midY - CGFloat(150))
         view.backgroundColor = .clear
-        
-        
+        view.contentMode = .scaleAspectFit
         
         self.drawingView.addSubview(view)
         updateStroke(node: node)
@@ -197,19 +183,20 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     // MARK: Content Hiding
-    private func hidingContent(){
+    private func setupToolBox() {
         
         let stackLabel = UIStackView()
         toolView.backgroundColor = UIColor.systemBackground
         bottomContainer.addSubview(toolView)
         toolView.translatesAutoresizingMaskIntoConstraints = false
+        toolView.alpha = 0
         NSLayoutConstraint.activate([
             toolView.topAnchor.constraint(equalTo: bottomContainer.topAnchor),
             toolView.centerXAnchor.constraint(equalTo: bottomContainer.centerXAnchor),
             toolView.widthAnchor.constraint(equalTo: bottomContainer.widthAnchor),
             toolView.heightAnchor.constraint(equalTo: bottomContainer.heightAnchor)
         ])
-        toolView.isHidden = true
+        
         let btnTool1 = UIButton()
         let buttonStackView = UIStackView()
         btnTool1.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
@@ -226,8 +213,6 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         let btnTool4 = UIButton()
         btnTool4.setBackgroundImage(UIImage(systemName: "trash"), for: .normal)
         btnTool4.translatesAutoresizingMaskIntoConstraints = false
-        
-        
         
         buttonStackView.alignment = .fill
         buttonStackView.distribution = .fillEqually
@@ -273,7 +258,6 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         label4.font = UIFont.systemFont(ofSize:14.0)
         label4.translatesAutoresizingMaskIntoConstraints = false
         
-        
         stackLabel.alignment = .fill
         stackLabel.distribution = .fillEqually
         stackLabel.spacing = 63.0
@@ -289,34 +273,13 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
             stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor,constant: 5),
             stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
         ])
-        
-        
     }
-    
-    @objc func tapDrawingView(_ gestureRecognizer:UITapGestureRecognizer){
-        let duration: Double = 0.7
-        
-        moveBack(view: toolView)
-        UIView.animate(withDuration: duration){
-            self.move(view: self.toolView)
-            self.toolView.isHidden = true
-        }
-        
-        
-        
-        
-        moveBack(view: bottomContainer)
-        UIView.animate(withDuration: duration){
-            self.move(view: self.bottomContainer)
-        }
-    }
-    
+
 }
 
 
 // MARK: DrawingScreen Logic
 extension DrawingViewController: UIScrollViewDelegate {
-    
     
     func updateMinZoomScaleForSize(_ size:CGSize) {
         let widthScale = size.width / drawingView.bounds.width
@@ -365,7 +328,6 @@ extension DrawingViewController: UIScrollViewDelegate {
         }
         self.scrollView.isScrollEnabled = true
     }
-    
     
 }
 
