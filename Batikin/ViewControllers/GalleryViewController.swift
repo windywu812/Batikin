@@ -12,11 +12,19 @@ class GalleryViewController: UIViewController {
     
     weak var collectionView: UICollectionView!
     
+    var batiks: [BatikModel] = []
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        CoreDataServices.readData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupCollectionView()
-        view.backgroundColor = UIColor(named: CustomColor.galleryBackground.rawValue)
+        view.backgroundColor = UIColor(named: CustomColor.galleryBackground.color)
     }
     
     private func setupCollectionView() {
@@ -79,7 +87,11 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if section == 0 {
+            return 1
+        } else {
+            return batiks.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,7 +105,7 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         if indexPath.section == 0 {
             header.title.text = NSLocalizedString("Recently",comment: "")
         } else {
-            header.title.text = NSLocalizedString("Favorite",comment: "")
+            header.title.text = NSLocalizedString("My Batiks",comment: "")
         }
         return header
     }

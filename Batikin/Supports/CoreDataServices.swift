@@ -30,28 +30,29 @@ class CoreDataServices {
         } catch let err {
             print(err)
         }
-        
+                
     }
     
-    
-    func saveData(_ batik: BatikModel) {
+    static func saveData(_ idBatik: UUID, _ nameBatik: String, _ imageBatik: Data) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.insertNewObject(forEntityName: Constant.entityName, into: context)
         
-        entity.setValue(batik.idBatik, forKey: Constant.idBatik)
-        entity.setValue(batik.nameBatik, forKey: Constant.nameBatik)
-        entity.setValue(batik.imageBatik, forKey: Constant.imageBatik)
+        entity.setValue(idBatik, forKey: Constant.idBatik)
+        entity.setValue(nameBatik, forKey: Constant.nameBatik)
+        entity.setValue(imageBatik, forKey: Constant.imageBatik)
         
         do {
             try context.save()
         } catch let err {
             print(err)
         }
+        
+        print("sucess")
     }
     
-    func updateData(_ id: UUID, _ name: String) {
+    static func updateData(_ id: UUID, _ name: String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constant.entityName)
@@ -65,9 +66,11 @@ class CoreDataServices {
         } catch let err {
             print(err)
         }
+        
+         print("sucess")
     }
     
-    func deleteData(_ id: UUID) {
+    static func deleteData(_ id: UUID) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constant.entityName)
@@ -82,5 +85,6 @@ class CoreDataServices {
             print(err)
         }
         
+         print("sucess")
     }
 }

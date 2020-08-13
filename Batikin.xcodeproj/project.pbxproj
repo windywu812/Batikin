@@ -44,6 +44,7 @@
 		2338244124E5233900F9467D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244024E5233900F9467D /* UIView+Extension.swift */; };
 		2338244324E5288C00F9467D /* CoreDataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244224E5288C00F9467D /* CoreDataServices.swift */; };
 		2338244524E528EE00F9467D /* BatikModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244424E528EE00F9467D /* BatikModel.swift */; };
+		2338244724E534B800F9467D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244624E534B800F9467D /* Date+Extension.swift */; };
 		239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239496F724D1151F00F7151C /* DrawingViewController.swift */; };
 		23A8EF2024D8238B00671C4B /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8EF1F24D8238B00671C4B /* HeaderCell.swift */; };
 		23B45DD224DD1CBF00BD074B /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B45DD124DD1CBF00BD074B /* DrawingView.swift */; };
@@ -99,6 +100,7 @@
 		2338244024E5233900F9467D /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2338244224E5288C00F9467D /* CoreDataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServices.swift; sourceTree = "<group>"; };
 		2338244424E528EE00F9467D /* BatikModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatikModel.swift; sourceTree = "<group>"; };
+		2338244624E534B800F9467D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		239496F724D1151F00F7151C /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		23A8EF1F24D8238B00671C4B /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		23B45DD124DD1CBF00BD074B /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				231990A024E4E0620004EA2C /* String+Extension.swift */,
 				231990A324E4E0950004EA2C /* Notification+Extension.swift */,
 				2338244024E5233900F9467D /* UIView+Extension.swift */,
+				2338244624E534B800F9467D /* Date+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				230A7A7C24D7EA2C009EF061 /* Constant.swift in Sources */,
 				23A8EF2024D8238B00671C4B /* HeaderCell.swift in Sources */,
 				23B45DD224DD1CBF00BD074B /* DrawingView.swift in Sources */,
+				2338244724E534B800F9467D /* Date+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

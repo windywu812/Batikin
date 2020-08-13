@@ -8,6 +8,7 @@
 
 import UIKit
 import Macaw
+import PhotosUI
 
 class DrawingViewController: UIViewController {
     
@@ -55,9 +56,6 @@ class DrawingViewController: UIViewController {
         collectionView.dataSource = self
         
         setupColorSlider()
-        
-        view.isUserInteractionEnabled = true
-        scrollView.isUserInteractionEnabled = true
     }
     
     // MARK: Navbar
@@ -74,6 +72,16 @@ class DrawingViewController: UIViewController {
         let alert = UIAlertController(title: "Done", message: "Are you finish make your Batik?", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) 
         let done = UIAlertAction(title: "Done", style: .default) { (_) in
+            
+            UIGraphicsBeginImageContextWithOptions(self.drawingView.bounds.size, false, UIScreen.main.scale)
+            self.drawingView.drawHierarchy(in: self.drawingView.bounds, afterScreenUpdates: true)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            if let imageData = image?.pngData() {
+                CoreDataServices.saveData(UUID(), Date().toString(), imageData)
+            }
+            
             self.navigationController?.popToRootViewController(animated: true)
         }
         alert.addAction(cancel)
@@ -110,8 +118,8 @@ class DrawingViewController: UIViewController {
     private func setupScrollView() {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
-        scrollView.backgroundColor = UIColor(named: CustomColor.canvasBackground.rawValue)
-        view.backgroundColor = UIColor(named: CustomColor.canvasBackground.rawValue)
+        scrollView.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
+        view.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
     }
     
     // MARK: Segmented Control
