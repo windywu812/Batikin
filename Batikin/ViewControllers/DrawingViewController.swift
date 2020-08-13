@@ -31,8 +31,8 @@ class DrawingViewController: UIViewController {
     let shapeModel = ShapeModel()
     let toolView = UIView()
     
-    var selectedView: MacawView?
-    var buttonColorClose: UIButton!
+    var selectedView: UIView?
+    var buttonColorClose: UIButton?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -107,15 +107,18 @@ class DrawingViewController: UIViewController {
         
         if let selectedView = selectedViews["selectedView"] as? MacawView {
             self.selectedView = selectedView
-        }
+        } 
         
         if selectedViews["selectedView"] != drawingView {
-            UIView.animate(withDuration: 0.4) {
+            UIView.animate(withDuration: 0.3) {
                 self.toolView.alpha = 1
             }
         } else if selectedViews["drawingView"] == drawingView {
-            UIView.animate(withDuration: 0.5) {
+            self.selectedView = drawingView
+            UIView.animate(withDuration: 0.3) {
                 self.toolView.alpha = 0
+                self.sliderView.alpha = 0
+                self.buttonColorClose?.removeFromSuperview()
             }
         }
     }
@@ -147,7 +150,7 @@ class DrawingViewController: UIViewController {
         brightnessSlider.maxColor = UIColor(hue: hueSlider.value, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         
         // Update selected motif element color
-        guard let selectedView = selectedView else { return }
+        guard let selectedView = selectedView as? MacawView else { return }
         updateStroke(node: selectedView.node)
     }
     
@@ -172,6 +175,7 @@ class DrawingViewController: UIViewController {
         let colorButton = UIButton(type: .system)
         colorButton.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
         colorButton.translatesAutoresizingMaskIntoConstraints = false
+        colorButton.contentMode = .scaleAspectFit
         colorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         colorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         colorButton.addTarget(self, action: #selector(handleColor), for: .touchUpInside)
@@ -188,6 +192,7 @@ class DrawingViewController: UIViewController {
         
         let mirrorButton = UIButton(type: .system)
         mirrorButton.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
+        mirrorButton.contentMode = .scaleAspectFit
         mirrorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         mirrorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         mirrorButton.addTarget(self, action: #selector(handleMirror), for: .touchUpInside)
@@ -204,6 +209,7 @@ class DrawingViewController: UIViewController {
         
         let duplicateButton = UIButton(type: .system)
         duplicateButton.setBackgroundImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
+        duplicateButton.contentMode = .scaleAspectFit
         duplicateButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         duplicateButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         duplicateButton.addTarget(self, action: #selector(handleDuplicate), for: .touchUpInside)
@@ -221,6 +227,7 @@ class DrawingViewController: UIViewController {
         let deleteButton = UIButton(type: .system)
         deleteButton.setBackgroundImage(UIImage(systemName: "trash"), for: .normal)
         deleteButton.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
+        deleteButton.contentMode = .scaleAspectFit
         deleteButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         deleteButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         
@@ -253,23 +260,58 @@ class DrawingViewController: UIViewController {
             buttonStackView.centerXAnchor.constraint(equalTo: toolView.centerXAnchor),
         ])
         
+        let layerDown = UIButton(type: .system)
+        layerDown.setBackgroundImage(UIImage(systemName: "arrow.down.to.line"), for: .normal)
+        layerDown.addTarget(self, action: #selector(handleDownLayer), for: .touchUpInside)
+        layerDown.imageView?.contentMode = .scaleToFill
+        view.addSubview(layerDown)
+        
+        layerDown.translatesAutoresizingMaskIntoConstraints = false
+        layerDown.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        layerDown.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        layerDown.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        layerDown.bottomAnchor.constraint(equalTo: bottomContainer.topAnchor, constant: -16).isActive = true
+        
+        let layerUp = UIButton(type: .system)
+        layerUp.setBackgroundImage(UIImage(systemName: "arrow.up.to.line"), for: .normal)
+        layerUp.addTarget(self, action: #selector(handleUpLayer), for: .touchUpInside)
+        view.addSubview(layerUp)
+        
+        layerUp.translatesAutoresizingMaskIntoConstraints = false
+        layerUp.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        layerUp.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        layerUp.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        layerUp.bottomAnchor.constraint(equalTo: layerDown.topAnchor, constant: -8).isActive = true
+        
+    }
+    
+    @objc private func handleUpLayer() {
+        if let selectedView = selectedView {
+        drawingView.bringSubviewToFront(selectedView)
+        }
+    }
+    
+    @objc private func handleDownLayer() {
+        if let selectedView = selectedView {
+            drawingView.sendSubviewToBack(selectedView)
+        }
     }
     
     @objc private func handleColor() {
         buttonColorClose = UIButton(type: .system)
-        buttonColorClose.setTitle("Close", for: .normal)
-        buttonColorClose.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
-        view.addSubview(buttonColorClose)
-        buttonColorClose.translatesAutoresizingMaskIntoConstraints = false
-        buttonColorClose.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        buttonColorClose.bottomAnchor.constraint(equalTo: bottomContainer.topAnchor, constant: -8).isActive = true
-        UIView.animate(withDuration: 0.4) {
+        buttonColorClose?.setTitle("Close", for: .normal)
+        buttonColorClose?.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
+        view.addSubview(buttonColorClose!)
+        buttonColorClose?.translatesAutoresizingMaskIntoConstraints = false
+        buttonColorClose?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        buttonColorClose?.bottomAnchor.constraint(equalTo: bottomContainer.topAnchor, constant: -8).isActive = true
+        UIView.animate(withDuration: 0.3) {
             self.sliderView.alpha = 1
         }
     }
     
     @objc private func handleClose() {
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.3) {
             self.sliderView.alpha = 0
             self.buttonColorClose?.removeFromSuperview()
         }
@@ -290,7 +332,7 @@ class DrawingViewController: UIViewController {
     }
     
     @objc private func handleDelete() {
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.3) {
             self.selectedView?.removeFromSuperview()
             self.toolView.alpha = 0
         }
@@ -417,7 +459,7 @@ extension DrawingViewController: UIScrollViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
+        print(selectedView)
         if selectedView != drawingView && selectedView != nil {
             self.scrollView.isScrollEnabled = false
         }
