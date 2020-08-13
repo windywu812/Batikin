@@ -31,10 +31,16 @@ class DrawingViewController: UIViewController {
     let toolView = UIView()
     
     var selectedView: MacawView?
+    var buttonColorClose: UIButton!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         NotificationCenter.default.addObserver(self, selector: #selector(handleSelected(notification:)), name: Notification.Name.sendViews, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        NotificationCenter.default.removeObserver(self, name: .sendViews, object: nil)
     }
     
     override func viewDidLoad() {
@@ -51,9 +57,14 @@ class DrawingViewController: UIViewController {
         setupColorSlider()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        NotificationCenter.default.removeObserver(self, name: .sendViews, object: nil)
+    // MARK: Navbar
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleDone))
     }
     
     @objc private func handleDone() {
@@ -92,21 +103,12 @@ class DrawingViewController: UIViewController {
         }
     }
     
+    // MARK: ScrollView
     private func setupScrollView() {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.backgroundColor = UIColor(named: CustomColor.canvasBackground.rawValue)
         view.backgroundColor = UIColor(named: CustomColor.canvasBackground.rawValue)
-    }
-    
-    // MARK: Navbar
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        
-        navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleDone))
     }
     
     // MARK: Segmented Control
@@ -167,6 +169,7 @@ class DrawingViewController: UIViewController {
         mirrorButton.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
         mirrorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         mirrorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        mirrorButton.addTarget(self, action: #selector(handleMirror), for: .touchUpInside)
         let mirrorLabel = UILabel()
         mirrorLabel.text = "Mirror"
         mirrorLabel.textColor = UIColor.label
@@ -182,6 +185,7 @@ class DrawingViewController: UIViewController {
         duplicateButton.setBackgroundImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
         duplicateButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         duplicateButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        duplicateButton.addTarget(self, action: #selector(handleDuplicate), for: .touchUpInside)
         let duplicateLabel = UILabel()
         duplicateLabel.text = "Copy"
         duplicateLabel.textColor = UIColor.label
@@ -229,9 +233,7 @@ class DrawingViewController: UIViewController {
         ])
         
     }
-    
-    var buttonColorClose: UIButton!
-    
+        
     @objc private func handleColor() {
         buttonColorClose = UIButton(type: .system)
         buttonColorClose.setTitle("Close", for: .normal)
@@ -253,7 +255,13 @@ class DrawingViewController: UIViewController {
     }
     
     @objc private func handleMirror() {
-        
+        if selectedView?.isFlip == false {
+            selectedView?.flipX()
+            selectedView?.isFlip = true
+        } else {
+            selectedView?.flipX()
+            selectedView?.isFlip = false
+        }
     }
     
     @objc private func handleDuplicate() {
@@ -396,5 +404,4 @@ extension DrawingViewController: UIScrollViewDelegate {
     }
     
 }
-
 
