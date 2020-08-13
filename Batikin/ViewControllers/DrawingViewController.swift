@@ -107,7 +107,7 @@ class DrawingViewController: UIViewController {
         
         if let selectedView = selectedViews["selectedView"] as? MacawView {
             self.selectedView = selectedView
-        } 
+        }
         
         if selectedViews["selectedView"] != drawingView {
             UIView.animate(withDuration: 0.3) {
@@ -459,7 +459,7 @@ extension DrawingViewController: UIScrollViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        print(selectedView)
+        
         if selectedView != drawingView && selectedView != nil {
             self.scrollView.isScrollEnabled = false
         }
