@@ -47,6 +47,20 @@ class DrawingViewController: UIViewController {
         // Default Slider Values
         saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleDone))
+    }
+    
+    @objc private func handleDone() {
+        let alert = UIAlertController(title: "Done", message: "Are you finish make your Batik?", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .default) 
+        let done = UIAlertAction(title: "Done", style: .default) { (_) in
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        alert.addAction(cancel)
+        alert.addAction(done)
+        present(alert, animated: true)
     }
     
     @objc func handleSelected(notification: Notification) {
@@ -58,14 +72,12 @@ class DrawingViewController: UIViewController {
         }
         
         if selectedViews["selectedView"] != drawingView {
-            UIView.animate(withDuration: 0.5) {
-                self.toolView.center.y = 85
+            UIView.animate(withDuration: 0.4) {
                 self.toolView.alpha = 1
             }
         } else if selectedViews["drawingView"] == drawingView {
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.4) {
                 self.toolView.alpha = 0
-                self.toolView.center.y = 300
             }
         }
         
@@ -112,93 +124,116 @@ class DrawingViewController: UIViewController {
     private func setupToolBox() {
         
         toolView.backgroundColor = UIColor.systemBackground
-        bottomContainer.addSubview(toolView)
-        toolView.translatesAutoresizingMaskIntoConstraints = false
         toolView.alpha = 0
+        bottomContainer.addSubview(toolView)
+        
+        toolView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             toolView.topAnchor.constraint(equalTo: bottomContainer.topAnchor),
-            toolView.centerXAnchor.constraint(equalTo: bottomContainer.centerXAnchor),
-            toolView.widthAnchor.constraint(equalTo: bottomContainer.widthAnchor),
-            toolView.heightAnchor.constraint(equalTo: bottomContainer.heightAnchor)
+            toolView.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor),
+            toolView.leadingAnchor.constraint(equalTo: bottomContainer.leadingAnchor),
+            toolView.trailingAnchor.constraint(equalTo: bottomContainer.trailingAnchor)
         ])
         
-        let colorTool = UIButton()
-        let buttonStackView = UIStackView()
-        colorTool.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
-        colorTool.translatesAutoresizingMaskIntoConstraints = false
-        
-        let mirrorTool = UIButton()
-        mirrorTool.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
-        mirrorTool.translatesAutoresizingMaskIntoConstraints = false
-        
-        let duplicateTool = UIButton()
-        duplicateTool.setBackgroundImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
-        duplicateTool.translatesAutoresizingMaskIntoConstraints = false
-        
-        let deleteTool = UIButton()
-        deleteTool.setBackgroundImage(UIImage(systemName: "trash"), for: .normal)
-        deleteTool.translatesAutoresizingMaskIntoConstraints = false
-        
-        buttonStackView.alignment = .fill
-        buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 64.0
-        
-        buttonStackView.addArrangedSubview(colorTool)
-        buttonStackView.addArrangedSubview(mirrorTool)
-        buttonStackView.addArrangedSubview(duplicateTool)
-        buttonStackView.addArrangedSubview(deleteTool)
-        
-        toolView.addSubview(buttonStackView)
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            buttonStackView.topAnchor.constraint(equalTo: bottomContainer.topAnchor , constant: 50),
-            buttonStackView.rightAnchor.constraint(equalTo: bottomContainer.rightAnchor , constant: -20),
-            buttonStackView.leftAnchor.constraint(equalTo: bottomContainer.leftAnchor, constant: 20),
-            buttonStackView.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor,constant: -80),
-            
-        ])
-        
+        let colorButton = UIButton(type: .system)
+        colorButton.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
+        colorButton.translatesAutoresizingMaskIntoConstraints = false
+        colorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
+        colorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         let colorLabel = UILabel()
         colorLabel.text = "Color"
         colorLabel.textColor = UIColor.label
-        colorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        colorLabel.translatesAutoresizingMaskIntoConstraints = false
+        colorLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        let colorStackView = UIStackView()
+        colorStackView.addArrangedSubview(colorButton)
+        colorStackView.addArrangedSubview(colorLabel)
+        colorStackView.axis = .vertical
+        colorStackView.alignment = .center
+        colorStackView.spacing = 8
         
-        let mirroLabel = UILabel()
-        mirroLabel.text = "Mirror"
-        mirroLabel.textColor = UIColor.label
-        mirroLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        mirroLabel.translatesAutoresizingMaskIntoConstraints = false
+        let mirrorButton = UIButton(type: .system)
+        mirrorButton.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
+        mirrorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
+        mirrorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        let mirrorLabel = UILabel()
+        mirrorLabel.text = "Mirror"
+        mirrorLabel.textColor = UIColor.label
+        mirrorLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        let mirrorStackView = UIStackView()
+        mirrorStackView.addArrangedSubview(mirrorButton)
+        mirrorStackView.addArrangedSubview(mirrorLabel)
+        mirrorStackView.axis = .vertical
+        mirrorStackView.alignment = .center
+        mirrorStackView.spacing = 8
         
+        let duplicateButton = UIButton(type: .system)
+        duplicateButton.setBackgroundImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
+        duplicateButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
+        duplicateButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         let duplicateLabel = UILabel()
         duplicateLabel.text = "Copy"
         duplicateLabel.textColor = UIColor.label
-        duplicateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        duplicateLabel.translatesAutoresizingMaskIntoConstraints = false
+        duplicateLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        let duplicateStackView = UIStackView()
+        duplicateStackView.addArrangedSubview(duplicateButton)
+        duplicateStackView.addArrangedSubview(duplicateLabel)
+        duplicateStackView.axis = .vertical
+        duplicateStackView.alignment = .center
+        duplicateStackView.spacing = 8
         
+        let deleteButton = UIButton(type: .system)
+        deleteButton.setBackgroundImage(UIImage(systemName: "trash"), for: .normal)
+        deleteButton.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
+        deleteButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
+        deleteButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         let deleteLabel = UILabel()
         deleteLabel.text = "Delete"
         deleteLabel.textColor = UIColor.label
-        deleteLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        deleteLabel.translatesAutoresizingMaskIntoConstraints = false
+        deleteLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        let deleteStackView = UIStackView()
+        deleteStackView.addArrangedSubview(deleteButton)
+        deleteStackView.addArrangedSubview(deleteLabel)
+        deleteStackView.axis = .vertical
+        deleteStackView.alignment = .center
+        deleteStackView.spacing = 8
         
-        let stackLabel = UIStackView()
-        stackLabel.alignment = .fill
-        stackLabel.distribution = .fillEqually
-        stackLabel.spacing = 63.0
-        stackLabel.addArrangedSubview(colorLabel)
-        stackLabel.addArrangedSubview(mirroLabel)
-        stackLabel.addArrangedSubview(duplicateLabel)
-        stackLabel.addArrangedSubview(deleteLabel)
-        buttonStackView.addSubview(stackLabel)
-        stackLabel.translatesAutoresizingMaskIntoConstraints = false
+        let buttonStackView = UIStackView()
+        buttonStackView.axis = .horizontal
+        buttonStackView.alignment = .fill
+        buttonStackView.distribution = .equalSpacing
+        buttonStackView.spacing = view.bounds.width / 10
+        
+        buttonStackView.addArrangedSubview(colorStackView)
+        buttonStackView.addArrangedSubview(mirrorStackView)
+        buttonStackView.addArrangedSubview(duplicateStackView)
+        buttonStackView.addArrangedSubview(deleteStackView)
+        
+        toolView.addSubview(buttonStackView)
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
-            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 4),
-            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor,constant: 5),
-            stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
+            buttonStackView.centerYAnchor.constraint(equalTo: toolView.centerYAnchor),
+            buttonStackView.centerXAnchor.constraint(equalTo: toolView.centerXAnchor),
         ])
+        
+    }
+    
+    @objc private func handleColor() {
+        
+    }
+    
+    @objc private func handleMirror() {
+        
+    }
+    
+    @objc private func handleDuplicate() {
+        
+    }
+    
+    @objc private func handleDelete() {
+        UIView.animate(withDuration: 0.4) {
+            self.selectedView?.removeFromSuperview()
+            self.toolView.alpha = 0
+        }
     }
     
     func handleAddShape(shape: String) {
