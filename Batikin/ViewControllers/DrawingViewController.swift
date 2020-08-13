@@ -8,7 +8,6 @@
 
 import UIKit
 import Macaw
-import PhotosUI
 
 class DrawingViewController: UIViewController {
     
@@ -22,33 +21,22 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var hueSlider: GradientSlider!
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
 
-
     let shapeData = ShapeData()
-
     let shapeModel = ShapeModel()
     let toolView = UIView()
     
     var selectedView: MacawView?
-    var buttonColorClose: UIButton!
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleSelected(notification:)), name: Notification.Name.sendViews, object: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        NotificationCenter.default.removeObserver(self, name: .sendViews, object: nil)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSelected(notification:)), name: Notification.Name.sendViews, object: nil)
         
         setupNavigationBar()
         setupSegmentedControl()
@@ -58,14 +46,10 @@ class DrawingViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        setupColorSlider()
-    }
-    
-    // MARK: Navbar
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+        // Default Slider Values
+        sliderView.alpha = 0
+        saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleDone))
@@ -73,41 +57,19 @@ class DrawingViewController: UIViewController {
     
     @objc private func handleDone() {
         let alert = UIAlertController(title: "Done", message: "Are you finish make your Batik?", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) 
+        let cancel = UIAlertAction(title: "Cancel", style: .default) 
         let done = UIAlertAction(title: "Done", style: .default) { (_) in
-            
-            UIGraphicsBeginImageContextWithOptions(self.drawingView.bounds.size, false, UIScreen.main.scale)
-            self.drawingView.drawHierarchy(in: self.drawingView.bounds, afterScreenUpdates: true)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
-            if let imageData = image?.pngData() {
-                CoreDataServices.saveData(UUID(), Date().toString(), imageData)
-                self.navigationController?.popToRootViewController(animated: true)
-            }
-            
+            self.navigationController?.popToRootViewController(animated: true)
         }
-        
-        if drawingView.subviews == [] {
-            self.navigationController?.popViewController(animated: true)
-        } else {
-            alert.addAction(cancel)
-            alert.addAction(done)
-            present(alert, animated: true)
-        }
-        
-    }
-    
-    private func setupColorSlider() {
-        sliderView.alpha = 0
-        saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-        brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        alert.addAction(cancel)
+        alert.addAction(done)
+        present(alert, animated: true)
     }
     
     @objc func handleSelected(notification: Notification) {
         
         guard let selectedViews = notification.object as? [String: UIView] else { return }
-        
+                
         if let selectedView = selectedViews["selectedView"] as? MacawView {
             self.selectedView = selectedView
         }
@@ -118,10 +80,16 @@ class DrawingViewController: UIViewController {
             }
         } else if selectedViews["drawingView"] == drawingView {
             UIView.animate(withDuration: 0.5) {
-                self.toolView.alpha = 0
+                
+                // Forces return to Tool View after Slider View
+                if self.sliderView.alpha == 1 {
+                    self.sliderView.alpha = 0
+                } else {
+                    self.toolView.alpha = 0
+                    self.toolView.center.y = 300
+                }
             }
         }
-
         
 //        print(selectedView as Any)
         print(selectedView?.node as Any)
@@ -132,21 +100,27 @@ class DrawingViewController: UIViewController {
 //        print(selectedView?.contentLayout as Any) // not useful
         print(selectedView?.layer.position as Any)
         
-
+    }
     
-    // MARK: ScrollView
     private func setupScrollView() {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
-        scrollView.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
-        view.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
+        scrollView.backgroundColor = UIColor(named: CustomColor.canvasBackground.rawValue)
+        view.backgroundColor = UIColor(named: CustomColor.canvasBackground.rawValue)
+    }
+    
+    // MARK: Navbar
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     // MARK: Segmented Control
     private func setupSegmentedControl() {
         shapeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        shapeSegmentedControl.backgroundColor = UIColor(named: CustomColor.segmentBackground.color)
-        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: CustomColor.tintColor.color)
+        shapeSegmentedControl.backgroundColor = UIColor(named: CustomColor.segmentBackground.rawValue)
+        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: CustomColor.tintColor.rawValue)
         
         bottomContainer.backgroundColor = UIColor.systemBackground
     }
@@ -154,6 +128,7 @@ class DrawingViewController: UIViewController {
     @IBAction func handleSegmentedControl(_ sender: UISegmentedControl) {
         collectionView.reloadData()
     }
+    
     
     @IBAction func colorSlider(_ sender: GradientSlider) {
         // Update color slider saturation and brightness to match current hue
@@ -165,7 +140,7 @@ class DrawingViewController: UIViewController {
         updateStroke(node: selectedView.node)
     }
     
-    @objc func colorTool() {
+    @objc func colorButton() {
         sliderView.alpha = 1
     }
     
@@ -188,7 +163,6 @@ class DrawingViewController: UIViewController {
         colorButton.translatesAutoresizingMaskIntoConstraints = false
         colorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         colorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        colorButton.addTarget(self, action: #selector(handleColor), for: .touchUpInside)
         let colorLabel = UILabel()
         colorLabel.text = "Color"
         colorLabel.textColor = UIColor.label
@@ -204,7 +178,6 @@ class DrawingViewController: UIViewController {
         mirrorButton.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
         mirrorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         mirrorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        mirrorButton.addTarget(self, action: #selector(handleMirror), for: .touchUpInside)
         let mirrorLabel = UILabel()
         mirrorLabel.text = "Mirror"
         mirrorLabel.textColor = UIColor.label
@@ -220,7 +193,6 @@ class DrawingViewController: UIViewController {
         duplicateButton.setBackgroundImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
         duplicateButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         duplicateButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        duplicateButton.addTarget(self, action: #selector(handleDuplicate), for: .touchUpInside)
         let duplicateLabel = UILabel()
         duplicateLabel.text = "Copy"
         duplicateLabel.textColor = UIColor.label
@@ -237,7 +209,7 @@ class DrawingViewController: UIViewController {
         deleteButton.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
         deleteButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         deleteButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        
+
         let deleteLabel = UILabel()
         deleteLabel.text = "Delete"
         deleteLabel.textColor = UIColor.label
@@ -270,33 +242,11 @@ class DrawingViewController: UIViewController {
     }
     
     @objc private func handleColor() {
-        buttonColorClose = UIButton(type: .system)
-        buttonColorClose.setTitle("Close", for: .normal)
-        buttonColorClose.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
-        view.addSubview(buttonColorClose)
-        buttonColorClose.translatesAutoresizingMaskIntoConstraints = false
-        buttonColorClose.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        buttonColorClose.bottomAnchor.constraint(equalTo: bottomContainer.topAnchor, constant: -8).isActive = true
-        UIView.animate(withDuration: 0.4) {
-            self.sliderView.alpha = 1
-        }
-    }
-    
-    @objc private func handleClose() {
-        UIView.animate(withDuration: 0.4) {
-            self.sliderView.alpha = 0
-            self.buttonColorClose?.removeFromSuperview()
-        }
+        
     }
     
     @objc private func handleMirror() {
-        if selectedView?.isFlip == false {
-            selectedView?.flipX()
-            selectedView?.isFlip = true
-        } else {
-            selectedView?.flipX()
-            selectedView?.isFlip = false
-        }
+        
     }
     
     @objc private func handleDuplicate() {
@@ -311,31 +261,30 @@ class DrawingViewController: UIViewController {
     }
     
     func handleAddShape(shape: String) {
-        guard let node = try? SVGParser.parse(resource: shape) else { return }
-        
-        let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-        view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(150), y: drawingView.bounds.midY - CGFloat(150))
-        view.backgroundColor = .clear
-        view.contentMode = .scaleAspectFit
-        view.isFlip = false
-        self.drawingView.addSubview(view)
-        updateStroke(node: node)
-        
-    }
-    
-    func updateStroke(node: Node) {
-        
-        if let shape = node as? Shape {
-            let colorConvertor = ColorConvertor()
-            
-            let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
-            
-            shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
-        } else if let group = node as? Group {
-            group.contents.forEach(updateStroke(node:))
-        }
-    }
-    
+          guard let node = try? SVGParser.parse(resource: shape) else { return }
+          
+          let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+          view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(150), y: drawingView.bounds.midY - CGFloat(150))
+          view.backgroundColor = .clear
+          view.contentMode = .scaleAspectFit
+          
+          self.drawingView.addSubview(view)
+          updateStroke(node: node)
+      }
+      
+      func updateStroke(node: Node) {
+          
+          if let shape = node as? Shape {
+              let colorConvertor = ColorConvertor()
+              
+              let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
+              
+              shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
+          } else if let group = node as? Group {
+              group.contents.forEach(updateStroke(node:))
+          }
+      }
+
 }
 
 // MARK: Collection View
@@ -387,6 +336,7 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
+
 // MARK: DrawingScreen Logic
 extension DrawingViewController: UIScrollViewDelegate {
     
@@ -408,7 +358,7 @@ extension DrawingViewController: UIScrollViewDelegate {
         updateConstraintsForSize(view.bounds.size)
     }
     
-    func updateConstraintsForSize(_ size:CGSize) {
+    func updateConstraintsForSize(_ size:CGSize){
         
         var yOffset: CGFloat = 0
         
@@ -439,4 +389,5 @@ extension DrawingViewController: UIScrollViewDelegate {
     }
     
 }
+
 
