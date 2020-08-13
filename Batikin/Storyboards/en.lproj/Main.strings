@@ -1,0 +1,21 @@
+
+/* Class = "UINavigationItem"; title = "My Batiks"; ObjectID = "LXb-kx-dJY"; */
+"LXb-kx-dJY.title" = "My Batiks";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "SfU-Lm-v6L"; */
+"SfU-Lm-v6L.title" = "Item";
+
+/* Class = "UISegmentedControl"; frI-oQ-Re2.segmentTitles[0] = "Main"; ObjectID = "frI-oQ-Re2"; */
+"frI-oQ-Re2.segmentTitles[0]" = "Main";
+
+/* Class = "UISegmentedControl"; frI-oQ-Re2.segmentTitles[1] = "Filler"; ObjectID = "frI-oQ-Re2"; */
+"frI-oQ-Re2.segmentTitles[1]" = "Filler";
+
+/* Class = "UISegmentedControl"; frI-oQ-Re2.segmentTitles[2] = "Isen"; ObjectID = "frI-oQ-Re2"; */
+"frI-oQ-Re2.segmentTitles[2]" = "Isen";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "sFu-Ni-5R6"; */
+"sFu-Ni-5R6.title" = " ";
+
+/* Class = "UIBarButtonItem"; title = "Select"; ObjectID = "xVY-yd-Fwd"; */
+"xVY-yd-Fwd.title" = "Select";

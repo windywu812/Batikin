@@ -12,7 +12,7 @@ import Macaw
 class DrawingView: UIView {
     
     var isDragging: Bool = false
-
+  
     var previousView: UIView?
     var selectedView: UIView?
         
@@ -26,6 +26,10 @@ class DrawingView: UIView {
         if selectedView != nil && selectedView != self {
             isDragging = true
         }
+
+    }
+  
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if selectedView != self {
             selectedView?.layer.borderColor = UIColor(named: CustomColor.tintColor.rawValue)?.cgColor
