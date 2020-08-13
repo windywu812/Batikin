@@ -49,7 +49,6 @@ class GalleryViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-        
         self.collectionView = collectionView
     }
     
