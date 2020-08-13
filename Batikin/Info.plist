@@ -51,6 +51,10 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need your access to save this Batik into your gallery</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need your access to save this Batik into your gallery</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

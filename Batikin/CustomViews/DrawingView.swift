@@ -15,7 +15,11 @@ class DrawingView: UIView {
   
     var previousView: UIView?
     var selectedView: UIView?
-        
+    
+    var panGesture: UIPanGestureRecognizer?
+    var pinchGesture: UIPinchGestureRecognizer?
+    var rotateGesture: UIRotationGestureRecognizer?
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let position = touches.first?.location(in: self) else { return }
@@ -30,14 +34,14 @@ class DrawingView: UIView {
         }
         
         if selectedView != self {
-            let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleShape(_:)))
-            selectedView?.addGestureRecognizer(pinchGesture)
+            pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleShape(_:)))
+            selectedView?.addGestureRecognizer(pinchGesture!)
             
-            let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotatePiece(_:)))
-            selectedView?.addGestureRecognizer(rotateGesture)
+            rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotatePiece(_:)))
+            selectedView?.addGestureRecognizer(rotateGesture!)
             
-            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panPiece(_:)))
-            selectedView?.addGestureRecognizer(panGesture)
+            panGesture = UIPanGestureRecognizer(target: self, action: #selector(panPiece(_:)))
+            selectedView?.addGestureRecognizer(panGesture!)
         }
         
         let myObjects = ["drawingView": self, "selectedView": selectedView]
@@ -50,15 +54,27 @@ class DrawingView: UIView {
     }
     
     @objc private func scaleShape(_ sender: UIPinchGestureRecognizer) {
+        
+        if selectedView == self {
+            return
+        }
+        
         if sender.state == .began || sender.state == .changed {
             if let transform = sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale) {
                 sender.view?.transform = transform
             }
             sender.scale = 1.0
+        } else if sender.state == .ended {
+            sender.view?.removeGestureRecognizer(pinchGesture!)
         }
     }
     
     @objc func panPiece(_ sender: UIPanGestureRecognizer) {
+        
+        if selectedView == self {
+            return
+        }
+        
         let piece = sender.view
         
         if sender.state == .began || sender.state == .changed {
@@ -67,10 +83,17 @@ class DrawingView: UIView {
           
             piece?.center = CGPoint(x: (piece?.center.x ?? 0.0) + (translation.x ), y: (piece?.center.y ?? 0.0) + (translation.y ))
             sender.setTranslation(CGPoint.zero, in: piece?.superview)
+        } else if sender.state == .ended {
+            sender.view?.removeGestureRecognizer(panGesture!)
         }
     }
     
     @objc func rotatePiece(_ gestureRecognizer: UIRotationGestureRecognizer) {
+        
+        if selectedView == self {
+            return
+        }
+        
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             if gestureRecognizer.view?.isFlip == true {
                 if let transform = gestureRecognizer.view?.transform.rotated(by: -gestureRecognizer.rotation ) {
@@ -83,6 +106,8 @@ class DrawingView: UIView {
                 }
                 gestureRecognizer.rotation = 0
             }
+        } else if gestureRecognizer.state == .ended {
+            gestureRecognizer.view?.removeGestureRecognizer(rotateGesture!)
         }
     }
     

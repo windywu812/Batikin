@@ -73,7 +73,7 @@ class CoreDataServices {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constant.entityName)
-        fetchRequest.predicate = NSPredicate(format: "\(Constant.idBatik) = \(id)")
+        fetchRequest.predicate = NSPredicate(format: "\(Constant.idBatik) = %@", id as CVarArg)
         
         do {
             let dataToDelete = try context.fetch(fetchRequest)[0] as! NSManagedObject

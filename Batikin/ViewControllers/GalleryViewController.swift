@@ -87,7 +87,6 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         let imageData = batiks[indexPath.row].imageBatik
         cell.imageView.image = UIImage(data: imageData)
-        
         return cell
     }
     
@@ -95,14 +94,19 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constant.headerCell, for: indexPath) as? MyHeaderCell else { return UICollectionReusableView() }
         if indexPath.section == 0 {
             if self.batiks.isEmpty {
-                header.title.text = NSLocalizedString("Create your Batik",comment: "")
+                header.title.text = NSLocalizedString("Create your Batik", comment: "")
             }
         }
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "SelectedStoryboard") as! SelectedViewController
+        vc.batik = batiks[indexPath.row]
         
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
 }

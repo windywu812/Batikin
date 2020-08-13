@@ -213,10 +213,12 @@ class DrawingViewController: UIViewController {
         duplicateButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         duplicateButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         duplicateButton.addTarget(self, action: #selector(handleDuplicate), for: .touchUpInside)
+        duplicateButton.isEnabled = false
         let duplicateLabel = UILabel()
         duplicateLabel.text = "Copy"
         duplicateLabel.textColor = UIColor.label
         duplicateLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        
         let duplicateStackView = UIStackView()
         duplicateStackView.addArrangedSubview(duplicateButton)
         duplicateStackView.addArrangedSubview(duplicateLabel)
@@ -341,7 +343,16 @@ class DrawingViewController: UIViewController {
     func handleAddShape(shape: String) {
         guard let node = try? SVGParser.parse(resource: shape) else { return }
         
-        let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        var view: UIView
+        
+        if shapeSegmentedControl.selectedSegmentIndex == 0 {
+            view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        } else if shapeSegmentedControl.selectedSegmentIndex == 1 {
+            view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        } else {
+            view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        }
+        
         view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(150), y: drawingView.bounds.midY - CGFloat(150))
         view.backgroundColor = .clear
         view.contentMode = .scaleAspectFit
