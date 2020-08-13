@@ -21,12 +21,12 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
-
+    
     @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var hueSlider: GradientSlider!
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
-
+    
     let shapeModel = ShapeModel()
     let toolView = UIView()
     
@@ -45,7 +45,7 @@ class DrawingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         setupNavigationBar()
         setupSegmentedControl()
         setupScrollView()
@@ -55,6 +55,9 @@ class DrawingViewController: UIViewController {
         collectionView.dataSource = self
         
         setupColorSlider()
+        
+        view.isUserInteractionEnabled = true
+        scrollView.isUserInteractionEnabled = true
     }
     
     // MARK: Navbar
@@ -91,7 +94,7 @@ class DrawingViewController: UIViewController {
         if let selectedView = selectedViews["selectedView"] as? MacawView {
             self.selectedView = selectedView
         }
-    
+        
         if selectedViews["selectedView"] != drawingView {
             UIView.animate(withDuration: 0.4) {
                 self.toolView.alpha = 1
@@ -133,7 +136,7 @@ class DrawingViewController: UIViewController {
         guard let selectedView = selectedView else { return }
         updateStroke(node: selectedView.node)
     }
-        
+    
     private func setupToolBox() {
         
         toolView.backgroundColor = UIColor.systemBackground
@@ -202,7 +205,7 @@ class DrawingViewController: UIViewController {
         deleteButton.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
         deleteButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         deleteButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
-
+        
         let deleteLabel = UILabel()
         deleteLabel.text = "Delete"
         deleteLabel.textColor = UIColor.label
@@ -233,7 +236,7 @@ class DrawingViewController: UIViewController {
         ])
         
     }
-        
+    
     @objc private func handleColor() {
         buttonColorClose = UIButton(type: .system)
         buttonColorClose.setTitle("Close", for: .normal)
@@ -276,30 +279,31 @@ class DrawingViewController: UIViewController {
     }
     
     func handleAddShape(shape: String) {
-          guard let node = try? SVGParser.parse(resource: shape) else { return }
-          
-          let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-          view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(150), y: drawingView.bounds.midY - CGFloat(150))
-          view.backgroundColor = .clear
-          view.contentMode = .scaleAspectFit
-          
-          self.drawingView.addSubview(view)
-          updateStroke(node: node)
-      }
-      
-      func updateStroke(node: Node) {
-          
-          if let shape = node as? Shape {
-              let colorConvertor = ColorConvertor()
-              
-              let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
-              
-              shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
-          } else if let group = node as? Group {
-              group.contents.forEach(updateStroke(node:))
-          }
-      }
-
+        guard let node = try? SVGParser.parse(resource: shape) else { return }
+        
+        let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(150), y: drawingView.bounds.midY - CGFloat(150))
+        view.backgroundColor = .clear
+        view.contentMode = .scaleAspectFit
+        view.isFlip = false
+        self.drawingView.addSubview(view)
+        updateStroke(node: node)
+        
+    }
+    
+    func updateStroke(node: Node) {
+        
+        if let shape = node as? Shape {
+            let colorConvertor = ColorConvertor()
+            
+            let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
+            
+            shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
+        } else if let group = node as? Group {
+            group.contents.forEach(updateStroke(node:))
+        }
+    }
+    
 }
 
 // MARK: Collection View

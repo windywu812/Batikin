@@ -58,15 +58,15 @@ class DrawingView: UIView {
         }
     }
     
-    @objc func panPiece(_ gestureRecognizer: UIPanGestureRecognizer) {
-        let piece = gestureRecognizer.view
+    @objc func panPiece(_ sender: UIPanGestureRecognizer) {
+        let piece = sender.view
         
-        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+        if sender.state == .began || sender.state == .changed {
             
-            let translation = gestureRecognizer.translation(in: piece?.superview)
-            
+            let translation = sender.translation(in: piece?.superview)
+          
             piece?.center = CGPoint(x: (piece?.center.x ?? 0.0) + (translation.x ), y: (piece?.center.y ?? 0.0) + (translation.y ))
-            gestureRecognizer.setTranslation(CGPoint.zero, in: piece?.superview)
+            sender.setTranslation(CGPoint.zero, in: piece?.superview)
         }
     }
     
