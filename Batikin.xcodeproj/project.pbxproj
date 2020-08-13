@@ -46,6 +46,7 @@
 		2338244524E528EE00F9467D /* BatikModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244424E528EE00F9467D /* BatikModel.swift */; };
 		2338244724E534B800F9467D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244624E534B800F9467D /* Date+Extension.swift */; };
 		2338244924E5455F00F9467D /* CustomColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244824E5455F00F9467D /* CustomColletionViewCell.swift */; };
+		237A78AD24E58FEE00661D6C /* SelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237A78AC24E58FEE00661D6C /* SelectedViewController.swift */; };
 		239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239496F724D1151F00F7151C /* DrawingViewController.swift */; };
 		23A8EF2024D8238B00671C4B /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8EF1F24D8238B00671C4B /* HeaderCell.swift */; };
 		23B45DD224DD1CBF00BD074B /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B45DD124DD1CBF00BD074B /* DrawingView.swift */; };
@@ -103,6 +104,7 @@
 		2338244424E528EE00F9467D /* BatikModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatikModel.swift; sourceTree = "<group>"; };
 		2338244624E534B800F9467D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2338244824E5455F00F9467D /* CustomColletionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColletionViewCell.swift; sourceTree = "<group>"; };
+		237A78AC24E58FEE00661D6C /* SelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedViewController.swift; sourceTree = "<group>"; };
 		239496F724D1151F00F7151C /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		23A8EF1F24D8238B00671C4B /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		23B45DD124DD1CBF00BD074B /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			children = (
 				23F88E8424CFD85D00ACE986 /* GalleryViewController.swift */,
 				239496F724D1151F00F7151C /* DrawingViewController.swift */,
+				237A78AC24E58FEE00661D6C /* SelectedViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				2338244124E5233900F9467D /* UIView+Extension.swift in Sources */,
 				23F88E8B24CFD85D00ACE986 /* Batikin.xcdatamodeld in Sources */,
 				231990A424E4E0950004EA2C /* Notification+Extension.swift in Sources */,
+				237A78AD24E58FEE00661D6C /* SelectedViewController.swift in Sources */,
 				75EE716F24E2C15F00E54CDF /* ColorConvertor.swift in Sources */,
 				23F88E8324CFD85D00ACE986 /* SceneDelegate.swift in Sources */,
 				2338244324E5288C00F9467D /* CoreDataServices.swift in Sources */,

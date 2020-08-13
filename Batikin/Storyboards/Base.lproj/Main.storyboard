@@ -32,6 +32,21 @@
             </objects>
             <point key="canvasLocation" x="1072" y="131"/>
         </scene>
+        <!--Selected View Controller-->
+        <scene sceneID="35J-ff-d0o">
+            <objects>
+                <viewController storyboardIdentifier="SelectedStoryboard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LNC-md-O3g" customClass="SelectedViewController" customModule="Batikin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1ze-PD-4EF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="TkB-Sc-kYG"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zhO-jH-TMM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1071" y="871"/>
+        </scene>
         <!--Drawing View Controller-->
         <scene sceneID="WaX-UD-a4D">
             <objects>
@@ -145,7 +160,7 @@
                                         <rect key="frame" x="20" y="-15" width="374" height="150"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gA-ta-PLR" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
-                                                <rect key="frame" x="-2" y="-4" width="378" height="56.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="48.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="YES"/>
@@ -164,7 +179,7 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YhT-66-rix" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
-                                                <rect key="frame" x="-2" y="46.5" width="378" height="57"/>
+                                                <rect key="frame" x="0.0" y="50.5" width="374" height="49"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="NO"/>
@@ -183,7 +198,7 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o42-0B-IV8" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
-                                                <rect key="frame" x="-2" y="97.5" width="378" height="56.5"/>
+                                                <rect key="frame" x="0.0" y="101.5" width="374" height="48.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="NO"/>
