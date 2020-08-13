@@ -51,7 +51,6 @@ class DrawingView: UIView {
     
     @objc private func scaleShape(_ sender: UIPinchGestureRecognizer) {
         if sender.state == .began || sender.state == .changed {
-            
             if let transform = sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale) {
                 sender.view?.transform = transform
             }
@@ -59,24 +58,31 @@ class DrawingView: UIView {
         }
     }
     
-    @objc func panPiece(_ gestureRecognizer: UIPanGestureRecognizer) {
-        let piece = gestureRecognizer.view
-
-        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
-            let translation = gestureRecognizer.translation(in: piece?.superview)
-    
+    @objc func panPiece(_ sender: UIPanGestureRecognizer) {
+        let piece = sender.view
+        
+        if sender.state == .began || sender.state == .changed {
+            
+            let translation = sender.translation(in: piece?.superview)
+          
             piece?.center = CGPoint(x: (piece?.center.x ?? 0.0) + (translation.x ), y: (piece?.center.y ?? 0.0) + (translation.y ))
-            gestureRecognizer.setTranslation(CGPoint.zero, in: piece?.superview)
+            sender.setTranslation(CGPoint.zero, in: piece?.superview)
         }
     }
     
     @objc func rotatePiece(_ gestureRecognizer: UIRotationGestureRecognizer) {
-    
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
-            if let transform = gestureRecognizer.view?.transform.rotated(by: gestureRecognizer.rotation ) {
-                gestureRecognizer.view?.transform = transform
+            if gestureRecognizer.view?.isFlip == true {
+                if let transform = gestureRecognizer.view?.transform.rotated(by: -gestureRecognizer.rotation ) {
+                    gestureRecognizer.view?.transform = transform
+                }
+                gestureRecognizer.rotation = 0
+            } else {
+                if let transform = gestureRecognizer.view?.transform.rotated(by: gestureRecognizer.rotation ) {
+                    gestureRecognizer.view?.transform = transform
+                }
+                gestureRecognizer.rotation = 0
             }
-            gestureRecognizer.rotation = 0
         }
     }
     
