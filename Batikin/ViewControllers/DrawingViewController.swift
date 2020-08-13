@@ -22,6 +22,7 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var hueSlider: GradientSlider!
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
@@ -45,6 +46,7 @@ class DrawingViewController: UIViewController {
         collectionView.dataSource = self
         
         // Default Slider Values
+        sliderView.alpha = 0
         saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         
@@ -76,8 +78,15 @@ class DrawingViewController: UIViewController {
                 self.toolView.alpha = 1
             }
         } else if selectedViews["drawingView"] == drawingView {
-            UIView.animate(withDuration: 0.4) {
-                self.toolView.alpha = 0
+            UIView.animate(withDuration: 0.5) {
+                
+                // Forces return to Tool View after Slider View
+                if self.sliderView.alpha == 1 {
+                    self.sliderView.alpha = 0
+                } else {
+                    self.toolView.alpha = 0
+                    self.toolView.center.y = 300
+                }
             }
         }
         
@@ -119,6 +128,10 @@ class DrawingViewController: UIViewController {
         // Update selected motif element color
         guard let selectedView = selectedView else { return }
         updateStroke(node: selectedView.node)
+    }
+    
+    @objc func colorButton() {
+        sliderView.alpha = 1
     }
     
     private func setupToolBox() {
@@ -186,6 +199,7 @@ class DrawingViewController: UIViewController {
         deleteButton.addTarget(self, action: #selector(handleDelete), for: .touchUpInside)
         deleteButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         deleteButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
+
         let deleteLabel = UILabel()
         deleteLabel.text = "Delete"
         deleteLabel.textColor = UIColor.label
