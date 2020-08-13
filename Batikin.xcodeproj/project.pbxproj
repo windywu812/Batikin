@@ -45,6 +45,7 @@
 		2338244324E5288C00F9467D /* CoreDataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244224E5288C00F9467D /* CoreDataServices.swift */; };
 		2338244524E528EE00F9467D /* BatikModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244424E528EE00F9467D /* BatikModel.swift */; };
 		2338244724E534B800F9467D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244624E534B800F9467D /* Date+Extension.swift */; };
+		2338244924E5455F00F9467D /* CustomColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338244824E5455F00F9467D /* CustomColletionViewCell.swift */; };
 		239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239496F724D1151F00F7151C /* DrawingViewController.swift */; };
 		23A8EF2024D8238B00671C4B /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8EF1F24D8238B00671C4B /* HeaderCell.swift */; };
 		23B45DD224DD1CBF00BD074B /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B45DD124DD1CBF00BD074B /* DrawingView.swift */; };
@@ -101,6 +102,7 @@
 		2338244224E5288C00F9467D /* CoreDataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServices.swift; sourceTree = "<group>"; };
 		2338244424E528EE00F9467D /* BatikModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatikModel.swift; sourceTree = "<group>"; };
 		2338244624E534B800F9467D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		2338244824E5455F00F9467D /* CustomColletionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColletionViewCell.swift; sourceTree = "<group>"; };
 		239496F724D1151F00F7151C /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		23A8EF1F24D8238B00671C4B /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		23B45DD124DD1CBF00BD074B /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				A2482DBD24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift */,
 				23A8EF1F24D8238B00671C4B /* HeaderCell.swift */,
+				2338244824E5455F00F9467D /* CustomColletionViewCell.swift */,
 			);
 			path = ViewCells;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				2338244324E5288C00F9467D /* CoreDataServices.swift in Sources */,
 				231990A124E4E0620004EA2C /* String+Extension.swift in Sources */,
 				2304985524DFDB7F00077DA8 /* ShapeModel.swift in Sources */,
+				2338244924E5455F00F9467D /* CustomColletionViewCell.swift in Sources */,
 				239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */,
 				75EE716E24E2C15F00E54CDF /* GradientSlider.swift in Sources */,
 				230A7A7C24D7EA2C009EF061 /* Constant.swift in Sources */,

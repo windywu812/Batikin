@@ -17,14 +17,19 @@ class GalleryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        CoreDataServices.readData()
+        CoreDataServices.readData { (result) in
+            self.batiks = result
+        }
+        
+        collectionView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         setupCollectionView()
-        view.backgroundColor = UIColor(named: CustomColor.galleryBackground.color)
+        view.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
+        collectionView.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
     }
     
     private func setupCollectionView() {
@@ -33,7 +38,7 @@ class GalleryViewController: UIViewController {
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor(named: CustomColor.galleryBackground.rawValue)
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constant.collectionCell)
+        collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: Constant.customCollectionViewCell)
         collectionView.register(MyHeaderCell.self, forSupplementaryViewOfKind: Constant.headerCell, withReuseIdentifier: Constant.headerCell)
         
         view.addSubview(collectionView)
@@ -51,30 +56,21 @@ class GalleryViewController: UIViewController {
     private func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, environment) ->
             NSCollectionLayoutSection? in
-            if sectionNumber == 0 {
-                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                item.contentInsets.bottom = 16
-                item.contentInsets.trailing = 20
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.48), heightDimension: .fractionalWidth(0.48)), subitems: [item])
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-                section.contentInsets.leading = 20
+          
+            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalWidth(0.5)))
+            item.contentInsets.bottom = 16
+            item.contentInsets.trailing = 20
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), subitems: [item])
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets.leading = 20
+            section.contentInsets.top = 20
+            
+            if self.batiks.isEmpty {
                 section.boundarySupplementaryItems = [
                     .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48)), elementKind: Constant.headerCell, alignment: .topLeading)
                 ]
-                return section
-            } else {
-                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalWidth(0.5)))
-                item.contentInsets.bottom = 16
-                item.contentInsets.trailing = 20
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), subitems: [item])
-                let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets.leading = 20
-                section.boundarySupplementaryItems = [
-                    .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48)), elementKind: Constant.headerCell, alignment: .topLeading)
-                ]
-                return section
             }
+            return section
         }
     }
     
@@ -82,33 +78,27 @@ class GalleryViewController: UIViewController {
 
 extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else {
-            return batiks.count
-        }
+        return batiks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constant.collectionCell, for: indexPath)
-        cell.backgroundColor = .red
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constant.customCollectionViewCell, for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
+        
+        let imageData = batiks[indexPath.row].imageBatik
+        cell.imageView.image = UIImage(data: imageData)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constant.headerCell, for: indexPath) as? MyHeaderCell else { return UICollectionReusableView() }
         if indexPath.section == 0 {
-            header.title.text = NSLocalizedString("Recently",comment: "")
-        } else {
-            header.title.text = NSLocalizedString("My Batiks",comment: "")
+            if self.batiks.isEmpty {
+                header.title.text = NSLocalizedString("Create your Batik",comment: "")
+            }
         }
         return header
     }
     
 }
-

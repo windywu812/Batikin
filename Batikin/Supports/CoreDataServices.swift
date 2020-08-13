@@ -11,7 +11,7 @@ import CoreData
 
 class CoreDataServices {
     
-    static func readData() {
+    static func readData(completion: @escaping ([BatikModel]) -> ()) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -30,7 +30,8 @@ class CoreDataServices {
         } catch let err {
             print(err)
         }
-                
+        
+        completion(batiks)
     }
     
     static func saveData(_ idBatik: UUID, _ nameBatik: String, _ imageBatik: Data) {
@@ -49,7 +50,6 @@ class CoreDataServices {
             print(err)
         }
         
-        print("sucess")
     }
     
     static func updateData(_ id: UUID, _ name: String) {
@@ -67,7 +67,6 @@ class CoreDataServices {
             print(err)
         }
         
-         print("sucess")
     }
     
     static func deleteData(_ id: UUID) {
@@ -85,6 +84,5 @@ class CoreDataServices {
             print(err)
         }
         
-         print("sucess")
     }
 }

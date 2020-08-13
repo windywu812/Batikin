@@ -80,13 +80,19 @@ class DrawingViewController: UIViewController {
             
             if let imageData = image?.pngData() {
                 CoreDataServices.saveData(UUID(), Date().toString(), imageData)
+                self.navigationController?.popToRootViewController(animated: true)
             }
             
-            self.navigationController?.popToRootViewController(animated: true)
         }
-        alert.addAction(cancel)
-        alert.addAction(done)
-        present(alert, animated: true)
+        
+        if drawingView.subviews == [] {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            alert.addAction(cancel)
+            alert.addAction(done)
+            present(alert, animated: true)
+        }
+        
     }
     
     private func setupColorSlider() {
@@ -363,7 +369,6 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
-
 // MARK: DrawingScreen Logic
 extension DrawingViewController: UIScrollViewDelegate {
     
@@ -385,7 +390,7 @@ extension DrawingViewController: UIScrollViewDelegate {
         updateConstraintsForSize(view.bounds.size)
     }
     
-    func updateConstraintsForSize(_ size:CGSize){
+    func updateConstraintsForSize(_ size:CGSize) {
         
         var yOffset: CGFloat = 0
         

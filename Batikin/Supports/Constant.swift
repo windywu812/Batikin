@@ -9,9 +9,11 @@
 import UIKit
 
 struct Constant {
+    
     static let collectionCell = "collectionCell"
     static let headerCell = "headerCell"
     static let shapeCollectionViewCell = "ShapeCollectionViewCell"
+    static let customCollectionViewCell = "CustomCollectionViewCell"
     
     static let entityName = "Batik"
     static var idBatik = "idBatik"
