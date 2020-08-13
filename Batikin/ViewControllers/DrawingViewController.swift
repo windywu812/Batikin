@@ -27,6 +27,7 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
 
+    let shapeData = ShapeData()
     let shapeModel = ShapeModel()
     let toolView = UIView()
     
@@ -89,6 +90,15 @@ class DrawingViewController: UIViewController {
                 }
             }
         }
+        
+//        print(selectedView as Any)
+        print(selectedView?.node as Any)
+        print(selectedView?.frame as Any)
+        print(selectedView?.transform as Any)
+        print(selectedView?.tintColor as Any)
+        print(selectedView?.layer as Any)
+//        print(selectedView?.contentLayout as Any) // not useful
+        print(selectedView?.layer.position as Any)
         
     }
     
