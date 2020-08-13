@@ -22,6 +22,7 @@ class GalleryViewController: UIViewController {
         }
         
         collectionView.reloadData()
+        
     }
     
     override func viewDidLoad() {
@@ -98,6 +99,10 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
         }
         return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
     
 }
