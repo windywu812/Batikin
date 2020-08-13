@@ -22,6 +22,7 @@ class DrawingViewController: UIViewController {
     @IBOutlet weak var drawingViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var drawingViewTrailingConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var hueSlider: GradientSlider!
     @IBOutlet weak var saturationSlider: GradientSlider!
     @IBOutlet weak var brightnessSlider: GradientSlider!
@@ -45,6 +46,7 @@ class DrawingViewController: UIViewController {
         collectionView.dataSource = self
         
         // Default Slider Values
+        sliderView.alpha = 0
         saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     }
@@ -64,8 +66,14 @@ class DrawingViewController: UIViewController {
             }
         } else if selectedViews["drawingView"] == drawingView {
             UIView.animate(withDuration: 0.5) {
-                self.toolView.alpha = 0
-                self.toolView.center.y = 300
+                
+                // Forces return to Tool View after Slider View
+                if self.sliderView.alpha == 1 {
+                    self.sliderView.alpha = 0
+                } else {
+                    self.toolView.alpha = 0
+                    self.toolView.center.y = 300
+                }
             }
         }
         
@@ -109,6 +117,10 @@ class DrawingViewController: UIViewController {
         updateStroke(node: selectedView.node)
     }
     
+    @objc func colorButton() {
+        sliderView.alpha = 1
+    }
+    
     private func setupToolBox() {
         
         toolView.backgroundColor = UIColor.systemBackground
@@ -126,6 +138,7 @@ class DrawingViewController: UIViewController {
         let buttonStackView = UIStackView()
         colorTool.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
         colorTool.translatesAutoresizingMaskIntoConstraints = false
+        colorTool.addTarget(self, action: #selector(colorButton), for: .touchUpInside)
         
         let mirrorTool = UIButton()
         mirrorTool.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
@@ -159,46 +172,46 @@ class DrawingViewController: UIViewController {
             
         ])
         
-        let colorLabel = UILabel()
-        colorLabel.text = "Color"
-        colorLabel.textColor = UIColor.label
-        colorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        colorLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let mirroLabel = UILabel()
-        mirroLabel.text = "Mirror"
-        mirroLabel.textColor = UIColor.label
-        mirroLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        mirroLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let duplicateLabel = UILabel()
-        duplicateLabel.text = "Copy"
-        duplicateLabel.textColor = UIColor.label
-        duplicateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        duplicateLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let deleteLabel = UILabel()
-        deleteLabel.text = "Delete"
-        deleteLabel.textColor = UIColor.label
-        deleteLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        deleteLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let stackLabel = UIStackView()
-        stackLabel.alignment = .fill
-        stackLabel.distribution = .fillEqually
-        stackLabel.spacing = 63.0
-        stackLabel.addArrangedSubview(colorLabel)
-        stackLabel.addArrangedSubview(mirroLabel)
-        stackLabel.addArrangedSubview(duplicateLabel)
-        stackLabel.addArrangedSubview(deleteLabel)
-        buttonStackView.addSubview(stackLabel)
-        stackLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
-            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 4),
-            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor,constant: 5),
-            stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
-        ])
+//        let colorLabel = UILabel()
+//        colorLabel.text = "Color"
+//        colorLabel.textColor = UIColor.label
+//        colorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+//        colorLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let mirroLabel = UILabel()
+//        mirroLabel.text = "Mirror"
+//        mirroLabel.textColor = UIColor.label
+//        mirroLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+//        mirroLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let duplicateLabel = UILabel()
+//        duplicateLabel.text = "Copy"
+//        duplicateLabel.textColor = UIColor.label
+//        duplicateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+//        duplicateLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let deleteLabel = UILabel()
+//        deleteLabel.text = "Delete"
+//        deleteLabel.textColor = UIColor.label
+//        deleteLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+//        deleteLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let stackLabel = UIStackView()
+//        stackLabel.alignment = .fill
+//        stackLabel.distribution = .fillEqually
+//        stackLabel.spacing = 63.0
+//        stackLabel.addArrangedSubview(colorLabel)
+//        stackLabel.addArrangedSubview(mirroLabel)
+//        stackLabel.addArrangedSubview(duplicateLabel)
+//        stackLabel.addArrangedSubview(deleteLabel)
+//        buttonStackView.addSubview(stackLabel)
+//        stackLabel.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
+//            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 4),
+//            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor,constant: 5),
+//            stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
+//        ])
     }
     
     func handleAddShape(shape: String) {
