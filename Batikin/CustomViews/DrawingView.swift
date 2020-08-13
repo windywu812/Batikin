@@ -13,17 +13,9 @@ class DrawingView: UIView {
     
     var isDragging: Bool = false
 
-
-
-    var rotateGesture = UIRotationGestureRecognizer()
-
-    
     var previousView: UIView?
     var selectedView: UIView?
-    
-    var lastRotation: CGFloat = 0
-    
-
+        
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         guard let position = touches.first?.location(in: self) else { return }
@@ -53,7 +45,6 @@ class DrawingView: UIView {
         
         let myObjects = ["drawingView": self, "selectedView": selectedView]
         
-
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: Notification.Name.sendViews , object: myObjects)
         }
@@ -62,8 +53,10 @@ class DrawingView: UIView {
     
     @objc private func scaleShape(_ sender: UIPinchGestureRecognizer) {
         if sender.state == .began || sender.state == .changed {
-            guard let newBounds = selectedView?.bounds.applying(.init(scaleX: sender.scale, y: sender.scale)) else { return }
-            selectedView?.bounds = newBounds
+            
+            if let transform = sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale) {
+                sender.view?.transform = transform
+            }
             sender.scale = 1.0
         }
     }
@@ -71,11 +64,6 @@ class DrawingView: UIView {
     @objc func panPiece(_ gestureRecognizer: UIPanGestureRecognizer) {
         let piece = gestureRecognizer.view
 
-        // in previous version
-        // guard let selectedView = selectedView as? MacawView else { return }
-//        print(selectedView.node)
-
-        
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             let translation = gestureRecognizer.translation(in: piece?.superview)
     
@@ -94,8 +82,4 @@ class DrawingView: UIView {
         }
     }
     
-}
-
-extension Notification.Name {
-    static let sendViews = Notification.Name("sendViews")
 }
