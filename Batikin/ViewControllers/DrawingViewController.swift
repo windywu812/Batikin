@@ -151,6 +151,10 @@ class DrawingViewController: UIViewController {
         updateStroke(node: selectedView.node)
     }
     
+    @objc func colorTool() {
+        sliderView.alpha = 1
+    }
+    
     private func setupToolBox() {
         
         toolView.backgroundColor = UIColor.systemBackground
