@@ -22,19 +22,14 @@ class DrawingView: UIView {
         
         previousView?.layer.borderColor = UIColor.clear.cgColor
         selectedView = self.hitTest(position, with: nil)
-                
+        
         if selectedView != nil && selectedView != self {
             isDragging = true
+            selectedView?.layer.borderColor = UIColor(named: CustomColor.tintColor.color)?.cgColor
+            selectedView?.layer.borderWidth = 3
         }
-
-    }
-  
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if selectedView != self {
-            selectedView?.layer.borderColor = UIColor(named: CustomColor.tintColor.rawValue)?.cgColor
-            selectedView?.layer.borderWidth = 3
-            
             let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleShape(_:)))
             selectedView?.addGestureRecognizer(pinchGesture)
             
@@ -45,13 +40,12 @@ class DrawingView: UIView {
             selectedView?.addGestureRecognizer(panGesture)
         }
         
-        previousView = selectedView
-        
         let myObjects = ["drawingView": self, "selectedView": selectedView]
         
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: Notification.Name.sendViews , object: myObjects)
         }
+        previousView = selectedView
         
     }
     

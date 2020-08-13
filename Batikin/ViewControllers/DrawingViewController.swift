@@ -108,6 +108,124 @@ class DrawingViewController: UIViewController {
         guard let selectedView = selectedView else { return }
         updateStroke(node: selectedView.node)
     }
+    
+    private func setupToolBox() {
+        
+        toolView.backgroundColor = UIColor.systemBackground
+        bottomContainer.addSubview(toolView)
+        toolView.translatesAutoresizingMaskIntoConstraints = false
+        toolView.alpha = 0
+        NSLayoutConstraint.activate([
+            toolView.topAnchor.constraint(equalTo: bottomContainer.topAnchor),
+            toolView.centerXAnchor.constraint(equalTo: bottomContainer.centerXAnchor),
+            toolView.widthAnchor.constraint(equalTo: bottomContainer.widthAnchor),
+            toolView.heightAnchor.constraint(equalTo: bottomContainer.heightAnchor)
+        ])
+        
+        let colorTool = UIButton()
+        let buttonStackView = UIStackView()
+        colorTool.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
+        colorTool.translatesAutoresizingMaskIntoConstraints = false
+        
+        let mirrorTool = UIButton()
+        mirrorTool.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
+        mirrorTool.translatesAutoresizingMaskIntoConstraints = false
+        
+        let duplicateTool = UIButton()
+        duplicateTool.setBackgroundImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
+        duplicateTool.translatesAutoresizingMaskIntoConstraints = false
+        
+        let deleteTool = UIButton()
+        deleteTool.setBackgroundImage(UIImage(systemName: "trash"), for: .normal)
+        deleteTool.translatesAutoresizingMaskIntoConstraints = false
+        
+        buttonStackView.alignment = .fill
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 64.0
+        
+        buttonStackView.addArrangedSubview(colorTool)
+        buttonStackView.addArrangedSubview(mirrorTool)
+        buttonStackView.addArrangedSubview(duplicateTool)
+        buttonStackView.addArrangedSubview(deleteTool)
+        
+        toolView.addSubview(buttonStackView)
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            buttonStackView.topAnchor.constraint(equalTo: bottomContainer.topAnchor , constant: 50),
+            buttonStackView.rightAnchor.constraint(equalTo: bottomContainer.rightAnchor , constant: -20),
+            buttonStackView.leftAnchor.constraint(equalTo: bottomContainer.leftAnchor, constant: 20),
+            buttonStackView.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor,constant: -80),
+            
+        ])
+        
+        let colorLabel = UILabel()
+        colorLabel.text = "Color"
+        colorLabel.textColor = UIColor.label
+        colorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        colorLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let mirroLabel = UILabel()
+        mirroLabel.text = "Mirror"
+        mirroLabel.textColor = UIColor.label
+        mirroLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        mirroLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let duplicateLabel = UILabel()
+        duplicateLabel.text = "Copy"
+        duplicateLabel.textColor = UIColor.label
+        duplicateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        duplicateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let deleteLabel = UILabel()
+        deleteLabel.text = "Delete"
+        deleteLabel.textColor = UIColor.label
+        deleteLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        deleteLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stackLabel = UIStackView()
+        stackLabel.alignment = .fill
+        stackLabel.distribution = .fillEqually
+        stackLabel.spacing = 63.0
+        stackLabel.addArrangedSubview(colorLabel)
+        stackLabel.addArrangedSubview(mirroLabel)
+        stackLabel.addArrangedSubview(duplicateLabel)
+        stackLabel.addArrangedSubview(deleteLabel)
+        buttonStackView.addSubview(stackLabel)
+        stackLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
+            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 4),
+            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor,constant: 5),
+            stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
+        ])
+    }
+    
+    func handleAddShape(shape: String) {
+          guard let node = try? SVGParser.parse(resource: shape) else { return }
+          
+          let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+          view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(150), y: drawingView.bounds.midY - CGFloat(150))
+          view.backgroundColor = .clear
+          view.contentMode = .scaleAspectFit
+          
+          self.drawingView.addSubview(view)
+          updateStroke(node: node)
+      }
+      
+      func updateStroke(node: Node) {
+          
+          if let shape = node as? Shape {
+              let colorConvertor = ColorConvertor()
+              
+              let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
+              
+              shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
+          } else if let group = node as? Group {
+              group.contents.forEach(updateStroke(node:))
+          }
+      }
+
 }
 
 // MARK: Collection View
@@ -157,124 +275,6 @@ extension DrawingViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-    func handleAddShape(shape: String) {
-        guard let node = try? SVGParser.parse(resource: shape) else { return }
-        
-        let view = MacawView(node: node, frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-        view.transform = .init(translationX: drawingView.bounds.midX - CGFloat(150), y: drawingView.bounds.midY - CGFloat(150))
-        view.backgroundColor = .clear
-        view.contentMode = .scaleAspectFit
-        
-        self.drawingView.addSubview(view)
-        updateStroke(node: node)
-    }
-    
-    func updateStroke(node: Node) {
-        
-        if let shape = node as? Shape {
-            let colorConvertor = ColorConvertor()
-            
-            let fillColor = colorConvertor.HSBtoRGB(h: hueSlider.value, s: saturationSlider.value, b: brightnessSlider.value)
-            
-            shape.fill = Color.rgb(r: fillColor.r, g: fillColor.g, b: fillColor.b)
-        } else if let group = node as? Group {
-            group.contents.forEach(updateStroke(node:))
-        }
-    }
-    
-    // MARK: Content Hiding
-    private func setupToolBox() {
-        
-        let stackLabel = UIStackView()
-        toolView.backgroundColor = UIColor.systemBackground
-        bottomContainer.addSubview(toolView)
-        toolView.translatesAutoresizingMaskIntoConstraints = false
-        toolView.alpha = 0
-        NSLayoutConstraint.activate([
-            toolView.topAnchor.constraint(equalTo: bottomContainer.topAnchor),
-            toolView.centerXAnchor.constraint(equalTo: bottomContainer.centerXAnchor),
-            toolView.widthAnchor.constraint(equalTo: bottomContainer.widthAnchor),
-            toolView.heightAnchor.constraint(equalTo: bottomContainer.heightAnchor)
-        ])
-        
-        let btnTool1 = UIButton()
-        let buttonStackView = UIStackView()
-        btnTool1.setBackgroundImage(UIImage(systemName: "circle.grid.hex"), for: .normal)
-        btnTool1.translatesAutoresizingMaskIntoConstraints = false
-        
-        let btnTool2 = UIButton()
-        btnTool2.setBackgroundImage(UIImage(systemName: "arrow.right.arrow.left"), for: .normal)
-        btnTool2.translatesAutoresizingMaskIntoConstraints = false
-        
-        let btnTool3 = UIButton()
-        btnTool3.setBackgroundImage(UIImage(systemName: "rectangle.on.rectangle"), for: .normal)
-        btnTool3.translatesAutoresizingMaskIntoConstraints = false
-        
-        let btnTool4 = UIButton()
-        btnTool4.setBackgroundImage(UIImage(systemName: "trash"), for: .normal)
-        btnTool4.translatesAutoresizingMaskIntoConstraints = false
-        
-        buttonStackView.alignment = .fill
-        buttonStackView.distribution = .fillEqually
-        buttonStackView.spacing = 64.0
-        
-        buttonStackView.addArrangedSubview(btnTool1)
-        buttonStackView.addArrangedSubview(btnTool2)
-        buttonStackView.addArrangedSubview(btnTool3)
-        buttonStackView.addArrangedSubview(btnTool4)
-        
-        toolView.addSubview(buttonStackView)
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            buttonStackView.topAnchor.constraint(equalTo: bottomContainer.topAnchor , constant: 50),
-            buttonStackView.rightAnchor.constraint(equalTo: bottomContainer.rightAnchor , constant: -20),
-            buttonStackView.leftAnchor.constraint(equalTo: bottomContainer.leftAnchor, constant: 20),
-            buttonStackView.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor,constant: -80),
-            
-        ])
-        
-        let label1 = UILabel()
-        label1.text = "Color"
-        label1.textColor = UIColor.label
-        label1.font = UIFont.systemFont(ofSize:14.0)
-        label1.translatesAutoresizingMaskIntoConstraints = false
-        
-        let label2 = UILabel()
-        label2.text = "Mirror"
-        label2.textColor = UIColor.label
-        label2.font = UIFont.systemFont(ofSize:14.0)
-        label2.translatesAutoresizingMaskIntoConstraints = false
-        
-        let label3 = UILabel()
-        label3.text = "Copy"
-        label3.textColor = UIColor.label
-        label3.font = UIFont.systemFont(ofSize:14.0)
-        label3.translatesAutoresizingMaskIntoConstraints = false
-        
-        let label4 = UILabel()
-        label4.text = "Delete"
-        label4.textColor = UIColor.label
-        label4.font = UIFont.systemFont(ofSize:14.0)
-        label4.translatesAutoresizingMaskIntoConstraints = false
-        
-        stackLabel.alignment = .fill
-        stackLabel.distribution = .fillEqually
-        stackLabel.spacing = 63.0
-        stackLabel.addArrangedSubview(label1)
-        stackLabel.addArrangedSubview(label2)
-        stackLabel.addArrangedSubview(label3)
-        stackLabel.addArrangedSubview(label4)
-        buttonStackView.addSubview(stackLabel)
-        stackLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackLabel.topAnchor.constraint(equalTo: buttonStackView.topAnchor),
-            stackLabel.rightAnchor.constraint(equalTo: buttonStackView.rightAnchor,constant: 4),
-            stackLabel.leftAnchor.constraint(equalTo: buttonStackView.leftAnchor,constant: 5),
-            stackLabel.bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor,constant: 90),
-        ])
-    }
-
 }
 
 
