@@ -172,30 +172,32 @@ class DrawingViewController: UIViewController {
             
         ])
         
-//        let colorLabel = UILabel()
-//        colorLabel.text = "Color"
-//        colorLabel.textColor = UIColor.label
-//        colorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-//        colorLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let mirroLabel = UILabel()
-//        mirroLabel.text = "Mirror"
-//        mirroLabel.textColor = UIColor.label
-//        mirroLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-//        mirroLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let duplicateLabel = UILabel()
-//        duplicateLabel.text = "Copy"
-//        duplicateLabel.textColor = UIColor.label
-//        duplicateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-//        duplicateLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let deleteLabel = UILabel()
-//        deleteLabel.text = "Delete"
-//        deleteLabel.textColor = UIColor.label
-//        deleteLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-//        deleteLabel.translatesAutoresizingMaskIntoConstraints = false
-//
+        let colorLabel = UILabel()
+        colorLabel.text = "Color"
+        colorLabel.textColor = UIColor.label
+        colorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        colorLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let mirrorLabel = UILabel()
+        mirrorLabel.text = "Mirror"
+        mirrorLabel.textColor = UIColor.label
+        mirrorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        mirrorLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let duplicateLabel = UILabel()
+        duplicateLabel.text = "Copy"
+        duplicateLabel.textColor = UIColor.label
+        duplicateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        duplicateLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        let deleteLabel = UILabel()
+        deleteLabel.text = "Delete"
+        deleteLabel.textColor = UIColor.label
+        deleteLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        deleteLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+//        FIXME: The layer index somehow cause not able to select button
+        
 //        let stackLabel = UIStackView()
 //        stackLabel.alignment = .fill
 //        stackLabel.distribution = .fillEqually
