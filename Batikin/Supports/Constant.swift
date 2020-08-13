@@ -9,16 +9,9 @@
 import UIKit
 
 struct Constant {
-    
     static let collectionCell = "collectionCell"
     static let headerCell = "headerCell"
     static let shapeCollectionViewCell = "ShapeCollectionViewCell"
-    static let customCollectionViewCell = "CustomCollectionViewCell"
-    
-    static let entityName = "Batik"
-    static var idBatik = "idBatik"
-    static let nameBatik = "nameBatik"
-    static let imageBatik = "imageBatik"
 }
 
 enum CustomColor: String {
@@ -40,3 +33,4 @@ enum CustomColor: String {
         }
     }
 }
+
