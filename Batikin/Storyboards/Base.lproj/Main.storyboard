@@ -142,10 +142,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3S-lO-XCV">
-                                <rect key="frame" x="0.0" y="702" width="414" height="160"/>
+                                <rect key="frame" x="0.0" y="742" width="414" height="120"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="gPk-81-Lh0">
-                                        <rect key="frame" x="20" y="5" width="374" height="150"/>
+                                        <rect key="frame" x="20" y="-15" width="374" height="150"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gA-ta-PLR" customClass="GradientSlider" customModule="Batikin" customModuleProvider="target">
                                                 <rect key="frame" x="-2" y="-4" width="378" height="56.5"/>
@@ -220,7 +220,7 @@
                                 <constraints>
                                     <constraint firstItem="gPk-81-Lh0" firstAttribute="leading" secondItem="L3S-lO-XCV" secondAttribute="leading" constant="20" id="AwU-xi-fOC"/>
                                     <constraint firstItem="gPk-81-Lh0" firstAttribute="centerX" secondItem="L3S-lO-XCV" secondAttribute="centerX" id="KGk-HO-q1e"/>
-                                    <constraint firstAttribute="height" constant="160" id="TgM-qm-dKg"/>
+                                    <constraint firstAttribute="height" constant="120" id="TgM-qm-dKg"/>
                                     <constraint firstItem="gPk-81-Lh0" firstAttribute="centerY" secondItem="L3S-lO-XCV" secondAttribute="centerY" id="hxE-sG-3FY"/>
                                     <constraint firstAttribute="trailing" secondItem="gPk-81-Lh0" secondAttribute="trailing" constant="20" id="kZZ-Xi-w9X"/>
                                 </constraints>
@@ -233,10 +233,10 @@
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="top" secondItem="EF2-45-XbA" secondAttribute="bottom" id="D59-vZ-4Xf"/>
                             <constraint firstItem="EF2-45-XbA" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="XnU-ZH-nff"/>
                             <constraint firstItem="EF2-45-XbA" firstAttribute="top" secondItem="vRe-Hu-78o" secondAttribute="top" id="Z3f-pa-pPe"/>
+                            <constraint firstItem="zXw-pZ-X4T" firstAttribute="bottom" secondItem="vRe-Hu-78o" secondAttribute="bottom" constant="34" id="bE2-qa-pSD"/>
                             <constraint firstItem="vRe-Hu-78o" firstAttribute="trailing" secondItem="L3S-lO-XCV" secondAttribute="trailing" id="eGB-H9-BON"/>
                             <constraint firstItem="EF2-45-XbA" firstAttribute="trailing" secondItem="vRe-Hu-78o" secondAttribute="trailing" id="h9J-aZ-cPu"/>
                             <constraint firstItem="L3S-lO-XCV" firstAttribute="bottom" secondItem="vRe-Hu-78o" secondAttribute="bottom" id="m2l-9v-d0e"/>
-                            <constraint firstAttribute="bottom" secondItem="zXw-pZ-X4T" secondAttribute="bottom" id="p7Q-kB-xIU"/>
                             <constraint firstItem="zXw-pZ-X4T" firstAttribute="leading" secondItem="vRe-Hu-78o" secondAttribute="leading" id="vrm-YN-1mQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vRe-Hu-78o"/>

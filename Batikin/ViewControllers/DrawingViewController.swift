@@ -32,11 +32,14 @@ class DrawingViewController: UIViewController {
     
     var selectedView: MacawView?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSelected(notification:)), name: Notification.Name.sendViews, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(handleSelected(notification:)), name: Notification.Name.sendViews, object: nil)
-        
+                
         setupNavigationBar()
         setupSegmentedControl()
         setupScrollView()
@@ -45,18 +48,17 @@ class DrawingViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        // Default Slider Values
-        sliderView.alpha = 0
-        saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-        brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-        
-        navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleDone))
+        setupColorSlider()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        NotificationCenter.default.removeObserver(self, name: .sendViews, object: nil)
     }
     
     @objc private func handleDone() {
         let alert = UIAlertController(title: "Done", message: "Are you finish make your Batik?", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .default) 
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) 
         let done = UIAlertAction(title: "Done", style: .default) { (_) in
             self.navigationController?.popToRootViewController(animated: true)
         }
@@ -65,31 +67,29 @@ class DrawingViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    private func setupColorSlider() {
+        sliderView.alpha = 0
+        saturationSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        brightnessSlider.maxColor = UIColor(hue: 0.5, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+    }
+    
     @objc func handleSelected(notification: Notification) {
         
         guard let selectedViews = notification.object as? [String: UIView] else { return }
-                
+        
         if let selectedView = selectedViews["selectedView"] as? MacawView {
             self.selectedView = selectedView
         }
-        
+    
         if selectedViews["selectedView"] != drawingView {
             UIView.animate(withDuration: 0.4) {
                 self.toolView.alpha = 1
             }
         } else if selectedViews["drawingView"] == drawingView {
             UIView.animate(withDuration: 0.5) {
-                
-                // Forces return to Tool View after Slider View
-                if self.sliderView.alpha == 1 {
-                    self.sliderView.alpha = 0
-                } else {
-                    self.toolView.alpha = 0
-                    self.toolView.center.y = 300
-                }
+                self.toolView.alpha = 0
             }
         }
-        
     }
     
     private func setupScrollView() {
@@ -104,13 +104,16 @@ class DrawingViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleDone))
     }
     
     // MARK: Segmented Control
     private func setupSegmentedControl() {
         shapeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        shapeSegmentedControl.backgroundColor = UIColor(named: CustomColor.segmentBackground.rawValue)
-        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: CustomColor.tintColor.rawValue)
+        shapeSegmentedControl.backgroundColor = UIColor(named: CustomColor.segmentBackground.color)
+        shapeSegmentedControl.selectedSegmentTintColor = UIColor(named: CustomColor.tintColor.color)
         
         bottomContainer.backgroundColor = UIColor.systemBackground
     }
@@ -118,7 +121,6 @@ class DrawingViewController: UIViewController {
     @IBAction func handleSegmentedControl(_ sender: UISegmentedControl) {
         collectionView.reloadData()
     }
-    
     
     @IBAction func colorSlider(_ sender: GradientSlider) {
         // Update color slider saturation and brightness to match current hue
@@ -129,11 +131,7 @@ class DrawingViewController: UIViewController {
         guard let selectedView = selectedView else { return }
         updateStroke(node: selectedView.node)
     }
-    
-    @objc func colorButton() {
-        sliderView.alpha = 1
-    }
-    
+        
     private func setupToolBox() {
         
         toolView.backgroundColor = UIColor.systemBackground
@@ -153,6 +151,7 @@ class DrawingViewController: UIViewController {
         colorButton.translatesAutoresizingMaskIntoConstraints = false
         colorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         colorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        colorButton.addTarget(self, action: #selector(handleColor), for: .touchUpInside)
         let colorLabel = UILabel()
         colorLabel.text = "Color"
         colorLabel.textColor = UIColor.label
@@ -231,8 +230,26 @@ class DrawingViewController: UIViewController {
         
     }
     
+    var buttonColorClose: UIButton!
+    
     @objc private func handleColor() {
-        
+        buttonColorClose = UIButton(type: .system)
+        buttonColorClose.setTitle("Close", for: .normal)
+        buttonColorClose.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
+        view.addSubview(buttonColorClose)
+        buttonColorClose.translatesAutoresizingMaskIntoConstraints = false
+        buttonColorClose.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        buttonColorClose.bottomAnchor.constraint(equalTo: bottomContainer.topAnchor, constant: -8).isActive = true
+        UIView.animate(withDuration: 0.4) {
+            self.sliderView.alpha = 1
+        }
+    }
+    
+    @objc private func handleClose() {
+        UIView.animate(withDuration: 0.4) {
+            self.sliderView.alpha = 0
+            self.buttonColorClose?.removeFromSuperview()
+        }
     }
     
     @objc private func handleMirror() {
