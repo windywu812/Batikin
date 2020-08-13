@@ -130,7 +130,7 @@ class DrawingViewController: UIViewController {
         updateStroke(node: selectedView.node)
     }
     
-    @objc func colorButton() {
+    @objc func colorTool() {
         sliderView.alpha = 1
     }
     
@@ -153,6 +153,7 @@ class DrawingViewController: UIViewController {
         colorButton.translatesAutoresizingMaskIntoConstraints = false
         colorButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
         colorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        colorButton.addTarget(self, action: #selector(colorTool), for: .touchUpInside)
         let colorLabel = UILabel()
         colorLabel.text = "Color"
         colorLabel.textColor = UIColor.label
