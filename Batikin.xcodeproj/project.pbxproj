@@ -57,7 +57,6 @@
 		23F88E8B24CFD85D00ACE986 /* Batikin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 23F88E8924CFD85D00ACE986 /* Batikin.xcdatamodeld */; };
 		23F88E8D24CFD85E00ACE986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F88E8C24CFD85E00ACE986 /* Assets.xcassets */; };
 		23F88E9024CFD85E00ACE986 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F88E8E24CFD85E00ACE986 /* LaunchScreen.storyboard */; };
-		756EA6F224E538AA001FAA5B /* ShapeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EA6F124E538AA001FAA5B /* ShapeData.swift */; };
 		75EE716E24E2C15F00E54CDF /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EE716C24E2C15F00E54CDF /* GradientSlider.swift */; };
 		75EE716F24E2C15F00E54CDF /* ColorConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EE716D24E2C15F00E54CDF /* ColorConvertor.swift */; };
 		A2482DBE24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2482DBD24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift */; };
@@ -116,7 +115,6 @@
 		23F88E8C24CFD85E00ACE986 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23F88E8F24CFD85E00ACE986 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23F88E9124CFD85E00ACE986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		756EA6F124E538AA001FAA5B /* ShapeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeData.swift; sourceTree = "<group>"; };
 		75EE716C24E2C15F00E54CDF /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
 		75EE716D24E2C15F00E54CDF /* ColorConvertor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorConvertor.swift; sourceTree = "<group>"; };
 		A2482DBD24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtnCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -180,13 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				2304985424DFDB7F00077DA8 /* ShapeModel.swift */,
-
 				2338244424E528EE00F9467D /* BatikModel.swift */,
-
-				75EE716D24E2C15F00E54CDF /* ColorConvertor.swift */,
-				75EE716C24E2C15F00E54CDF /* GradientSlider.swift */,
-				756EA6F124E538AA001FAA5B /* ShapeData.swift */,
-
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -406,7 +398,6 @@
 				23F88E8324CFD85D00ACE986 /* SceneDelegate.swift in Sources */,
 				2338244324E5288C00F9467D /* CoreDataServices.swift in Sources */,
 				231990A124E4E0620004EA2C /* String+Extension.swift in Sources */,
-				756EA6F224E538AA001FAA5B /* ShapeData.swift in Sources */,
 				2304985524DFDB7F00077DA8 /* ShapeModel.swift in Sources */,
 				2338244924E5455F00F9467D /* CustomColletionViewCell.swift in Sources */,
 				239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */,
