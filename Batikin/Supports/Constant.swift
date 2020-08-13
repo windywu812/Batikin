@@ -15,12 +15,22 @@ struct Constant {
 }
 
 enum CustomColor: String {
-    case galleryBackground = "galleryBackground"
-    case segmentBackground = "segmentBackground"
-    case canvasBackground = "canvasBackground"
-    case tintColor = "tintColor"
+    case galleryBackground
+    case segmentBackground
+    case canvasBackground
+    case tintColor 
+    
+    var color: String {
+        switch self {
+        case .galleryBackground:
+            return "galleryBackground"
+        case .segmentBackground:
+            return "segmentBackground"
+        case .canvasBackground:
+            return "canvasBackground"
+        case .tintColor:
+            return "tintColor"
+        }
+    }
 }
-
-var selectedView: UIView?
-
 

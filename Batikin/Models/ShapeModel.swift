@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ShapeModel {
+struct ShapeModel {
     
     var mainShape: [String] = []
     var fillerShape: [String] = []
@@ -30,10 +30,4 @@ class ShapeModel {
         }
     }
     
-}
-
-extension String {
-    func removeExtension() -> String  {
-        return self.replacingOccurrences(of: ".svg", with: "")
-    }
 }
