@@ -267,8 +267,8 @@ class DrawingViewController: UIViewController {
         view.addSubview(layerDown)
         
         layerDown.translatesAutoresizingMaskIntoConstraints = false
-        layerDown.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        layerDown.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        layerDown.widthAnchor.constraint(equalToConstant: 36).isActive = true
+        layerDown.heightAnchor.constraint(equalToConstant: 36).isActive = true
         layerDown.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         layerDown.bottomAnchor.constraint(equalTo: bottomContainer.topAnchor, constant: -16).isActive = true
         
@@ -278,8 +278,8 @@ class DrawingViewController: UIViewController {
         view.addSubview(layerUp)
         
         layerUp.translatesAutoresizingMaskIntoConstraints = false
-        layerUp.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        layerUp.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        layerUp.widthAnchor.constraint(equalToConstant: 36).isActive = true
+        layerUp.heightAnchor.constraint(equalToConstant: 36).isActive = true
         layerUp.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         layerUp.bottomAnchor.constraint(equalTo: layerDown.topAnchor, constant: -8).isActive = true
         
