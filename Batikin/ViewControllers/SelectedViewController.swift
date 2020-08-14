@@ -11,7 +11,6 @@ import UIKit
 class SelectedViewController: UIViewController {
     
     var batikView: UIImageView!
-    
     var batik: BatikModel?
     
     override func viewDidLoad() {
@@ -84,7 +83,6 @@ class SelectedViewController: UIViewController {
         alert.addAction(delete)
         
         present(alert, animated: true)
-        
     }
     
     @objc private func handleShare() {

@@ -252,7 +252,7 @@ class DrawingViewController: UIViewController {
         
         buttonStackView.addArrangedSubview(colorStackView)
         buttonStackView.addArrangedSubview(mirrorStackView)
-        buttonStackView.addArrangedSubview(duplicateStackView)
+//        buttonStackView.addArrangedSubview(duplicateStackView)
         buttonStackView.addArrangedSubview(deleteStackView)
         
         toolView.addSubview(buttonStackView)
@@ -359,7 +359,6 @@ class DrawingViewController: UIViewController {
         view.isFlip = false
         self.drawingView.addSubview(view)
         updateStroke(node: node)
-        
     }
     
     func updateStroke(node: Node) {

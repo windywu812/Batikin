@@ -152,7 +152,6 @@ class OnboardingViewController: UIViewController {
     @objc func didTapButton(_ button:UIButton) {
         UserDefault.hasLaunched = true
         dismiss(animated: true, completion: nil)
-        print(UserDefault.hasLaunched)
     }
     
 }
