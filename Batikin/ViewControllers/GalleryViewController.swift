@@ -31,6 +31,14 @@ class GalleryViewController: UIViewController {
         setupCollectionView()
         view.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
         collectionView.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
+        print(UserDefault.hasLaunched)
+        if !UserDefault.hasLaunched {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(identifier: "welcome") as! OnboardingViewController
+            vc.modalPresentationStyle = .fullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     private func setupCollectionView() {

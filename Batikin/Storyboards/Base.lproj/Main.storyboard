@@ -32,6 +32,21 @@
             </objects>
             <point key="canvasLocation" x="1072" y="131"/>
         </scene>
+        <!--Onboarding View Controller-->
+        <scene sceneID="xrp-M8-I1c">
+            <objects>
+                <viewController storyboardIdentifier="welcome" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GbQ-v0-DPL" customClass="OnboardingViewController" customModule="Batikin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="z40-RR-jLW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="fiD-x7-FPl"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X34-7r-3Dm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="871"/>
+        </scene>
         <!--Selected View Controller-->
         <scene sceneID="35J-ff-d0o">
             <objects>

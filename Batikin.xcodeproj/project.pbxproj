@@ -50,6 +50,8 @@
 		239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239496F724D1151F00F7151C /* DrawingViewController.swift */; };
 		23A8EF2024D8238B00671C4B /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A8EF1F24D8238B00671C4B /* HeaderCell.swift */; };
 		23B45DD224DD1CBF00BD074B /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B45DD124DD1CBF00BD074B /* DrawingView.swift */; };
+		23C9C94524E67AF70036CBED /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C9C94424E67AF70036CBED /* OnboardingViewController.swift */; };
+		23C9C94724E67C4E0036CBED /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C9C94624E67C4E0036CBED /* UserDefault.swift */; };
 		23E09FF624D7DF8800F30FF5 /* Macaw in Frameworks */ = {isa = PBXBuildFile; productRef = 23E09FF524D7DF8800F30FF5 /* Macaw */; };
 		23F88E8124CFD85D00ACE986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F88E8024CFD85D00ACE986 /* AppDelegate.swift */; };
 		23F88E8324CFD85D00ACE986 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F88E8224CFD85D00ACE986 /* SceneDelegate.swift */; };
@@ -108,6 +110,8 @@
 		239496F724D1151F00F7151C /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		23A8EF1F24D8238B00671C4B /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		23B45DD124DD1CBF00BD074B /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
+		23C9C94424E67AF70036CBED /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		23C9C94624E67C4E0036CBED /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		23F88E7D24CFD85D00ACE986 /* Batikin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Batikin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F88E8024CFD85D00ACE986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F88E8224CFD85D00ACE986 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 				23F88E8424CFD85D00ACE986 /* GalleryViewController.swift */,
 				239496F724D1151F00F7151C /* DrawingViewController.swift */,
 				237A78AC24E58FEE00661D6C /* SelectedViewController.swift */,
+				23C9C94424E67AF70036CBED /* OnboardingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				230A7A7B24D7EA2C009EF061 /* Constant.swift */,
 				2338244224E5288C00F9467D /* CoreDataServices.swift */,
 				75EE716D24E2C15F00E54CDF /* ColorConvertor.swift */,
+				23C9C94624E67C4E0036CBED /* UserDefault.swift */,
 			);
 			path = Supports;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				A2482DBE24DA5AFB0003B7C2 /* BtnCollectionViewCell.swift in Sources */,
 				23F88E8124CFD85D00ACE986 /* AppDelegate.swift in Sources */,
 				2338244524E528EE00F9467D /* BatikModel.swift in Sources */,
+				23C9C94524E67AF70036CBED /* OnboardingViewController.swift in Sources */,
 				2338244124E5233900F9467D /* UIView+Extension.swift in Sources */,
 				23F88E8B24CFD85D00ACE986 /* Batikin.xcdatamodeld in Sources */,
 				231990A424E4E0950004EA2C /* Notification+Extension.swift in Sources */,
@@ -403,6 +410,7 @@
 				2338244324E5288C00F9467D /* CoreDataServices.swift in Sources */,
 				231990A124E4E0620004EA2C /* String+Extension.swift in Sources */,
 				2304985524DFDB7F00077DA8 /* ShapeModel.swift in Sources */,
+				23C9C94724E67C4E0036CBED /* UserDefault.swift in Sources */,
 				2338244924E5455F00F9467D /* CustomColletionViewCell.swift in Sources */,
 				239496F824D1151F00F7151C /* DrawingViewController.swift in Sources */,
 				75EE716E24E2C15F00E54CDF /* GradientSlider.swift in Sources */,
