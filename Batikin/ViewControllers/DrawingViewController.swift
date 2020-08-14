@@ -65,13 +65,13 @@ class DrawingViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         
         navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(handleDone))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: .done, target: self, action: #selector(handleDone))
     }
     
     @objc private func handleDone() {
-        let alert = UIAlertController(title: "Done", message: "Are you finish make your Batik?", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) 
-        let done = UIAlertAction(title: "Done", style: .default) { (_) in
+        let alert = UIAlertController(title: NSLocalizedString("Done", comment: ""), message: NSLocalizedString("Are you finish make your Batik?", comment: ""), preferredStyle: .alert)
+        let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
+        let done = UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .default) { (_) in
             
             UIGraphicsBeginImageContextWithOptions(self.drawingView.bounds.size, false, UIScreen.main.scale)
             self.drawingView.drawHierarchy(in: self.drawingView.bounds, afterScreenUpdates: true)
@@ -180,7 +180,7 @@ class DrawingViewController: UIViewController {
         colorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         colorButton.addTarget(self, action: #selector(handleColor), for: .touchUpInside)
         let colorLabel = UILabel()
-        colorLabel.text = "Color"
+        colorLabel.text = NSLocalizedString("Color", comment: "")
         colorLabel.textColor = UIColor.label
         colorLabel.font = UIFont.preferredFont(forTextStyle: .body)
         let colorStackView = UIStackView()
@@ -197,7 +197,7 @@ class DrawingViewController: UIViewController {
         mirrorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         mirrorButton.addTarget(self, action: #selector(handleMirror), for: .touchUpInside)
         let mirrorLabel = UILabel()
-        mirrorLabel.text = "Mirror"
+        mirrorLabel.text = NSLocalizedString("Mirror", comment: "")
         mirrorLabel.textColor = UIColor.label
         mirrorLabel.font = UIFont.preferredFont(forTextStyle: .body)
         let mirrorStackView = UIStackView()
@@ -215,7 +215,7 @@ class DrawingViewController: UIViewController {
         duplicateButton.addTarget(self, action: #selector(handleDuplicate), for: .touchUpInside)
         duplicateButton.isEnabled = false
         let duplicateLabel = UILabel()
-        duplicateLabel.text = "Copy"
+        duplicateLabel.text = NSLocalizedString("Copy", comment: "")
         duplicateLabel.textColor = UIColor.label
         duplicateLabel.font = UIFont.preferredFont(forTextStyle: .body)
         
@@ -234,7 +234,7 @@ class DrawingViewController: UIViewController {
         deleteButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         
         let deleteLabel = UILabel()
-        deleteLabel.text = "Delete"
+        deleteLabel.text = NSLocalizedString("Delete", comment: "")
         deleteLabel.textColor = UIColor.label
         deleteLabel.font = UIFont.preferredFont(forTextStyle: .body)
         let deleteStackView = UIStackView()

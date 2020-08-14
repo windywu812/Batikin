@@ -74,9 +74,9 @@ class SelectedViewController: UIViewController {
     
     @objc private func handleDelete() {
         
-        let alert = UIAlertController(title: "Delete Batik", message: "Are you sure want to delete this?", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let delete = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+        let alert = UIAlertController(title: NSLocalizedString("Delete Batik", comment: ""), message: NSLocalizedString("Are you sure want to delete this Batik?", comment: ""), preferredStyle: .alert)
+        let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
+        let delete = UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { (_) in
             CoreDataServices.deleteData(self.batik!.idBatik)
             self.dismiss(animated: true, completion: nil)
         }

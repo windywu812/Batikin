@@ -28,10 +28,10 @@ class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCollectionView()
         view.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
-        collectionView.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
-        print(UserDefault.hasLaunched)
+        
+        setupCollectionView()
+        
         if !UserDefault.hasLaunched {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(identifier: "welcome") as! OnboardingViewController
@@ -39,14 +39,15 @@ class GalleryViewController: UIViewController {
             vc.modalTransitionStyle = .crossDissolve
             self.present(vc, animated: true, completion: nil)
         }
+        
+        navigationItem.title = NSLocalizedString("My Batiks", comment: "")
     }
     
     private func setupCollectionView() {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.createLayout())
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = UIColor(named: CustomColor.galleryBackground.rawValue)
-        
+        collectionView.backgroundColor = UIColor(named: CustomColor.canvasBackground.color)
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: Constant.customCollectionViewCell)
         collectionView.register(MyHeaderCell.self, forSupplementaryViewOfKind: Constant.headerCell, withReuseIdentifier: Constant.headerCell)
         
