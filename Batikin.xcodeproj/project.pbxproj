@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2301646324E6C9FB001B70A9 /* main_marlin.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2301645E24E6C9FA001B70A9 /* main_marlin.svg */; };
+		2301646424E6C9FB001B70A9 /* main_seahorse.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2301645F24E6C9FA001B70A9 /* main_seahorse.svg */; };
+		2301646524E6C9FB001B70A9 /* main_bridge.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2301646024E6C9FA001B70A9 /* main_bridge.svg */; };
+		2301646624E6C9FB001B70A9 /* motif_shell.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2301646124E6C9FB001B70A9 /* motif_shell.svg */; };
+		2301646724E6C9FB001B70A9 /* main_a.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2301646224E6C9FB001B70A9 /* main_a.svg */; };
 		2304983624DFD7F900077DA8 /* isen_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2304981824DFD7F900077DA8 /* isen_2.svg */; };
 		2304983724DFD7F900077DA8 /* filler_11.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2304981924DFD7F900077DA8 /* filler_11.svg */; };
 		2304983824DFD7F900077DA8 /* filler_10.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2304981A24DFD7F900077DA8 /* filler_10.svg */; };
@@ -63,6 +68,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2301645E24E6C9FA001B70A9 /* main_marlin.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_marlin.svg; sourceTree = "<group>"; };
+		2301645F24E6C9FA001B70A9 /* main_seahorse.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_seahorse.svg; sourceTree = "<group>"; };
+		2301646024E6C9FA001B70A9 /* main_bridge.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_bridge.svg; sourceTree = "<group>"; };
+		2301646124E6C9FB001B70A9 /* motif_shell.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = motif_shell.svg; sourceTree = "<group>"; };
+		2301646224E6C9FB001B70A9 /* main_a.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = main_a.svg; sourceTree = "<group>"; };
 		2304981824DFD7F900077DA8 /* isen_2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = isen_2.svg; sourceTree = "<group>"; };
 		2304981924DFD7F900077DA8 /* filler_11.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filler_11.svg; sourceTree = "<group>"; };
 		2304981A24DFD7F900077DA8 /* filler_10.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filler_10.svg; sourceTree = "<group>"; };
@@ -150,6 +160,11 @@
 				2304981D24DFD7F900077DA8 /* filler_12.svg */,
 				2304982424DFD7F900077DA8 /* filler_14.svg */,
 				2304982524DFD7F900077DA8 /* filler_15.svg */,
+				2301646224E6C9FB001B70A9 /* main_a.svg */,
+				2301645E24E6C9FA001B70A9 /* main_marlin.svg */,
+				2301645F24E6C9FA001B70A9 /* main_seahorse.svg */,
+				2301646024E6C9FA001B70A9 /* main_bridge.svg */,
+				2301646124E6C9FB001B70A9 /* motif_shell.svg */,
 				2304982224DFD7F900077DA8 /* filler_16.svg */,
 				2304981824DFD7F900077DA8 /* isen_2.svg */,
 				2304981B24DFD7F900077DA8 /* isen_3.svg */,
@@ -343,15 +358,20 @@
 				2304983724DFD7F900077DA8 /* filler_11.svg in Resources */,
 				2304983824DFD7F900077DA8 /* filler_10.svg in Resources */,
 				2304984D24DFD7F900077DA8 /* main_8.svg in Resources */,
+				2301646324E6C9FB001B70A9 /* main_marlin.svg in Resources */,
 				2304983F24DFD7F900077DA8 /* filler_8.svg in Resources */,
 				2304983624DFD7F900077DA8 /* isen_2.svg in Resources */,
+				2301646724E6C9FB001B70A9 /* main_a.svg in Resources */,
 				2304984924DFD7F900077DA8 /* main_4.svg in Resources */,
 				2304984324DFD7F900077DA8 /* filler_15.svg in Resources */,
 				2304983924DFD7F900077DA8 /* isen_3.svg in Resources */,
+				2301646624E6C9FB001B70A9 /* motif_shell.svg in Resources */,
 				2304984524DFD7F900077DA8 /* main_2.svg in Resources */,
+				2301646524E6C9FB001B70A9 /* main_bridge.svg in Resources */,
 				2304984824DFD7F900077DA8 /* main_5.svg in Resources */,
 				2304985124DFD7F900077DA8 /* filler_1.svg in Resources */,
 				2304984024DFD7F900077DA8 /* filler_16.svg in Resources */,
+				2301646424E6C9FB001B70A9 /* main_seahorse.svg in Resources */,
 				2304984A24DFD7F900077DA8 /* main_6.svg in Resources */,
 				2304983E24DFD7F900077DA8 /* filler_9.svg in Resources */,
 				23F88E9024CFD85E00ACE986 /* LaunchScreen.storyboard in Resources */,
