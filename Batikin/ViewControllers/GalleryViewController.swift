@@ -33,6 +33,20 @@ class GalleryViewController: UIViewController {
         setupCollectionView()
         
         if !UserDefault.hasLaunched {
+            
+            let image1 = UIImage(named: "demo1")
+            let image2 = UIImage(named: "demo2")
+            let image3 = UIImage(named: "demo3")
+            let image4 = UIImage(named: "demo4")
+            
+            let images = [image1, image2, image3, image4]
+            
+            images.forEach { (image) in
+                if let imageData = image?.jpegData(compressionQuality: 1) {
+                    CoreDataServices.saveData(UUID(), Date().toString(), imageData)
+                }
+            }
+            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(identifier: "welcome") as! OnboardingViewController
             vc.modalPresentationStyle = .fullScreen
@@ -40,6 +54,7 @@ class GalleryViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }
         
+        self.collectionView.reloadData()
         navigationItem.title = NSLocalizedString("My Batiks", comment: "")
     }
     
