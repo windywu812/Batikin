@@ -66,6 +66,20 @@ class DrawingViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: .done, target: self, action: #selector(handleDone))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Preview", comment: ""), style: .plain, target: self, action: #selector(handlePreview))
+    }
+    
+    @objc private func handlePreview() {
+        let vc = storyboard?.instantiateViewController(identifier: "PreviewViewController") as! PreviewViewController
+        
+        UIGraphicsBeginImageContextWithOptions(self.drawingView.bounds.size, false, UIScreen.main.scale)
+        self.drawingView.drawHierarchy(in: self.drawingView.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        vc.image = image
+        
+        self.present(vc, animated: true, completion: nil)
     }
     
     @objc private func handleDone() {

@@ -27,8 +27,8 @@ class SelectedViewController: UIViewController {
         view.addSubview(batikView)
         
         batikView.translatesAutoresizingMaskIntoConstraints = false
-        batikView.widthAnchor.constraint(equalToConstant: view.bounds.width - 80).isActive = true
-        batikView.heightAnchor.constraint(equalToConstant: view.bounds.width - 80).isActive = true
+        batikView.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
+        batikView.heightAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
         batikView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         batikView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
@@ -38,7 +38,7 @@ class SelectedViewController: UIViewController {
         buttonDismiss.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(buttonDismiss)
-        buttonDismiss.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        buttonDismiss.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
         buttonDismiss.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
         let buttonDelete = UIButton(type: .system)
