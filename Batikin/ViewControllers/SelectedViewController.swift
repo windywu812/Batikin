@@ -30,7 +30,7 @@ class SelectedViewController: UIViewController {
         batikView.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
         batikView.heightAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
         batikView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        batikView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        batikView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -16).isActive = true
         
         let buttonDismiss = UIButton(type: .system)
         buttonDismiss.setImage(UIImage(systemName: "xmark"), for: .normal)
