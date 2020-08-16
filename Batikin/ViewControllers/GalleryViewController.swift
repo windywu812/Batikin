@@ -129,8 +129,8 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         let vc = storyboard.instantiateViewController(identifier: "SelectedStoryboard") as! SelectedViewController
         vc.batik = batiks[indexPath.row]
         
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+//        vc.modalPresentationStyle = .fullScreen
+        self.navigationController?.present(vc, animated: true, completion: nil)
     }
     
 }
