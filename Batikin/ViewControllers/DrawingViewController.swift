@@ -66,6 +66,20 @@ class DrawingViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: .done, target: self, action: #selector(handleDone))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Preview", comment: ""), style: .plain, target: self, action: #selector(handlePreview))
+    }
+    
+    @objc private func handlePreview() {
+        let vc = storyboard?.instantiateViewController(identifier: "PreviewViewController") as! PreviewViewController
+        
+        UIGraphicsBeginImageContextWithOptions(self.drawingView.bounds.size, false, UIScreen.main.scale)
+        self.drawingView.drawHierarchy(in: self.drawingView.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        vc.image = image
+        
+        self.present(vc, animated: true, completion: nil)
     }
     
     @objc private func handleDone() {
@@ -197,7 +211,7 @@ class DrawingViewController: UIViewController {
         mirrorButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         mirrorButton.addTarget(self, action: #selector(handleMirror), for: .touchUpInside)
         let mirrorLabel = UILabel()
-        mirrorLabel.text = NSLocalizedString("Mirror", comment: "")
+        mirrorLabel.text = NSLocalizedString("Flip", comment: "")
         mirrorLabel.textColor = UIColor.label
         mirrorLabel.font = UIFont.preferredFont(forTextStyle: .body)
         let mirrorStackView = UIStackView()
@@ -252,7 +266,7 @@ class DrawingViewController: UIViewController {
         
         buttonStackView.addArrangedSubview(colorStackView)
         buttonStackView.addArrangedSubview(mirrorStackView)
-//        buttonStackView.addArrangedSubview(duplicateStackView)
+        //        buttonStackView.addArrangedSubview(duplicateStackView)
         buttonStackView.addArrangedSubview(deleteStackView)
         
         toolView.addSubview(buttonStackView)
@@ -289,7 +303,7 @@ class DrawingViewController: UIViewController {
     
     @objc private func handleUpLayer() {
         if let selectedView = selectedView {
-        drawingView.bringSubviewToFront(selectedView)
+            drawingView.bringSubviewToFront(selectedView)
         }
     }
     
@@ -301,7 +315,7 @@ class DrawingViewController: UIViewController {
     
     @objc private func handleColor() {
         buttonColorClose = UIButton(type: .system)
-        buttonColorClose?.setTitle("Close", for: .normal)
+        buttonColorClose?.setTitle(NSLocalizedString("Close", comment: ""), for: .normal)
         buttonColorClose?.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
         view.addSubview(buttonColorClose!)
         buttonColorClose?.translatesAutoresizingMaskIntoConstraints = false

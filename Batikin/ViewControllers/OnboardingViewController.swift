@@ -21,7 +21,7 @@ class OnboardingViewController: UIViewController {
         let title = UILabel()
         title.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         title.font = UIFont.systemFont(ofSize: 34, weight: .heavy)
-        title.text = "Welcome to Batikin!"
+        title.text = NSLocalizedString("Welcome to Batikin!", comment: "")
         title.textAlignment = .center
         
         view.addSubview(title)
@@ -44,8 +44,8 @@ class OnboardingViewController: UIViewController {
         ]
         
         let label1 = UILabel()
-        let boldText1 = NSAttributedString(string: "More Personalized\n", attributes: boldAttribute)
-        let regularText1 = NSAttributedString(string: "Combine Batik Elements", attributes: regularAttribute)
+        let boldText1 = NSAttributedString(string: NSLocalizedString("More Personalized\n", comment: ""), attributes: boldAttribute)
+        let regularText1 = NSAttributedString(string: NSLocalizedString("Combine Batik Elements", comment: ""), attributes: regularAttribute)
         let newString1 = NSMutableAttributedString()
         newString1.append(boldText1)
         newString1.append(regularText1)
@@ -77,8 +77,8 @@ class OnboardingViewController: UIViewController {
         img2.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         let label2 = UILabel()
-        let boldText2 = NSAttributedString(string: "Your own Motif\n", attributes: boldAttribute)
-        let regularText2 = NSAttributedString(string: "Create new motif of Batik Batam", attributes: regularAttribute)
+        let boldText2 = NSAttributedString(string: NSLocalizedString("Your own Motif\n", comment: ""), attributes: boldAttribute)
+        let regularText2 = NSAttributedString(string: NSLocalizedString("Create new motif of Batik Batam", comment: ""), attributes: regularAttribute)
         let newString2 = NSMutableAttributedString()
         newString2.append(boldText2)
         newString2.append(regularText2)
@@ -109,8 +109,8 @@ class OnboardingViewController: UIViewController {
         img3.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         let label3 = UILabel()
-        let boldText3 = NSAttributedString(string: "Share your Batik\n", attributes: boldAttribute)
-        let regularText3 = NSAttributedString(string: "Make Batik Batam well known", attributes: regularAttribute)
+        let boldText3 = NSAttributedString(string: NSLocalizedString("Share your Batik\n", comment: ""), attributes: boldAttribute)
+        let regularText3 = NSAttributedString(string: NSLocalizedString("Make Batik Batam well known", comment: ""), attributes: regularAttribute)
         let newString3 = NSMutableAttributedString()
         newString3.append(boldText3)
         newString3.append(regularText3)
@@ -136,7 +136,7 @@ class OnboardingViewController: UIViewController {
 
         let getStartedBtn = UIButton(type: .system)
         getStartedBtn.backgroundColor = UIColor(named: CustomColor.tintColor.color)
-        getStartedBtn.setTitle("Get Started", for: .normal)
+        getStartedBtn.setTitle(NSLocalizedString("Get Started", comment: ""), for: .normal)
         getStartedBtn.setTitleColor(UIColor(named: CustomColor.canvasBackground.color), for: .normal)
         getStartedBtn.layer.cornerRadius = 8
         view.addSubview(getStartedBtn)
