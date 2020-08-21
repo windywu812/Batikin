@@ -72,13 +72,13 @@ class DrawingViewController: UIViewController {
     @objc private func handlePreview() {
         let vc = storyboard?.instantiateViewController(identifier: "PreviewViewController") as! PreviewViewController
         
+        self.selectedView?.layer.borderColor = UIColor.clear.cgColor
         UIGraphicsBeginImageContextWithOptions(self.drawingView.bounds.size, false, UIScreen.main.scale)
         self.drawingView.drawHierarchy(in: self.drawingView.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         vc.image = image
-        
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -104,6 +104,7 @@ class DrawingViewController: UIViewController {
         } else {
             alert.addAction(cancel)
             alert.addAction(done)
+            self.selectedView?.layer.borderColor = UIColor.clear.cgColor
             present(alert, animated: true)
         }
         
