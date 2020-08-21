@@ -64,9 +64,8 @@ class DrawingView: UIView {
                 sender.view?.transform = transform
             }
             sender.scale = 1.0
-        } else if sender.state == .ended {
-            sender.view?.removeGestureRecognizer(pinchGesture!)
         }
+        
     }
     
     @objc func panPiece(_ sender: UIPanGestureRecognizer) {
@@ -83,9 +82,7 @@ class DrawingView: UIView {
           
             piece?.center = CGPoint(x: (piece?.center.x ?? 0.0) + (translation.x ), y: (piece?.center.y ?? 0.0) + (translation.y ))
             sender.setTranslation(CGPoint.zero, in: piece?.superview)
-        } else if sender.state == .ended {
-            sender.view?.removeGestureRecognizer(panGesture!)
-        }
+        } 
     }
     
     @objc func rotatePiece(_ gestureRecognizer: UIRotationGestureRecognizer) {
@@ -106,9 +103,8 @@ class DrawingView: UIView {
                 }
                 gestureRecognizer.rotation = 0
             }
-        } else if gestureRecognizer.state == .ended {
-            gestureRecognizer.view?.removeGestureRecognizer(rotateGesture!)
         }
+        
     }
     
 }
